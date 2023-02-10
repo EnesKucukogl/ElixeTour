@@ -1,0 +1,746 @@
+[
+  {
+    "id": 0,
+    "name": "Kaya Thermal & Spa",
+    "address":"Balçova, İzmir",
+    "startPrice": 300,
+    "longAddress":"Balçova, İzmir No:1, 35330 Balçova/İzmir",
+    "images":[
+      {
+        "id":0,
+        "path":"assets/img/health/izmir-kaya-hotel-kapak.jpg"
+      }
+    ],
+    "rooms": [
+      {
+        "id":0,
+        "name": "Deluxe Room",
+        "images":[
+          {
+            "id":0,
+            "path":"assets/img/hotels/kaya/kaya-izmir-thermal-spa-oda-1.jpg"
+          },
+          {
+            "id":1,
+            "path":"assets/img/hotels/kaya/kaya-izmir-thermal-spa-oda-2.jpg"
+          },
+          {
+            "id":2,
+            "path":"assets/img/hotels/kaya/kaya-izmir-thermal-spa-oda-3.jpg"
+          }
+          ,
+          {
+            "id":2,
+            "path":"assets/img/hotels/kaya/kaya-izmir-thermal-spa-oda-4.jpg"
+          }
+          ,
+          {
+            "id":2,
+            "path":"assets/img/hotels/kaya/kaya-izmir-thermal-spa-oda-5.jpg"
+          }
+        ],
+        "passengers": [
+          {
+            "id": 0,
+            "name": "Single Room",
+            "count": 1,
+            "price": 50
+          },
+          {
+            "id": 1,
+            "name": "Double Room",
+            "count": 2,
+            "price": 100
+          },
+          {
+            "id": 2,
+            "name": "Triple Room",
+            "count": 3,
+            "price": 150
+          }
+        ],
+        "food-types": [
+          {
+            "id": 0,
+            "name": "Breakfast",
+            "price": 10
+          },
+          {
+            "id": 1,
+            "name": "Half Board",
+            "price": 20
+          },
+          {
+            "id": 2,
+            "name": "Full Board",
+            "price": 30
+          }
+        ],
+        "description": "This room features a balcony, air conditioning and minibar.",
+        "price": 100,
+        "features": [
+          {
+            "name": "Air Conditioning",
+            "value": true
+          },
+          {
+            "name": "Balcony",
+            "value": true
+          },
+          {
+            "name": "Bath",
+            "value": true
+          },
+          {
+            "name": "Bathrobe",
+            "value": true
+          },
+          {
+            "name": "Bathroom",
+            "value": true
+          },
+          {
+            "name": "Cable Channels",
+            "value": true
+          },
+          {
+            "name": "Carpeted",
+            "value": true
+          },
+          {
+            "name": "Desk",
+            "value": true
+          },
+          {
+            "name": "Dining Area",
+            "value": true
+          },
+          {
+            "name": "Dining Table",
+            "value": true
+          },
+          {
+            "name": "Electric Kettle",
+            "value": true
+          },
+          {
+            "name": "Flat-screen TV",
+            "value": true
+          },
+          {
+            "name": "Free toiletries",
+            "value": true
+          },
+          {
+            "name": "Garden View",
+            "value": true
+          },
+          {
+            "name": "Hairdryer",
+            "value": true
+          },
+          {
+            "name": "Heating",
+            "value": true
+          },
+          {
+            "name": "Kitchen",
+            "value": true
+          },
+          {
+            "name": "Kitchenette",
+            "value": true
+          },
+          {
+            "name": "Kitchenware",
+            "value": true
+          },
+          {
+            "name": "Linen",
+            "value": true
+          },
+          {
+            "name": "Minibar",
+            "value": true
+          },
+          {
+            "name": "Mosquito Net",
+            "value": true
+          },
+          {
+            "name": "Outdoor Dining Area",
+            "value": true
+          },
+          {
+            "name": "Outdoor Furniture",
+            "value": true
+          },
+          {
+            "name": "Private Pool",
+            "value": true
+          },
+          {
+            "name": "Refrigerator",
+            "value": true
+          },
+          {
+            "name": "Safety Deposit Box",
+            "value": true
+          },
+          {
+            "name": "Seating Area",
+            "value": true
+          },
+          {
+            "name": "Shower",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id":1,
+        "name": "Junior Suit",
+        "images":[
+          {
+            "id":0,
+            "path":"assets/img/hotels/kaya/junior1.webp"
+          },
+          {
+            "id":1,
+            "path":"assets/img/hotels/kaya/junior2.webp"
+          },
+          {
+            "id":2,
+            "path":"assets/img/hotels/kaya/junior3.webp"
+          },
+          {
+            "id":3,
+            "path":"assets/img/hotels/kaya/junior4.webp"
+          },
+          {
+            "id":4,
+            "path":"assets/img/hotels/kaya/junior5.webp"
+          },
+          {
+            "id":5,
+            "path":"assets/img/hotels/kaya/junior6.webp"
+          }
+        ],
+        "passengers": [
+          {
+            "id": 0,
+            "name": "Single Room",
+            "count": 1,
+            "price": 150
+          },
+          {
+            "id": 1,
+            "name": "Double Room",
+            "count": 2,
+            "price": 150
+          },
+          {
+            "id": 2,
+            "name": "Triple Room",
+            "count": 3,
+            "price": 190
+          }
+        ],
+        "food-types": [
+          {
+            "id": 0,
+            "name": "Breakfast",
+            "price": 20
+          },
+          {
+            "id": 1,
+            "name": "Half Board",
+            "price": 30
+          },
+          {
+            "id": 2,
+            "name": "Full Board",
+            "price": 40
+          }
+        ],
+        "description": "This room features a balcony, air conditioning and minibar.",
+        "price": 100,
+        "features": [
+          {
+            "name": "Air Conditioning",
+            "value": true
+          },
+          {
+            "name": "Balcony",
+            "value": true
+          },
+          {
+            "name": "Bath",
+            "value": true
+          },
+          {
+            "name": "Bathrobe",
+            "value": true
+          },
+          {
+            "name": "Bathroom",
+            "value": true
+          },
+          {
+            "name": "Cable Channels",
+            "value": true
+          },
+          {
+            "name": "Carpeted",
+            "value": true
+          },
+          {
+            "name": "Desk",
+            "value": true
+          },
+          {
+            "name": "Dining Area",
+            "value": true
+          },
+          {
+            "name": "Dining Table",
+            "value": true
+          },
+          {
+            "name": "Electric Kettle",
+            "value": true
+          },
+          {
+            "name": "Flat-screen TV",
+            "value": true
+          },
+          {
+            "name": "Free toiletries",
+            "value": true
+          },
+          {
+            "name": "Garden View",
+            "value": true
+          },
+          {
+            "name": "Hairdryer",
+            "value": true
+          },
+          {
+            "name": "Heating",
+            "value": true
+          },
+          {
+            "name": "Kitchen",
+            "value": true
+          },
+          {
+            "name": "Kitchenette",
+            "value": true
+          },
+          {
+            "name": "Kitchenware",
+            "value": true
+          },
+          {
+            "name": "Linen",
+            "value": true
+          },
+          {
+            "name": "Minibar",
+            "value": true
+          },
+          {
+            "name": "Mosquito Net",
+            "value": true
+          },
+          {
+            "name": "Outdoor Dining Area",
+            "value": true
+          },
+          {
+            "name": "Outdoor Furniture",
+            "value": true
+          },
+          {
+            "name": "Private Pool",
+            "value": true
+          },
+          {
+            "name": "Refrigerator",
+            "value": true
+          },
+          {
+            "name": "Safety Deposit Box",
+            "value": true
+          },
+          {
+            "name": "Seating Area",
+            "value": true
+          },
+          {
+            "name": "Shower",
+            "value": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "Bursa Kervansaray Thermal & Spa",
+    "startPrice": 400,
+    "address":"Bursa",
+    "longAddress":"Bursa, Albeni Sokak, No:22 - Bursa",
+    "images":[
+      {
+        "id":0,
+        "path":"assets/img/health/bursa-kervansaray-hotel-kapak.jpg"
+      }
+    ],
+    "rooms": [
+      {
+        "id":0,
+        "name": "Deluxe Room",
+        "images":[
+          {
+            "id":0,
+            "path":"assets/img/hotels/kervansaray/standart.jpg"
+          },
+          {
+            "id":1,
+            "path":"assets/img/hotels/kervansaray/standart-2.webp"
+          },
+          {
+            "id":2,
+            "path":"assets/img/hotels/kervansaray/standart3.jpg"
+          }
+        ],
+        "passengers": [
+          {
+            "id": 0,
+            "name": "Single Room",
+            "count": 1,
+            "price": 50
+          },
+          {
+            "id": 1,
+            "name": "Double Room",
+            "count": 2,
+            "price": 100
+          },
+          {
+            "id": 2,
+            "name": "Triple Room",
+            "count": 3,
+            "price": 150
+          }
+        ],
+        "food-types": [
+          {
+            "id": 0,
+            "name": "Breakfast",
+            "price": 10
+          },
+          {
+            "id": 1,
+            "name": "Half Board",
+            "price": 20
+          },
+          {
+            "id": 2,
+            "name": "Full Board",
+            "price": 30
+          }
+        ],
+        "description": "This room features a balcony, air conditioning and minibar.",
+        "price": 100,
+        "features": [
+          {
+            "name": "Air Conditioning",
+            "value": true
+          },
+          {
+            "name": "Balcony",
+            "value": true
+          },
+          {
+            "name": "Bath",
+            "value": true
+          },
+          {
+            "name": "Bathrobe",
+            "value": true
+          },
+          {
+            "name": "Bathroom",
+            "value": true
+          },
+          {
+            "name": "Cable Channels",
+            "value": true
+          },
+          {
+            "name": "Carpeted",
+            "value": true
+          },
+          {
+            "name": "Desk",
+            "value": true
+          },
+          {
+            "name": "Dining Area",
+            "value": true
+          },
+          {
+            "name": "Dining Table",
+            "value": true
+          },
+          {
+            "name": "Electric Kettle",
+            "value": true
+          },
+          {
+            "name": "Flat-screen TV",
+            "value": true
+          },
+          {
+            "name": "Free toiletries",
+            "value": true
+          },
+          {
+            "name": "Garden View",
+            "value": true
+          },
+          {
+            "name": "Hairdryer",
+            "value": true
+          },
+          {
+            "name": "Heating",
+            "value": true
+          },
+          {
+            "name": "Kitchen",
+            "value": true
+          },
+          {
+            "name": "Kitchenette",
+            "value": true
+          },
+          {
+            "name": "Kitchenware",
+            "value": true
+          },
+          {
+            "name": "Linen",
+            "value": true
+          },
+          {
+            "name": "Minibar",
+            "value": true
+          },
+          {
+            "name": "Mosquito Net",
+            "value": true
+          },
+          {
+            "name": "Outdoor Dining Area",
+            "value": true
+          },
+          {
+            "name": "Outdoor Furniture",
+            "value": true
+          },
+          {
+            "name": "Private Pool",
+            "value": true
+          },
+          {
+            "name": "Refrigerator",
+            "value": true
+          },
+          {
+            "name": "Safety Deposit Box",
+            "value": true
+          },
+          {
+            "name": "Seating Area",
+            "value": true
+          },
+          {
+            "name": "Shower",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id":1,
+        "name": "Junior Suit",
+        "images":[
+          {
+            "id":0,
+            "path":"assets/img/hotels/kervansaray/junior.jpg"
+          }
+        ],
+        "passengers": [
+          {
+            "id": 0,
+            "name": "Single Room",
+            "count": 1,
+            "price": 150
+          },
+          {
+            "id": 1,
+            "name": "Double Room",
+            "count": 2,
+            "price": 150
+          },
+          {
+            "id": 2,
+            "name": "Triple Room",
+            "count": 3,
+            "price": 190
+          }
+        ],
+        "food-types": [
+          {
+            "id": 0,
+            "name": "Breakfast",
+            "price": 20
+          },
+          {
+            "id": 1,
+            "name": "Half Board",
+            "price": 30
+          },
+          {
+            "id": 2,
+            "name": "Full Board",
+            "price": 40
+          }
+        ],
+        "description": "This room features a balcony, air conditioning and minibar.",
+        "price": 100,
+        "features": [
+          {
+            "name": "Air Conditioning",
+            "value": true
+          },
+          {
+            "name": "Balcony",
+            "value": true
+          },
+          {
+            "name": "Bath",
+            "value": true
+          },
+          {
+            "name": "Bathrobe",
+            "value": true
+          },
+          {
+            "name": "Bathroom",
+            "value": true
+          },
+          {
+            "name": "Cable Channels",
+            "value": true
+          },
+          {
+            "name": "Carpeted",
+            "value": true
+          },
+          {
+            "name": "Desk",
+            "value": true
+          },
+          {
+            "name": "Dining Area",
+            "value": true
+          },
+          {
+            "name": "Dining Table",
+            "value": true
+          },
+          {
+            "name": "Electric Kettle",
+            "value": true
+          },
+          {
+            "name": "Flat-screen TV",
+            "value": true
+          },
+          {
+            "name": "Free toiletries",
+            "value": true
+          },
+          {
+            "name": "Garden View",
+            "value": true
+          },
+          {
+            "name": "Hairdryer",
+            "value": true
+          },
+          {
+            "name": "Heating",
+            "value": true
+          },
+          {
+            "name": "Kitchen",
+            "value": true
+          },
+          {
+            "name": "Kitchenette",
+            "value": true
+          },
+          {
+            "name": "Kitchenware",
+            "value": true
+          },
+          {
+            "name": "Linen",
+            "value": true
+          },
+          {
+            "name": "Minibar",
+            "value": true
+          },
+          {
+            "name": "Mosquito Net",
+            "value": true
+          },
+          {
+            "name": "Outdoor Dining Area",
+            "value": true
+          },
+          {
+            "name": "Outdoor Furniture",
+            "value": true
+          },
+          {
+            "name": "Private Pool",
+            "value": true
+          },
+          {
+            "name": "Refrigerator",
+            "value": true
+          },
+          {
+            "name": "Safety Deposit Box",
+            "value": true
+          },
+          {
+            "name": "Seating Area",
+            "value": true
+          },
+          {
+            "name": "Shower",
+            "value": true
+          }
+        ]
+      }
+    ]
+  }
+]

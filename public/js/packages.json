@@ -1,0 +1,1527 @@
+[
+  {
+    "id": 0,
+    "name": "Hydrotherapy Package",
+    "is-just-hotel": false,
+    "images": [
+      {
+        "id": 0,
+        "path": "assets/img/ftr/hydrotherapy-min.webp"
+      }
+    ],
+    "prices": [
+      {
+        "id": 0,
+        "name": "Single",
+        "day-count": 4,
+        "price": 460,
+        "show-table": true,
+        "table-header": "Details"
+      },
+      {
+        "id": 1,
+        "name": "Double",
+        "day-count": 4,
+        "price": 725,
+        "show-table": false,
+        "table-header": "Details"
+      }
+    ],
+    "features": [
+      {
+        "id": 0,
+        "name": "5* Thermal Hotel’de kahvaltı ve akşam yemeği dahil konaklama",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "Hidroterapi egzersizleri; konaklamanız sürecince tedavinize uygun olan ağrısız ve aktif bir şekilde fizyoterapist eşliğinde hidroterapi tedavisi",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Spa joy (Thermal Havuz, hamam, sauna,buhar odası kullanımı)",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "1 adet 30 dk. medikal masaj",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "Genel ağız ve diş muayenesi",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      }
+    ],
+    "hotels": [
+      {
+        "id": 0
+      },
+      {
+        "id": 1
+      }
+    ],
+    "faq": [
+      {
+        "id": 0,
+        "question": "Soru 1",
+        "answer": "Cevap 1"
+      },
+      {
+        "id": 1,
+        "question": "Soru 2",
+        "answer": "Cevap 2"
+      },
+      {
+        "id": 2,
+        "question": "Soru 3",
+        "answer": "Cevap 3"
+      },
+      {
+        "id": 3,
+        "question": "Soru 4",
+        "answer": "Cevap 4"
+      },
+      {
+        "id": 4,
+        "question": "Soru 5",
+        "answer": "Cevap 5"
+      }
+    ]
+  },
+
+  {
+    "id": 1,
+    "name": "Ozone Plus Youth Package",
+    "is-just-hotel": false,
+    "images": [
+      {
+        "id": 0,
+        "path": "assets/img/ftr/ozon-min.webp"
+      }
+    ],
+    "prices": [
+      {
+        "id": 0,
+        "name": "Single",
+        "day-count": 6,
+        "price": 1032,
+        "show-table": true,
+        "table-header": "Details"
+      },
+      {
+        "id": 1,
+        "name": "Double",
+        "day-count": 6,
+        "price": 1739,
+        "show-table": false,
+        "table-header": "Details"
+      }
+    ],
+    "features": [
+      {
+        "id": 0,
+        "name": "5* Thermal Hotel’de kahvaltı ve akşam yemeği dahil konaklama",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "Ozon Tedavisi",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Nefes terapisi, uzman eşliğinde sağlıklı ve doğru nefes alabilmeyi öğrenerek vücudun ihtiyacı olan oksijeni sağlama teknikleri,",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Medikal Cilt Bakımı; 1 adet cildinize özel, bakım tekniği ile",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "Selulit Masajı; gün aşırı uygulamadır",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "name": "Detox Beslenme Programı; vejeteryan – vegan menü seçenekleri ile 5 gün arınma",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "name": "Spa joy (Thermal Havuz, hamam, sauna,buhar odası kullanımı)",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "name": "Genel ağız ve diş muayenesi",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      }
+    ],
+    "hotels": [
+      {
+        "id": 0
+      },
+      {
+        "id": 1
+      }
+    ],
+    "faq": [
+      {
+        "id": 0,
+        "question": "Soru 1",
+        "answer": "Cevap 1"
+      },
+      {
+        "id": 1,
+        "question": "Soru 2",
+        "answer": "Cevap 2"
+      },
+      {
+        "id": 2,
+        "question": "Soru 3",
+        "answer": "Cevap 3"
+      },
+      {
+        "id": 3,
+        "question": "Soru 4",
+        "answer": "Cevap 4"
+      },
+      {
+        "id": 4,
+        "question": "Soru 5",
+        "answer": "Cevap 5"
+      }
+    ]
+  },
+
+  {
+    "id": 2,
+    "name": "Gastro Wellness Package",
+    "is-just-hotel": false,
+    "images": [
+      {
+        "id": 0,
+        "path": "assets/img/ftr/gastro-min.webp"
+      }
+    ],
+    "prices": [
+      {
+        "id": 0,
+        "name": "Single",
+        "day-count": 4,
+        "price": 710,
+        "show-table": true,
+        "table-header": "Details"
+      },
+      {
+        "id": 1,
+        "name": "Double",
+        "day-count": 4,
+        "price": 1160,
+        "show-table": false,
+        "table-header": "Details"
+      }
+    ],
+    "features": [
+      {
+        "id": 0,
+        "name": "5* Thermal Hotel’de kahvaltı ve akşam yemeği dahil konaklama",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "Sağlık taraması; laboratuvar tetkikleri",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Uzman diyetisyenimiz tarafından kas – yağ – su vücut kitle ölçümleri sonrası ihtiyacınıza uygun 4 günlük beslenme programı",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Medikal Cilt Bakımı; 2 farklı uygulama ile cilt gençleştirme,",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "Nefes Terapisi seansı ile metabolizma hızlandırma",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "name": "Spa joy (Thermal Havuz, hamam, sauna,buhar odası kullanımı)",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "name": "Genel ağız ve diş muayenesi",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      }
+    ],
+    "hotels": [
+      {
+        "id": 0
+      },
+      {
+        "id": 1
+      }
+    ],
+    "faq": [
+      {
+        "id": 0,
+        "question": "Soru 1",
+        "answer": "Cevap 1"
+      },
+      {
+        "id": 1,
+        "question": "Soru 2",
+        "answer": "Cevap 2"
+      },
+      {
+        "id": 2,
+        "question": "Soru 3",
+        "answer": "Cevap 3"
+      },
+      {
+        "id": 3,
+        "question": "Soru 4",
+        "answer": "Cevap 4"
+      },
+      {
+        "id": 4,
+        "question": "Soru 5",
+        "answer": "Cevap 5"
+      }
+    ]
+  },
+
+  {
+    "id": 3,
+    "name": "Dynamic Pack",
+    "is-just-hotel": false,
+    "images": [
+      {
+        "id": 0,
+        "path": "assets/img/ftr/yoga-min.webp"
+      }
+    ],
+    "prices": [
+      {
+        "id": 0,
+        "name": "Single",
+        "day-count": 5,
+        "price": 670,
+        "show-table": true,
+        "table-header": "Details"
+      },
+      {
+        "id": 1,
+        "name": "Double",
+        "day-count": 5,
+        "price": 1080,
+        "show-table": false,
+        "table-header": "Details"
+      }
+    ],
+    "features": [
+      {
+        "id": 0,
+        "name": "5* Thermal Hotel’de kahvaltı ve akşam yemeği dahil konaklama",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "Doğada yürüyüş;her sabah 1 saat yürüyüş programı",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Invertal Egzersiz; yüksek yoğunlukta ve hızlı egzersizlerdir.Kasların güçlenmesini destekler.",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Hydroterapi; su jimlastiği seansı",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "Klinik Mat Plates",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "name": "Yoga Seansı",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "name": "Eklem Mobilizasyonu Uygulamaları; egzersizler sonrası 30 dk. rahatlama gevşeme",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "name": "Thai Masajı; 60 dk olarak uygulanmaktadır. Sauna buhar odası ve türk hamamı kullanımı",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "name": "Genel ağız ve diş muayenesi",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      }
+    ],
+    "hotels": [
+      {
+        "id": 0
+      },
+      {
+        "id": 1
+      }
+    ],
+    "faq": [
+      {
+        "id": 0,
+        "question": "Soru 1",
+        "answer": "Cevap 1"
+      },
+      {
+        "id": 1,
+        "question": "Soru 2",
+        "answer": "Cevap 2"
+      },
+      {
+        "id": 2,
+        "question": "Soru 3",
+        "answer": "Cevap 3"
+      },
+      {
+        "id": 3,
+        "question": "Soru 4",
+        "answer": "Cevap 4"
+      },
+      {
+        "id": 4,
+        "question": "Soru 5",
+        "answer": "Cevap 5"
+      }
+    ]
+  },
+
+  {
+    "id": 4,
+    "name": "Alternative Treatment Package",
+    "is-just-hotel": false,
+    "images": [
+      {
+        "id": 0,
+        "path": "assets/img/ftr/bioenergy-min.webp"
+      }
+    ],
+    "prices": [
+      {
+        "id": 0,
+        "name": "Single",
+        "day-count": 8,
+        "price": 1270,
+        "show-table": true,
+        "table-header": "Details"
+      },
+      {
+        "id": 1,
+        "name": "Double",
+        "day-count": 8,
+        "price": 2085,
+        "show-table": false,
+        "table-header": "Details"
+      }
+    ],
+    "features": [
+      {
+        "id": 0,
+        "name": "5* Thermal Hotel’de kahvaltı ve akşam yemeği dahil konaklama",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "Sağlık taraması; Uzman hekim muayenesi, Laboratuar tetkikleri",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Akapunktur",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Kupa (hacamat) Uygulaması",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "Refleksoloji ; ayaklardaki ve ellerdeki refleks alanlarinin salgi bezlerine, dokularina ve organlara karşilik geldiği ilkesine dayanan yardimci bir tedavi yöntemidir.",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "name": "Bioenerji seansı; ruhsal ve bedensel bioenerji uygulaması",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "name": "Genel ağız ve diş muayenesi",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "name": "Spa joy (Thermal Havuz, hamam, sauna,buhar odası kullanımı)",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      }
+    ],
+    "hotels": [
+      {
+        "id": 0
+      },
+      {
+        "id": 1
+      }
+    ],
+    "faq": [
+      {
+        "id": 0,
+        "question": "Soru 1",
+        "answer": "Cevap 1"
+      },
+      {
+        "id": 1,
+        "question": "Soru 2",
+        "answer": "Cevap 2"
+      },
+      {
+        "id": 2,
+        "question": "Soru 3",
+        "answer": "Cevap 3"
+      },
+      {
+        "id": 3,
+        "question": "Soru 4",
+        "answer": "Cevap 4"
+      },
+      {
+        "id": 4,
+        "question": "Soru 5",
+        "answer": "Cevap 5"
+      }
+    ]
+  },
+
+  {
+    "id": 5,
+    "name": "Mobilization Therapy Package",
+    "is-just-hotel": false,
+    "images": [
+      {
+        "id": 0,
+        "path": "assets/img/ftr/body-therapy-min.webp"
+      }
+    ],
+    "prices": [
+      {
+        "id": 0,
+        "name": "Single",
+        "day-count": 4,
+        "price": 520,
+        "show-table": true,
+        "table-header": "Details"
+      },
+      {
+        "id": 1,
+        "name": "Double",
+        "day-count": 4,
+        "price": 845,
+        "show-table": false,
+        "table-header": "Details"
+      }
+    ],
+    "features": [
+      {
+        "id": 0,
+        "name": "5* Thermal Hotel’de kahvaltı ve akşam yemeği dahil konaklama",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "Mobilizasyon Uygulamaları; 3 gün süresince fasiyal kas-iskelet sistemi çözümleri ( yumuşak doku gevşetme, germe teknikleri, derin doku masajı )",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Spa joy (Thermal Havuz, hamam, sauna,buhar odası kullanımı)",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "1 adet tetik nokta masajı; mobilizasyon terapiyi destekler.",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "Genel ağız ve diş muayenesi",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      }
+    ],
+    "hotels": [
+      {
+        "id": 0
+      },
+      {
+        "id": 1
+      }
+    ],
+    "faq": [
+      {
+        "id": 0,
+        "question": "Soru 1",
+        "answer": "Cevap 1"
+      },
+      {
+        "id": 1,
+        "question": "Soru 2",
+        "answer": "Cevap 2"
+      },
+      {
+        "id": 2,
+        "question": "Soru 3",
+        "answer": "Cevap 3"
+      },
+      {
+        "id": 3,
+        "question": "Soru 4",
+        "answer": "Cevap 4"
+      },
+      {
+        "id": 4,
+        "question": "Soru 5",
+        "answer": "Cevap 5"
+      }
+    ]
+  },
+
+  {
+    "id": 6,
+    "name": "Sport Therapy Package",
+    "is-just-hotel": false,
+    "images": [
+      {
+        "id": 0,
+        "path": "assets/img/ftr/sport-min.webp"
+      }
+    ],
+    "prices": [
+      {
+        "id": 0,
+        "name": "Single",
+        "day-count": 6,
+        "price": 925,
+        "show-table": true,
+        "table-header": "Details"
+      },
+      {
+        "id": 1,
+        "name": "Double",
+        "day-count": 6,
+        "price": 1525,
+        "show-table": false,
+        "table-header": "Details"
+      }
+    ],
+    "features": [
+      {
+        "id": 0,
+        "name": "5* Thermal Hotel’de kahvaltı ve akşam yemeği dahil konaklama",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "Myofasiyal gevşetme teknikleri ve tecar uygulaması",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Uygun kas gruplarına electroterapy uygulamaları",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "Sporcu Masaj Uygulaması",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "name": "Kinezyotape uygulaması",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "name": "Spa joy (Thermal Havuz, hamam, sauna,buhar odası kullanımı)",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "name": "Genel ağız ve diş muayenesi",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      }
+    ],
+    "hotels": [
+      {
+        "id": 0
+      },
+      {
+        "id": 1
+      }
+    ],
+    "faq": [
+      {
+        "id": 0,
+        "question": "Soru 1",
+        "answer": "Cevap 1"
+      },
+      {
+        "id": 1,
+        "question": "Soru 2",
+        "answer": "Cevap 2"
+      },
+      {
+        "id": 2,
+        "question": "Soru 3",
+        "answer": "Cevap 3"
+      },
+      {
+        "id": 3,
+        "question": "Soru 4",
+        "answer": "Cevap 4"
+      },
+      {
+        "id": 4,
+        "question": "Soru 5",
+        "answer": "Cevap 5"
+      }
+    ]
+  },
+
+  {
+    "id": 7,
+    "name": "Cardio - Pulmonary Package",
+    "is-just-hotel": false,
+    "images": [
+      {
+        "id": 0,
+        "path": "assets/img/ftr/pulmoner-min.webp"
+      }
+    ],
+    "prices": [
+      {
+        "id": 0,
+        "name": "Single",
+        "day-count": 4,
+        "price": 972,
+        "show-table": true,
+        "table-header": "Details"
+      },
+      {
+        "id": 1,
+        "name": "Double",
+        "day-count": 4,
+        "price": 1619,
+        "show-table": false,
+        "table-header": "Details"
+      }
+    ],
+    "features": [
+      {
+        "id": 0,
+        "name": "5* Thermal Hotel’de kahvaltı ve akşam yemeği dahil konaklama",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "Kardiyolojk Check-up",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Uzman hekim mayenesi, Solunum fonksiyon testi",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Laboratuar tetkiki; kolesrerol, ekg, eforlu ekg, aks,kreatinin,",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "Uzman diyetisyenimiz tarafından kas – yağ – su vücut kitle ölçümleri sonrası ihtiyacınıza uygun 5 günlük beslenme programı",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "name": "Doğada yürüyüş;her sabah1 saat yürüyüş programı",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "name": "Tai Chi; kardiyak problemlere yönelik fiziksel kapasiteyi arttırmaya yönelik egzersizler içerir.",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "name": "Pulmoner Rehabilitasyon; bronşiyal hijyen tejnikleri ve kontrollü solunum egzersizleri",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "name": "Spa joy (Thermal Havuz, hamam, sauna,buhar odası kullanımı)",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "name": "Genel ağız ve diş muayenesi",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      }
+    ],
+    "hotels": [
+      {
+        "id": 0
+      },
+      {
+        "id": 1
+      }
+    ],
+    "faq": [
+      {
+        "id": 0,
+        "question": "Soru 1",
+        "answer": "Cevap 1"
+      },
+      {
+        "id": 1,
+        "question": "Soru 2",
+        "answer": "Cevap 2"
+      },
+      {
+        "id": 2,
+        "question": "Soru 3",
+        "answer": "Cevap 3"
+      },
+      {
+        "id": 3,
+        "question": "Soru 4",
+        "answer": "Cevap 4"
+      },
+      {
+        "id": 4,
+        "question": "Soru 5",
+        "answer": "Cevap 5"
+      }
+    ]
+  },
+
+  {
+    "id": 8,
+    "name": "Anti Stress Relax Package",
+    "is-just-hotel": false,
+    "images": [
+      {
+        "id": 0,
+        "path": "assets/img/ftr/relax-min.webp"
+      }
+    ],
+    "prices": [
+      {
+        "id": 0,
+        "name": "Single",
+        "day-count": 8,
+        "price": 1215,
+        "show-table": true,
+        "table-header": "Details"
+      },
+      {
+        "id": 1,
+        "name": "Double",
+        "day-count": 8,
+        "price": 1975,
+        "show-table": false,
+        "table-header": "Details"
+      }
+    ],
+    "features": [
+      {
+        "id": 0,
+        "name": "5* Thermal Hotel’de kahvaltı ve akşam yemeği dahil konaklama",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "Doğada yürüyüş; her sabah 1 saat yürüyüş programı",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Myoasial Gevşetme Masajı; konaklama süresince gün aşırı bel, boyun, baş, sırt ağrıları, bacak ağrıları için medikal masaj teknikleri",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Strech egzersizleri",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "Nefes terapisi, uzman eşliğinde sağlıklı ve doğru nefes alabilmeyi öğrenerek vücudun ihtiyacı olan oksijeni sağlama teknikleri,",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "name": "Meditasyon sohbetleri ve stres ile başedebilme gücü",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "name": "Spa joy (Thermal Havuz, hamam, sauna,buhar odası kullanımı)",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "name": "Genel ağız ve diş muayenesi",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      }
+    ],
+    "hotels": [
+      {
+        "id": 0
+      },
+      {
+        "id": 1
+      }
+    ],
+    "faq": [
+      {
+        "id": 0,
+        "question": "Soru 1",
+        "answer": "Cevap 1"
+      },
+      {
+        "id": 1,
+        "question": "Soru 2",
+        "answer": "Cevap 2"
+      },
+      {
+        "id": 2,
+        "question": "Soru 3",
+        "answer": "Cevap 3"
+      },
+      {
+        "id": 3,
+        "question": "Soru 4",
+        "answer": "Cevap 4"
+      },
+      {
+        "id": 4,
+        "question": "Soru 5",
+        "answer": "Cevap 5"
+      }
+    ]
+  },
+
+  {
+    "id": 9,
+    "name": "Anti Aging Full Package",
+    "is-just-hotel": false,
+    "images": [
+      {
+        "id": 0,
+        "path": "assets/img/ftr/aging-min.webp"
+      }
+    ],
+    "prices": [
+      {
+        "id": 0,
+        "name": "Single",
+        "day-count": 10,
+        "price": 1854,
+        "show-table": true,
+        "table-header": "Details"
+      },
+      {
+        "id": 1,
+        "name": "Double",
+        "day-count": 10,
+        "price": 3123,
+        "show-table": false,
+        "table-header": "Details"
+      }
+    ],
+    "features": [
+      {
+        "id": 0,
+        "name": "5* Thermal Hotel’de kahvaltı ve akşam yemeği dahil konaklama",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "Sağlık taraması; Uzman hekim muayenesi Laboratuar tetkikleri",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Ozon tedavisi; konaklamanız süresince uzmanınızın size özel belirlediği ozon tedavisi, kan dolaşımının hızlandırarak dolaşım ile ilgili bozuklukların iyileşmesini destekler. Düşük dozlarda kullanıldığında vücüdun direncini arttırır. Bağışıklık sisteminizi güçlendirir, cildinizin daha genç ve sağlıklı görünmesine yardımcı olur.",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Medikal Cilt Bakımı; farklı tekniklerle 2 seans bakım uygulaması",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "Aroma Terapi; özel yağlar ile 2 seans full vücut masajı",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "name": "Kese- köpük masajı; 1 adet",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "name": "Selulit Masajı; 2 seans uygulanır",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "name": "Yoga ve Meditasyon seansları ile özüme yolculuk",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "name": "Spa joy (Thermal Havuz, hamam, sauna,buhar odası kullanımı)",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "name": "Detox Beslenme Programı; vejeteryan – vegan menü seçenekleri ile 9 gün fit beslenme.",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "name": "Genel ağız ve diş muayenesi",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      }
+    ],
+    "hotels": [
+      {
+        "id": 0
+      },
+      {
+        "id": 1
+      }
+    ],
+    "faq": [
+      {
+        "id": 0,
+        "question": "Soru 1",
+        "answer": "Cevap 1"
+      },
+      {
+        "id": 1,
+        "question": "Soru 2",
+        "answer": "Cevap 2"
+      },
+      {
+        "id": 2,
+        "question": "Soru 3",
+        "answer": "Cevap 3"
+      },
+      {
+        "id": 3,
+        "question": "Soru 4",
+        "answer": "Cevap 4"
+      },
+      {
+        "id": 4,
+        "question": "Soru 5",
+        "answer": "Cevap 5"
+      }
+    ]
+  },
+
+  {
+    "id": 10,
+    "name": "Accommodation package",
+    "is-just-hotel": true,
+    "images": [
+      {
+        "id": 0,
+        "path": "assets/img/hotels/kaya/kaya-izmir-thermal-spa-oda-1.jpg"
+      }
+    ],
+    "prices": [
+      {
+        "id": 0,
+        "name": "Accommodation Package",
+        "day-count": 0,
+        "price": 0,
+        "show-table": true,
+        "table-header": "Details"
+      }
+    ],
+    "features": [
+      {
+        "id": 0,
+        "name": "5* Thermal Hotel’de kahvaltı ve akşam yemeği dahil konaklama",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "Sağlık taraması; Uzman hekim muayenesi Laboratuar tetkikleri",
+        "active-prices": [
+          {
+            "price-id": 0,
+            "value": "<i class='fa fa-check' style='color:#44aa44;'></i>"
+          }
+        ]
+      }
+    ],
+    "hotels": [
+      {
+        "id": 0
+      }
+    ],
+    "faq": [
+      {
+        "id": 0,
+        "question": "Soru 1",
+        "answer": "Cevap 1"
+      },
+      {
+        "id": 1,
+        "question": "Soru 2",
+        "answer": "Cevap 2"
+      },
+      {
+        "id": 2,
+        "question": "Soru 3",
+        "answer": "Cevap 3"
+      },
+      {
+        "id": 3,
+        "question": "Soru 4",
+        "answer": "Cevap 4"
+      },
+      {
+        "id": 4,
+        "question": "Soru 5",
+        "answer": "Cevap 5"
+      }
+    ]
+  }
+]
