@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'webadmin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
     ],
 
     /*
@@ -60,15 +64,19 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
+      //  'users' => [
+      //      'driver' => 'eloquent',
+      //      'model' => App\Models\User::class,
+      //  ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+         'users' => [
+             'driver' => 'database',
+             'table' => 'elx_customer',
+         ],
+         'admins' => [
+             'driver' => 'database',
+             'table' => 'elx_user',
+         ],
     ],
 
     /*
