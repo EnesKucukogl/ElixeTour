@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\HotelController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,3 +45,13 @@ Route::resource('rudder/menu', MenuController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/menu-post', [MenuController::class, 'datagrid']);
+
+
+
+//Hotel
+Route::resource('rudder/hotel', HotelController::class, [
+    'names' => [
+        'index' => 'admin.hotel',
+    ]])->middleware('auth:webadmin');
+
+Route::get('/rudder/hotel-list', [HotelController::class, 'datagrid']);
