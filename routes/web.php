@@ -11,7 +11,7 @@ use App\Http\Controllers\MenuController;
 |
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| contains the "web" middleware group. Now create something great!dash
 |
 */
 
@@ -29,6 +29,12 @@ Route::get('rudder/login', [AdminAuthController::class, 'login'])->name('admin.l
 Route::post('rudder/login-post', [AdminAuthController::class, 'handleLogin'])->name('admin.handleLogin');
 Route::get('rudder/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
+
+Route::get("rudder/dashboard", [AdminAuthController::class, 'dashboard'])->name('admin.dashboard')->middleware('auth:webadmin');
+
+Route::get("ruder/table" , [AdminAuthController::class, 'table'])->name('admin.table')->middleware('auth:webadmin');
+
+Route::get("ruder/withoutMenu" , [AdminAuthController::class, 'withoutMenu'])->name('admin.withoutMenu')->middleware('auth:webadmin');
 
 //Admin Menu
 Route::resource('rudder/menu', MenuController::class, [

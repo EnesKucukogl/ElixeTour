@@ -27,8 +27,7 @@ class AdminAuthController extends Controller
         if(Auth::guard('webadmin')
             ->attempt($request->only(['user_name', 'password'])))
         {
-            return redirect()
-                ->route('admin.home');
+            return redirect()->route('admin.home');
         }
 
         $validator['userNamePassword'] = 'Kullanıcı adı veya şifre hatalı';
@@ -43,5 +42,18 @@ class AdminAuthController extends Controller
         Auth::guard('webadmin')->logout();
 
         return redirect()->route('admin.login');
+    }
+
+    public function dashboard()
+    {
+        return view('admin.dashboard');
+    }
+    public function table()
+    {
+        return view('admin.table');
+    }
+    public function withoutMenu()
+    {
+        return view('admin.withoutMenu');
     }
 }
