@@ -3,13 +3,18 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
+     <!-- DevExpress-->
+    <link rel="stylesheet" href="{{ URL::asset('admin-assets/css/dev-express/dx.common.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('admin-assets/css/dev-express/dx.light.css') }}">
 
+    <script type="text/javascript" src="{{URL::asset('/admin-assets/vendor/libs/jquery/jquery.js')}}"></script>
     <!-- Favicon -->
     <link rel="stylesheet" href="{{ URL::asset('admin-assets/img/favicon/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ URL::asset('admin-assets/css/fontawesome/css/all.min.css') }}">
 
 
     <!-- Fonts -->

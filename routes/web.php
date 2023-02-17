@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\MenuController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,3 +29,11 @@ Route::get('rudder/login', [AdminAuthController::class, 'login'])->name('admin.l
 Route::post('rudder/login-post', [AdminAuthController::class, 'handleLogin'])->name('admin.handleLogin');
 Route::get('rudder/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
+
+//Admin Menu
+Route::resource('rudder/menu', MenuController::class, [
+    'names' => [
+        'index' => 'admin.menu',
+    ]])->middleware('auth:webadmin');
+
+Route::get('/rudder/menu-post', [MenuController::class, 'datagrid']);

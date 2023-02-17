@@ -15,7 +15,9 @@
         <div class="layout-page">
         @include('admin.layout.partials.header')
             <div class="content-wrapper">
+                <div class="container-xxl flex-grow-1 container-p-y">
 @yield('content')
+                </div>
         @include('admin.layout.partials.footer')
     </div>
 </div>
