@@ -32,9 +32,9 @@ Route::get('rudder/logout', [AdminAuthController::class, 'logout'])->name('admin
 
 Route::get("rudder/dashboard", [AdminAuthController::class, 'dashboard'])->name('admin.dashboard')->middleware('auth:webadmin');
 
-Route::get("ruder/table" , [AdminAuthController::class, 'table'])->name('admin.table')->middleware('auth:webadmin');
+Route::get("rudder/table" , [AdminAuthController::class, 'table'])->name('admin.table')->middleware('auth:webadmin');
 
-Route::get("ruder/withoutMenu" , [AdminAuthController::class, 'withoutMenu'])->name('admin.withoutMenu')->middleware('auth:webadmin');
+Route::get("rudder/withoutMenu" , [AdminAuthController::class, 'withoutMenu'])->name('admin.withoutMenu')->middleware('auth:webadmin');
 
 //Admin Menu
 Route::resource('rudder/menu', MenuController::class, [
