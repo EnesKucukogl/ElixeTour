@@ -162,6 +162,7 @@ $('#gridContainer').dxDataGrid({
                         text: 'Url'
                     },
 
+
                 },
             ]
         }

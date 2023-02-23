@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HotelController;
 
 /*
@@ -30,7 +31,7 @@ Route::get('rudder/', [AdminAuthController::class, 'index'])->name('admin.home')
 Route::get('rudder/login', [AdminAuthController::class, 'login'])->name('admin.login');
 Route::post('rudder/login-post', [AdminAuthController::class, 'handleLogin'])->name('admin.handleLogin');
 Route::get('rudder/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
-
+Route::any('rudder/tables-basic.html', function() { return 'default loads';});
 
 Route::get("rudder/dashboard", [AdminAuthController::class, 'dashboard'])->name('admin.dashboard')->middleware('auth:webadmin');
 
@@ -45,6 +46,16 @@ Route::resource('rudder/menu', MenuController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/menu-post', [MenuController::class, 'datagrid']);
+
+
+//Admin Contact
+
+Route::resource('rudder/contact', ContactController::class, [
+    'names' => [
+        'index' => 'admin.contact',
+    ]])->middleware('auth:webadmin');
+
+Route::get('/rudder/contact-list', [ContactController::class, 'datagrid']);
 
 
 

@@ -32,6 +32,7 @@ class MenuController extends Controller
 
     public function store(Request $request)
     {
+
         $menu = Menu::where('Id',  $request->Id)->first();
 
         if ($menu !== null) {
