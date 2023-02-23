@@ -35,6 +35,20 @@
                 </li>
             </ul>
         </li>
+            {{--Service--}}
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon fa-solid fa-laptop "></i>
+                <div data-i18n="Service">Hizmetler</div>
+            </a>
+            {{--Hotel--}}
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="{{route('admin.customer')}}" class="menu-link">
+                        <div data-i18n="Hotel">Müşteriler</div>
+                    </a>
+                </li>
+            </ul>
         <!-- Tables -->
         <li class="menu-item">
             <a href="{{route('admin.table')}}" class="menu-link">
@@ -42,10 +56,18 @@
                 <div data-i18n="Tables">Tables</div>
             </a>
         </li>
+        {{--language--}}
         <li class="menu-item">
-            <a href="{{route('admin.menu')}}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">Menu</div>
+            <a href="{{route('admin.language')}}" class="menu-link">
+                <i class="menu-icon fa-solid fa-language"></i>
+                <div data-i18n="Language">Diller</div>
+            </a>
+        </li>
+        {{--Currency--}}
+        <li class="menu-item">
+            <a href="{{route('admin.currency')}}" class="menu-link">
+                <i class="menu-icon fa-solid fa-dollar-sign"></i>
+                <div data-i18n="Currency">Para Birimi</div>
             </a>
         </li>
      <!-- Contact -->
@@ -55,5 +77,6 @@
                 <div data-i18n="Contact">Contact</div>
             </a>
         </li>
+
     </ul>
 </aside>

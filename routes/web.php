@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\MenuController;
+use \App\Http\Controllers\LanguageController;
+use \App\Http\Controllers\CurrencyController;
+use \App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HotelController;
 
@@ -74,3 +77,64 @@ Route::resource('rudder/hotel', HotelController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/hotel-list', [HotelController::class, 'datagrid']);
+
+
+//language
+Route::resource('rudder/language', LanguageController::class, [
+    'names' => [
+        'index' => 'admin.language',
+    ]])->middleware('auth:webadmin');
+
+Route::get('/rudder/language-list', [LanguageController::class, 'datagrid']);
+
+//currency
+
+Route::resource('rudder/currency', CurrencyController::class, [
+    'names' => [
+        'index' => 'admin.currency',
+    ]])->middleware('auth:webadmin');
+
+Route::get('/rudder/currency-list', [CurrencyController::class, 'datagrid']);
+
+//Customer
+
+Route::resource('rudder/customer', CustomerController::class, [
+    'names' => [
+        'index' => 'admin.customer',
+    ]])->middleware('auth:webadmin');
+
+Route::get('/rudder/customer-list', [CustomerController::class, 'datagrid']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

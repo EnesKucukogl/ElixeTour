@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ URL::asset('admin-assets/css/dev-express/dx.common.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('admin-assets/css/dev-express/dx.light.css') }}">
 
+
     <script type="text/javascript" src="{{URL::asset('/admin-assets/vendor/libs/jquery/jquery.js')}}"></script>
     <!-- Favicon -->
     <link rel="stylesheet" href="{{ URL::asset('admin-assets/img/favicon/favicon.ico') }}">
@@ -51,4 +52,8 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script type="text/javascript" src="{{URL::asset('/admin-assets/js/config.js')}}"></script>
+
+    {{--toastr--}}
+    <script type="text/javascript" src="{{URL::asset('/admin-assets/js/toastr.min.js')}}"></script>
+    <link rel="stylesheet" href="{{URL:: asset('admin-assets/css/toastr.min.css')}}" type="text/css">
 

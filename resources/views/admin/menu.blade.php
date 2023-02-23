@@ -1,15 +1,10 @@
 @extends('admin.layout.mainlayout')
 @section('content')
-
-
-
     <button type='button' class='btn btn-primary  mb-3' id="addMenu">
         <i class="fa fa-plus"></i> Yeni Menü Ekle
     </button>
     <div id="gridContainer"></div>
     <script type="text/javascript" src="{{URL::asset('/js/admin-pages/menu.js')}}"></script>
-
-
 
     <div class="modal fade" id="updateMenu" aria-hidden="true">
         <div class="modal-dialog modal-xl">

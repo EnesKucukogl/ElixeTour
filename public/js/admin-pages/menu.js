@@ -162,6 +162,7 @@ $(document).ready(function () {
 
         }
 
+
         $('#updateMenu').modal('show');
         $("#btnSaveMenu").unbind();
         $("#btnSaveMenu").on("click", function () {
@@ -284,6 +285,9 @@ $(document).ready(function () {
         });
 
     }
+
+
+
 
 
 });

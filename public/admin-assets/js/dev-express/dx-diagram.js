@@ -2,7 +2,7 @@
  * DevExpress Diagram (dx-diagram)
  * Version: 2.1.37
  * Build date: Thu Oct 21 2021
- * 
+ *
  * Copyright (c) 2012 - 2021 Developer Express Inc. ALL RIGHTS RESERVED
  * Read about DevExpress licensing here: https://www.devexpress.com/Support/EULAs
  */

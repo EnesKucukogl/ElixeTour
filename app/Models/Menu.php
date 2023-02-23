@@ -9,6 +9,8 @@ class Menu extends Model
 {
     use HasFactory;
 
+    const CREATED_AT = 'created_date';
+    const UPDATED_AT  = 'updated_date';
 
     protected $table = 'elx_menu';
 
