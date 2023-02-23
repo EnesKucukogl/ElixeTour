@@ -335,6 +335,7 @@ $(document).ready(function () {
             type: "POST",
             dataType: 'json',
             success: function (data) {
+                msg('Düzenlenme Başarılı',"success");
                 //console.log("result"+JSON.stringify(data));
                 $("#gridContainer").dxDataGrid("instance").refresh();
                 $('#updateContact').modal('toggle').fadeOut('slow');

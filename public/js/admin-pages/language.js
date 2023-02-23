@@ -26,8 +26,9 @@ $( document ).ready(function() {
                                     if(e.row.key.active == 1){
                                         active = 0;
                                     }
-                                    else {
-                                        DevExpress.ui.dialog.confirm("<i>hatalı işlem!!!</i>", "Kayıt silme işlemi");
+                                    else if(e.row.key.active == 0){
+                                        active = 1;
+
 
                                     }
                                     changeStatus(e.row.key.Id,active);
