@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+
 use Illuminate\Support\ServiceProvider;
+use View;
+use App\Models\Menu;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +27,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer('layout.partials.language_switcher', function ($view) {
+            $view->with('current_locale', app()->getLocale());
+            $view->with('available_locales', config('app.available_locales'));
+        });
+
+
+        $menuItems = Menu::where("visible", '=', "1", "and")->where('upper_menu_id', '=', '0')->orderBy('sort_order')->get();
+        view()->share('menuItems', $menuItems);
+
     }
 }

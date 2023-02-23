@@ -110,6 +110,22 @@ return [
 
     'faker_locale' => 'en_US',
 
+        /*
+    |--------------------------------------------------------------------------
+    | Available locales
+    |--------------------------------------------------------------------------
+    |
+    | List all locales that your application works with
+    |
+    */
+
+    'available_locales' => [
+        'English' => 'en',
+        'Russian' => 'ru',
+        'Turkish' => 'tr',
+    ],
+
+
     /*
     |--------------------------------------------------------------------------
     | Encryption Key

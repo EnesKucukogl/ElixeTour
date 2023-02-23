@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\LookupController;
 
@@ -25,6 +26,9 @@ Route::get('/login', [UserAuthController::class, 'login'])->name('login');
 Route::post('/login', [UserAuthController::class, 'handleLogin'])->name('handleLogin');
 Route::get('/logout', [UserAuthController::class, 'index'])->name('logout');
 
+Route::get('/about-us', function () {
+    return view('about');
+});
 
 //Admin Side Login Routes
 Route::get('rudder/', [AdminAuthController::class, 'index'])->name('admin.home')->middleware('auth:webadmin');
@@ -53,6 +57,21 @@ Route::resource('rudder/menu', MenuController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/menu-post', [MenuController::class, 'datagrid']);
+Route::get('/rudder/get-language', [MenuController::class, 'getLanguageEdit']);
+Route::get('/rudder/get-language-create', [MenuController::class, 'getLanguageCreate']);
+Route::get('/rudder/get-language-detail', [LanguageController::class, 'getLanguage']);
+
+
+
+
+//Admin Contact
+
+Route::resource('rudder/contact', ContactController::class, [
+    'names' => [
+        'index' => 'admin.contact',
+    ]])->middleware('auth:webadmin');
+
+Route::get('/rudder/contact-list', [ContactController::class, 'datagrid']);
 
 
 

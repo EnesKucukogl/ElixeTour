@@ -48,5 +48,12 @@
                 <div data-i18n="Tables">Menu</div>
             </a>
         </li>
+     <!-- Contact -->
+        <li class="menu-item">
+            <a href="{{route('admin.contact')}}" class="menu-link">
+                <i class="menu-icon fa-regular fa-address-book"></i>
+                <div data-i18n="Contact">Contact</div>
+            </a>
+        </li>
     </ul>
 </aside>
