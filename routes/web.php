@@ -25,13 +25,16 @@ Route::get('/login', [UserAuthController::class, 'login'])->name('login');
 Route::post('/login', [UserAuthController::class, 'handleLogin'])->name('handleLogin');
 Route::get('/logout', [UserAuthController::class, 'index'])->name('logout');
 
+Route::get('/about-us', function () {
+    return view('about');
+});
 
 //Admin Side Login Routes
 Route::get('rudder/', [AdminAuthController::class, 'index'])->name('admin.home')->middleware('auth:webadmin');
 Route::get('rudder/login', [AdminAuthController::class, 'login'])->name('admin.login');
 Route::post('rudder/login-post', [AdminAuthController::class, 'handleLogin'])->name('admin.handleLogin');
 Route::get('rudder/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
-Route::any('rudder/tables-basic.html', function() { return 'default loads';});
+
 
 Route::get("rudder/dashboard", [AdminAuthController::class, 'dashboard'])->name('admin.dashboard')->middleware('auth:webadmin');
 
@@ -46,6 +49,11 @@ Route::resource('rudder/menu', MenuController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/menu-post', [MenuController::class, 'datagrid']);
+Route::get('/rudder/get-language', [MenuController::class, 'getLanguageEdit']);
+Route::get('/rudder/get-language-create', [MenuController::class, 'getLanguageCreate']);
+Route::get('/rudder/get-language-detail', [LanguageController::class, 'getLanguage']);
+
+
 
 
 //Admin Contact

@@ -1,4 +1,3 @@
-
 <!-- preloader Area -->
 <div class="preloader">
     <div class="d-table">
@@ -46,8 +45,7 @@
 </Script>
 
 <script>
-    function sendContactFormHeader()
-    {
+    function sendContactFormHeader() {
         var name = document.getElementById("qname").value;
         var surname = document.getElementById("qsurname").value;
         var email = document.getElementById("qmail").value;
@@ -97,7 +95,8 @@
                 <div class="col-lg-6 col-md-6">
                     <ul class="topbar-list">
                         <li>
-                            <a href="https://www.facebook.com/profile.php?id=100088960760419"><i class="fab fa-facebook"></i></a>
+                            <a href="https://www.facebook.com/profile.php?id=100088960760419"><i
+                                    class="fab fa-facebook"></i></a>
                             <a href="https://www.instagram.com/elixetour/?next=%2F"><i class="fab fa-instagram"></i></a>
                             <!--
                             <a href="#!"><i class="fab fa-twitter-square"></i></a>
@@ -109,8 +108,11 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <ul class="topbar-others-options">
-                        <li class="topbar-quick"><a href="contact.php" data-bs-toggle="modal" data-bs-target="#quickAppointment" onclick="resetAnimation()">Quick appointment</a></li>
-                        <li><a href="https://wa.me/+905380968946"><img src="{{URL::asset('/wp.png')}}" width="21px" alt=""><span>Whatsapp</span></a></li>
+                        <li class="topbar-quick"><a href="contact.php" data-bs-toggle="modal"
+                                                    data-bs-target="#quickAppointment" onclick="resetAnimation()">Quick
+                                appointment</a></li>
+                        <li><a href="https://wa.me/+905380968946"><img src="{{URL::asset('/wp.png')}}" width="21px"
+                                                                       alt=""><span>Whatsapp</span></a></li>
                         <!-- <li>
                             <div class="dropdown language-option">
                                 <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -153,32 +155,59 @@
                     <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                         <ul class="navbar-nav">
 
-                            <li class="nav-item"><a href="index.php#hotels-two" class="nav-link">Hotels<i class="fas fa-angle-down"></i></a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                        <a href="izmir-kaya.php" class="nav-link">Kaya Thermal & Spa</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="bursa-kervansaray.php" class="nav-link">Bursa Kervansaray Hotel</a>
-                                    </li>
-                                </ul>
+                            @foreach ($menuItems as $menu)
+                                @php
+                                    $new = array_filter(json_decode($menu->textContent), function ($var) {
+                                          return $var->symbol == Config::get('app.locale');
+                                      });
+                                         $menu_name = array_column($new, 'translation');
+                                         $menu_name = $menu_name[0];
 
-                            </li>
-                            <li class="nav-item"><a href="packages.php" class="nav-link">Packages</a></li>
+                                @endphp
 
-                            <li class="nav-item"><a href="health-in-turkey.php" class="nav-link">Health in Turkey</a>
-                            </li>
-                            <li class="nav-item"><a href="mest-club-card.php" class="nav-link">Mest Club<span
-                                        style="color:#4c8c40;font-weight:bold;"> Card</span></a></li>
+                                <li class="nav-item"><a href="{{ url($menu->url) }}"
+                                                        class="nav-link">{{ $menu_name }}@if(count($menu->children) > 0)
+                                            <i class="fas fa-angle-down"></i>
+                                        @endif</a>
+                                    @if (count($menu->children) > 0)
+                                        <ul class="dropdown-menu">
+                                            @foreach($menu->children as $menu)
+                                                @php
+                                                    $new = array_filter(json_decode($menu->textContent), function ($var) {
+                                                          return $var->symbol == Config::get('app.locale');
+                                                      });
+                                                         $menu_name = array_column($new, 'translation');
+                                                         $menu_name = $menu_name[0];
 
-                            <li class="nav-item"><a href="about.php" class="nav-link">About</a></li>
-                            <li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
-                            <li class="nav-item dropdown-quick"><a href="become-vendor.php" data-bs-toggle="modal" data-bs-target="#quickAppointment" onclick="resetAnimation()">Quick appointment</a></li>
+                                                @endphp
+                                                <li class="nav-item">
+                                                    <a href="{{ url($menu->url) }}"
+                                                       class="nav-link">{{ $menu_name }}</a>
+                                                </li>
+
+                                            @endforeach
+
+                                        </ul>
+                                    @endif
+                                </li>
+                            @endforeach
+                            {{--<li class="nav-item"><a href="packages.php" class="nav-link">Packages</a></li>--}}
+
+
+                            {{--  <li class="nav-item"><a href="mest-club-card.php" class="nav-link">Mest Club<span
+                                          style="color:#4c8c40;font-weight:bold;"> Card</span></a></li>--}}
+
+                            <li class="nav-item dropdown-quick"><a href="become-vendor.php" data-bs-toggle="modal"
+                                                                   data-bs-target="#quickAppointment"
+                                                                   onclick="resetAnimation()">Quick appointment</a></li>
                         </ul>
+                        @include('layout/partials/language_switcher')
                         <div class="others-options d-flex align-items-center menu-quick">
 
                             <div class="option-item">
-                                <a href="become-vendor.php" data-bs-toggle="modal" data-bs-target="#quickAppointment" class="btn  btn_navber"  onclick="resetAnimation()">Quick appointment</a>
+                                <a href="become-vendor.php" data-bs-toggle="modal" data-bs-target="#quickAppointment"
+                                   class="btn  btn_navber"
+                                   onclick="resetAnimation()">{{ __('Welcome to our website') }}    </a>
                             </div>
                         </div>
                     </div>
@@ -231,13 +260,14 @@
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="inputSurame">Surname</label>
-                                <input type="text" class="form-control" name="qsurname" id="qsurname" placeholder="Surname">
+                                <input type="text" class="form-control" name="qsurname" id="qsurname"
+                                       placeholder="Surname">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label for="inputEmail">Email</label>
-                                <input type="email" class="form-control"name="qmail" id="qmail" placeholder="Email">
+                                <input type="email" class="form-control" name="qmail" id="qmail" placeholder="Email">
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="inputPhone">Phone</label>
@@ -247,7 +277,8 @@
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label for="inputExplanation">Explanation</label>
-                                <textarea class='form-control' name="qmessage" id="qmessage" cols="30" rows="5"></textarea>
+                                <textarea class='form-control' name="qmessage" id="qmessage" cols="30"
+                                          rows="5"></textarea>
                             </div>
                         </div>
                     </div>
@@ -264,14 +295,17 @@
 
                             </div>
                         </div>
-                        <h3 style="text-align:center">Your message has been delivered. You will receive a response as soon as possible.</h3>
+                        <h3 style="text-align:center">Your message has been delivered. You will receive a response as
+                            soon as possible.</h3>
                     </div>
 
                 </form id="qform" name="qform">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn_appointment" data-bs-dismiss="modal">Close</button>
-                <button type="button" id="modalSendButton" class="btn btn_navber" onclick="sendContactFormHeader();">Send</button>
+                <button type="button" id="modalSendButton" class="btn btn_navber" onclick="sendContactFormHeader();">
+                    Send
+                </button>
             </div>
         </div>
     </div>
@@ -299,3 +333,4 @@
         </div>
     </div>
 </div>
+
