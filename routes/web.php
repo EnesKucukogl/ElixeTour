@@ -4,9 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\MenuController;
-use App\Http\Controllers\LanguageController;
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,15 +15,8 @@ use App\Http\Controllers\LanguageController;
 |
 */
 
-//Language
 
-Route::get('language/{locale}', function ($locale) {
-    app()->setLocale($locale);
-    session()->put('locale', $locale);
-    return redirect()->back();
-});
-
-//Front Side
+//Front Side Login Routes
 Route::get('/', [UserAuthController::class, 'index'])->name('home');
 Route::get('/login', [UserAuthController::class, 'login'])->name('login');
 Route::post('/login', [UserAuthController::class, 'handleLogin'])->name('handleLogin');
@@ -42,8 +32,11 @@ Route::get('rudder/login', [AdminAuthController::class, 'login'])->name('admin.l
 Route::post('rudder/login-post', [AdminAuthController::class, 'handleLogin'])->name('admin.handleLogin');
 Route::get('rudder/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
+
 Route::get("rudder/dashboard", [AdminAuthController::class, 'dashboard'])->name('admin.dashboard')->middleware('auth:webadmin');
+
 Route::get("rudder/table" , [AdminAuthController::class, 'table'])->name('admin.table')->middleware('auth:webadmin');
+
 Route::get("rudder/withoutMenu" , [AdminAuthController::class, 'withoutMenu'])->name('admin.withoutMenu')->middleware('auth:webadmin');
 
 //Admin Menu
@@ -58,3 +51,13 @@ Route::get('/rudder/get-language-create', [MenuController::class, 'getLanguageCr
 Route::get('/rudder/get-language-detail', [LanguageController::class, 'getLanguage']);
 
 
+
+
+
+//Hotel
+Route::resource('rudder/hotel', HotelController::class, [
+    'names' => [
+        'index' => 'admin.hotel',
+    ]])->middleware('auth:webadmin');
+
+Route::get('/rudder/hotel-list', [HotelController::class, 'datagrid']);
