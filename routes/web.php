@@ -5,6 +5,7 @@ use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\HotelController;
+use App\Http\Controllers\LookupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,13 @@ Route::get("rudder/dashboard", [AdminAuthController::class, 'dashboard'])->name(
 Route::get("rudder/table" , [AdminAuthController::class, 'table'])->name('admin.table')->middleware('auth:webadmin');
 
 Route::get("rudder/withoutMenu" , [AdminAuthController::class, 'withoutMenu'])->name('admin.withoutMenu')->middleware('auth:webadmin');
+
+//Lookup
+Route::get('/rudder/getCityList', [LookupController::class, 'getCities']);
+Route::get('/rudder/getCity', [LookupController::class, 'getCity']);
+Route::get('/rudder/getCountryList', [LookupController::class, 'getCountries']);
+Route::get('/rudder/getCountry', [LookupController::class, 'getCountry']);
+
 
 //Admin Menu
 Route::resource('rudder/menu', MenuController::class, [
