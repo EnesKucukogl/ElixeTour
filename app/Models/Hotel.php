@@ -9,5 +9,10 @@ class Hotel extends Model
 {
     use HasFactory;
 
+    const CREATED_AT = 'created_date';
+    const UPDATED_AT  = 'updated_date';
+
     protected $table = 'elx_hotel';
+
+    protected $fillable = ['id','name','city_id','address','active','created_user_id','created_date'];
 }
