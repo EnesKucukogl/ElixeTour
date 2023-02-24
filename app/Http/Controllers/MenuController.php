@@ -102,6 +102,10 @@ class MenuController extends Controller
                     }
 
                 }
+                elseif($item['id'] == $this->default_lang && !isset($item['translation']))
+                {
+                    return response()->json(['success' => 'Lütfen ingilizce giriniz']);
+                }
                 elseif ($item['id'] !== $this->default_lang && isset($item['translation'])) {
                     $values = array('text_content_id' => $textContentLastInsertId, 'language_id' => $item['id'], 'translation' => $item['translation'], 'created_user_id' => Auth::user()->Id);
                     DB::table('elx_translation')->insert($values);
@@ -112,11 +116,6 @@ class MenuController extends Controller
                     DB::table('elx_translation')->insert($values);
 
                 }
-                else
-                {
-                    return response()->json(['success' => 'Lütfen ingilizce giriniz']);
-                }
-
 
             }
 

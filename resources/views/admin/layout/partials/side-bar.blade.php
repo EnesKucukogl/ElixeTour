@@ -35,6 +35,7 @@
                 </li>
             </ul>
         </li>
+
             {{--Service--}}
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -54,6 +55,13 @@
             <a href="{{route('admin.table')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Tables">Tables</div>
+            </a>
+        </li>
+        {{--language--}}
+        <li class="menu-item">
+            <a href="{{route('admin.menu')}}" class="menu-link">
+                <i class="menu-icon fa-solid fa-language"></i>
+                <div data-i18n="Language">Menü</div>
             </a>
         </li>
         {{--language--}}

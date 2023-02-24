@@ -22,6 +22,11 @@ use App\Http\Controllers\LookupController;
 |
 */
 
+Route::get('language/{locale}', function ($locale) {
+    app()->setLocale($locale);
+    session()->put('locale', $locale);
+    return redirect()->back();
+});
 
 //Front Side Login Routes
 Route::get('/', [UserAuthController::class, 'index'])->name('home');

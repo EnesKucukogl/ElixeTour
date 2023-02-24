@@ -157,11 +157,19 @@
 
                             @foreach ($menuItems as $menu)
                                 @php
+
                                     $new = array_filter(json_decode($menu->textContent), function ($var) {
-                                          return $var->symbol == Config::get('app.locale');
-                                      });
-                                         $menu_name = array_column($new, 'translation');
-                                         $menu_name = $menu_name[0];
+
+
+                                      return $var->symbol == Config::get('app.locale');
+
+                                  });
+
+                                     $menu_name = array_column($new, 'translation');
+
+                                     $menu_name = $menu_name[0];
+
+                                     $menu_name =  ($menu_name == '') ?   'test' :  $menu_name;
 
                                 @endphp
 
