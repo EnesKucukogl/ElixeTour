@@ -17,10 +17,11 @@ $(document).ready(function () {
                         }
                     },
                     {
-                        hint: "Sil",
-                        icon: "fa fa-trash",
+                        name: "visible",
+                        hint: "Görünürlük",
+                        icon: "fa fa-arrow-rotate-left",
                         onClick: function (e) {
-                            var result = DevExpress.ui.dialog.confirm("<i>Kaydı silmek istediğinizden emin misiniz?</i>", "Kayıt silme işlemi");
+                            var result = DevExpress.ui.dialog.confirm("<i>Bu kayıdın görünürlüğünü değiştirmek istediğinize emin misiniz?</i>", "Görünürlük");
                             result.done(function (dialogResult) {
                                 if (dialogResult) {
 
@@ -38,17 +39,70 @@ $(document).ready(function () {
 
                 ]
             },
-
             {
                 dataField: "Id",
-                caption: "Id",
-                minwidth: 100
-
+                caption: "ID"
             },
             {
                 dataField: "url",
-                caption: "Url",
-                minwidth: 100
+                caption: "URL"
+            },
+            {
+                dataField: "text_content",
+                caption: "Menü Adı",
+                calculateCellValue: function (data) {
+                    var text = "";
+                    data.text_content.forEach(function (item) {
+                        text += item.translation + " (" + item.symbol.toUpperCase() + ") ";
+                    });
+                    return text.trim();
+                }
+            },
+            {
+                dataField: "upper_menu_text_content",
+                caption: "Üst Menü Adı",
+                calculateCellValue: function (data) {
+                    var text = "";
+                    data.upper_menu_text_content.forEach(function (item) {
+                        text += item.translation + " (" + item.symbol.toUpperCase() + ") ";
+                    });
+                    return text.trim();
+                }
+            },
+            {
+                dataField: "sort_order",
+                caption: "Sıra",
+                dataType: "number"
+            },
+            {
+                dataField: "visible",
+                caption: "Görünür",
+                lookup: {
+                    dataSource: {
+                        store: {
+                            type: "array",
+                            data: [
+                                {id: 0, name: "Hayır"},
+                                {id: 1, name: "Evet"},
+                            ],
+                            key: "id"
+                        }
+                    },
+                    valueExpr: "id", // contains the same values as the "statusId" field provides
+                    displayExpr: "name" // provides display values
+                }
+            },
+            {
+                dataField: "name_surname",
+                caption: "Kayıt Kullanıcı",
+
+            },
+            {
+                dataField: "created_date",
+                caption: "Kayıt Tarihi",
+                dataType: "date",
+                displayFormat: "dd.MM.yyyy",
+                dateSerializationFormat: "yyyy-MM-dd",
             },
 
 
@@ -87,6 +141,7 @@ $(document).ready(function () {
     });
 
     $('#addMenu').on('click', function () {
+
         getFormById(-1);
     });
 
@@ -99,10 +154,14 @@ $(document).ready(function () {
             type: "PUT",
             dataType: 'json',
             success: function (data) {
+                console.log(data.message);
+                msg(data.message,'success');
                 $("#gridContainer").dxDataGrid("instance").refresh();
+
             },
             error: function (data) {
                 console.log('Error:', data);
+
             }
         });
     }
@@ -121,13 +180,16 @@ $(document).ready(function () {
                     languages = data;
                 }
             });
+
+            $(".language").empty();
             $.each(languages, function (index, value) {
-                $(".language").append("<div id='frmLanguageMenu" + value.symbol + "'></div>");
+                $(".language").append("<div class='col-md-6 mt-3' id='frmLanguageMenu" + value.symbol + "'></div>");
                 getLanguageFormById(null, value.symbol)
             });
 
             let formJson = await menuInsertUpdateForm(null);
             $("#frmEditMenu").dxForm(formJson);
+
         } else {
             var result;
             $.ajax({
@@ -149,10 +211,9 @@ $(document).ready(function () {
                     languages = data;
                 }
             });
-
+            $(".language").empty();
             $.each(languages, function (index, value) {
-
-                $(".language").append("<div id='frmLanguageMenu" + value.symbol + "'></div>");
+                $(".language").append("<div class='col-md-6 mt-3'  id='frmLanguageMenu" + value.symbol + "'></div>");
                 getLanguageFormById(result.menu_name_content_id, value.symbol)
             });
 
@@ -161,7 +222,6 @@ $(document).ready(function () {
             $("#frmEditMenu").dxForm(formJson);
 
         }
-
 
         $('#updateMenu').modal('show');
         $("#btnSaveMenu").unbind();
@@ -187,9 +247,26 @@ $(document).ready(function () {
     const menuInsertUpdateForm = async (data = {}) => {
 
         //console.log("data", data);
+        var upper_menu;
+        $.ajax({
+            type: "GET",
+            url: 'upper-menu-list',
+            datatype: "json",
+            async: false,
+            success: function (data) {
+                upper_menu = data;
 
+            }
+        });
+
+        var contentArr = upper_menu.map(item => item.text_content[0]);
+
+        //console.log("uppper_menu"+JSON.stringify(contentArr));
+
+        let visible = [{ Id: 0, status: "Pasif" }, { Id: 1, status: "Aktif" }];
         return {
             colCount: 2,
+            labelLocation: 'top',
             formData: data,
             items: [
                 {
@@ -197,11 +274,63 @@ $(document).ready(function () {
                     label: {
                         text: 'Url'
                     },
-
+                    validationRules: [{
+                        type: "required",
+                        message: "Url boş geçilemez !"
+                    }]
+                },
+                {
+                    dataField: "upper_menu_content_id",
+                    label: {
+                        text: 'Üst Menü'
+                    },
+                    editorType: "dxSelectBox",
+                    editorOptions: {
+                        items: contentArr,
+                        displayExpr: "default_lang",
+                        valueExpr: "text_content_id",
+                        //value: data.BirimId ? 0 : data.BirimId,
+                        showClearButton: true,
+                        searchEnabled: true,
+                    },
 
                 },
+                {
+                    dataField: "sort_order",
+                    label: {
+                        text: 'Sıra'
+                    },
+                    editorType: "dxNumberBox",
+                    editorOptions: {
+                        min: 1,
+                        max: 50
 
+                    },
+                    validationRules: [{
+                        type: "required",
+                        message: "Sıra numarası boş geçilemez !"
+                    }]
+                },
+                {
+                    dataField: "visible",
+                    label: {
+                        text: 'Görünürlük'
+                    },
+                    editorType: "dxSelectBox",
+                    editorOptions: {
+                        items: visible,
+                        displayExpr: "status",
+                        valueExpr: "Id",
+                        //value: data.BirimId ? 0 : data.BirimId,
+                        showClearButton: true,
+                        searchEnabled: true,
+                    },
+                    validationRules: [{
+                        type: "required",
+                        message: "Görünürlük boş geçilemez !"
+                    }]
 
+                },
             ]
         }
     };
@@ -209,8 +338,7 @@ $(document).ready(function () {
 
     const getLanguageFormById = async (textContentId, symbol) => {
         console.log(textContentId);
-        if(textContentId == null)
-        {
+        if (textContentId == null) {
             var result;
             $.ajax({
                 type: "GET",
@@ -223,9 +351,7 @@ $(document).ready(function () {
                 }
             });
 
-        }
-        else
-        {
+        } else {
             var result;
             $.ajax({
                 type: "GET",
@@ -240,7 +366,6 @@ $(document).ready(function () {
         }
 
 
-
         let formJson = await languageInsertUpdateForm(result);
         $("#frmLanguageMenu" + symbol).dxForm(formJson);
 
@@ -252,14 +377,14 @@ $(document).ready(function () {
         console.log("data", data);
 
         return {
-            colCount: 2,
+            colCount: 1,
             labelLocation: 'top',
             formData: data,
             items: [
                 {
                     dataField: "translation",
                     label: {
-                        text: 'Menü Adı (' + data.symbol + ')'
+                        text: 'Menü Adı (' + data.symbol.toUpperCase() + ')'
                     },
 
                 },
@@ -275,19 +400,20 @@ $(document).ready(function () {
             type: "POST",
             dataType: 'json',
             success: function (data) {
+
                 //console.log("result"+JSON.stringify(data));
+                msg(data.message,data.type);
                 $("#gridContainer").dxDataGrid("instance").refresh();
-                $('#updateMenu').modal('toggle').fadeOut('slow');
+                $('#updateMenu').modal('hide').fadeOut('slow');
+
             },
             error: function (data) {
+
                 console.log('Error:', data);
             }
         });
 
     }
-
-
-
 
 
 });

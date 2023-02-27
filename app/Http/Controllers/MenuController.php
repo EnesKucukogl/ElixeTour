@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+
+
 class MenuController extends Controller
 {
     /**
@@ -14,13 +17,18 @@ class MenuController extends Controller
      */
     public function index()
     {
-
-       return view('admin.menu',);
-
+        return view('admin.menu',);
     }
+
     public function datagrid()
     {
-        $menu = Menu::all();
+        $menu = Menu::menuList();
+        return response()->json($menu);
+    }
+
+    public function upperMenuGetList()
+    {
+        $menu = Menu::menuUpperList();
         return response()->json($menu);
     }
 
@@ -30,24 +38,7 @@ class MenuController extends Controller
         return response()->json($menuDetail);
     }
 
-    public function getLanguageEdit(Request $request)
-    {
-        $result = DB::table('vew_menu')
-            ->select('text_content_id', 'translation', 'symbol','language_id')
-            ->where('text_content_id', "=", $request->id,)
-            ->where("symbol", $request->symbol)
-            ->first();
-        return response()->json($result);
-    }
 
-    public function getLanguageCreate(Request $request)
-    {
-        $result = DB::table('elx_language')
-            ->select('id', 'name', 'symbol')
-            ->where("symbol", "=", $request->symbol)
-            ->first();
-        return response()->json($result);
-    }
 
     public function store(Request $request)
     {
@@ -56,67 +47,112 @@ class MenuController extends Controller
             ->first();
 
         if ($menu !== null) {
+            try {
+                if ($request->upper_menu_content_id) {
 
-            DB::table('elx_menu')->where('Id',$request->Id)->update(array(
-                'url' => $request->url,
-                'updated_user_id' => Auth::user()->Id,
-            ));
+                    $menuDetailId = DB::table('elx_menu')
+                        ->where("menu_name_content_id", "=", $request->upper_menu_content_id)
+                        ->first();
+                    $menuDetailId = $menuDetailId->Id;
 
-            foreach ($request->frmLang as $item)
-            {
-                if ($item['language_id'] == $this->default_lang ) {
+                } else {
 
-                    DB::table('elx_text_content')->where('Id',$item['text_content_id'])->update(array(
-                        'original_text' => $item['translation'],
-                        'updated_user_id' => Auth::user()->Id,
-                    ));
-
+                    $menuDetailId = 0;
                 }
-                elseif ($item['language_id'] !== $this->default_lang) {
+                $resultMenu = DB::table('elx_menu')->where('Id', $request->Id)->update(array(
+                    'url' => $request->url,
+                    'visible' => $request->visible,
+                    'sort_order' => $request->sort_order,
+                    'upper_menu_id' => $menuDetailId,
+                    'updated_user_id' => Auth::user()->Id,
+                    'updated_date' => date("Y-m-d H:i:s"),
+                ));
 
-                    DB::table('elx_translation')->where('text_content_id',$item['text_content_id'])->where('language_id',$item['language_id'])->update(array(
-                        'translation' => $item['translation'],
-                        'updated_user_id' => Auth::user()->Id,
-                    ));
-                }
+                foreach ($request->frmLang as $item) {
+                    if ($item['language_id'] == $this->default_lang) {
 
+                        DB::table('elx_text_content')->where('Id', $item['text_content_id'])->update(array(
+                            'original_text' => $item['translation'],
+                            'updated_user_id' => Auth::user()->Id,
+                            'updated_date' => date("Y-m-d H:i:s"),
+                        ));
 
-            }
-
-        }
-        else {
-
-            foreach ($request->frmLang as $item) {
-
-                if ($item['id'] == $this->default_lang && isset($item['translation'])) {
-                    $values = array('original_text' => $item['translation'], 'language_id' => $this->default_lang, 'created_user_id' => Auth::user()->Id);
-                    $resultTextContent = DB::table('elx_text_content')->insert($values);
-                    $textContentLastInsertId = DB::getPdo()->lastInsertId();
-                    if ($resultTextContent == 1) {
-                        $values = array('upper_menu_id' => 0, 'menu_name_content_id' => $textContentLastInsertId, 'url' => $request->url, 'sort_order' => 4, 'created_user_id' => Auth::user()->Id);
-                        $resultMenu = DB::table('elx_menu')->insert($values);
-                        if ($resultMenu != 1) {
-                            DB::delete('delete from elx_text_content where id = ?', [$textContentLastInsertId]);
-                        }
+                    } elseif ($item['language_id'] !== $this->default_lang) {
+                         if($item['translation'] == ''){
+                             DB::table('elx_translation')->where('text_content_id', $item['text_content_id'])->where('language_id', $item['language_id'])->update(array(
+                                 'translation' => '',
+                                 'updated_user_id' => Auth::user()->Id,
+                                 'updated_date' => date("Y-m-d H:i:s"),
+                             ));
+                         }else{
+                             DB::table('elx_translation')->where('text_content_id', $item['text_content_id'])->where('language_id', $item['language_id'])->update(array(
+                                 'translation' => $item['translation'],
+                                 'updated_user_id' => Auth::user()->Id,
+                                 'updated_date' => date("Y-m-d H:i:s"),
+                             ));
+                         }
 
                     }
 
-                }
-                elseif($item['id'] == $this->default_lang && !isset($item['translation']))
-                {
-                    return response()->json(['success' => 'Lütfen ingilizce giriniz']);
-                }
-                elseif ($item['id'] !== $this->default_lang && isset($item['translation'])) {
-                    $values = array('text_content_id' => $textContentLastInsertId, 'language_id' => $item['id'], 'translation' => $item['translation'], 'created_user_id' => Auth::user()->Id);
-                    DB::table('elx_translation')->insert($values);
-                }
-                elseif ($item['id'] !== $this->default_lang && !isset($item['translation']))
-                {
-                    $values = array('text_content_id' => $textContentLastInsertId, 'language_id' => $item['id'], 'translation' => '', 'created_user_id' => Auth::user()->Id);
-                    DB::table('elx_translation')->insert($values);
 
                 }
+                return $resultMenu ? response()->json(['message' => 'Menü başarıyla güncellenmiştir.', 'type' => 'success']) : response()->json(['message' => 'Menü güncellenirken bir hata oluşmuştur.', 'type' => 'error']);
 
+            } catch (\Exception $e) {
+                return response()->json(['message' => $e->getMessage(), 'type' => 'error']);
+            }
+        } else {
+
+
+            try {
+
+                foreach ($request->frmLang as $item) {
+
+                    if ($item['id'] == $this->default_lang && isset($item['translation'])) {
+                        $values = array('original_text' => $item['translation'], 'language_id' => $this->default_lang, 'created_user_id' => Auth::user()->Id);
+                        $resultTextContent = DB::table('elx_text_content')->insert($values);
+                        $textContentLastInsertId = DB::getPdo()->lastInsertId();
+                        if ($resultTextContent == 1) {
+
+                            if ($request->upper_menu_content_id) {
+
+                                $menuDetailId = DB::table('elx_menu')
+                                    ->where("menu_name_content_id", "=", $request->upper_menu_content_id)
+                                    ->first();
+                                $menuDetailId = $menuDetailId->Id;
+
+                            } else {
+
+                                $menuDetailId = 0;
+                            }
+
+                            $values = array('upper_menu_id' => $menuDetailId, 'menu_name_content_id' => $textContentLastInsertId, 'url' => $request->url, 'sort_order' => $request->sort_order, 'visible' => $request->visible, 'created_user_id' => Auth::user()->Id);
+                            $resultMenu = DB::table('elx_menu')->insert($values);
+                            if (!$resultMenu) {
+                                DB::delete('delete from elx_text_content where Id = ?', [$textContentLastInsertId]);
+                            }
+
+
+                        }
+
+                    } elseif ($item['id'] == $this->default_lang && !isset($item['translation'])) {
+                        return response()->json(['message' => 'Lütfen ingilizce giriniz', 'type' => 'error']);
+                    } elseif ($item['id'] !== $this->default_lang && isset($item['translation'])) {
+                        $values = array('text_content_id' => $textContentLastInsertId, 'language_id' => $item['id'], 'translation' => $item['translation'], 'created_user_id' => Auth::user()->Id);
+                        DB::table('elx_translation')->insert($values);
+                    } elseif ($item['id'] !== $this->default_lang && !isset($item['translation'])) {
+                        $values = array('text_content_id' => $textContentLastInsertId, 'language_id' => $item['id'], 'translation' => '', 'created_user_id' => Auth::user()->Id);
+                        DB::table('elx_translation')->insert($values);
+
+                    }
+
+
+                }
+                return $resultMenu ? response()->json(['message' => 'Menü başarıyla eklenmiştir.', 'type' => 'success']) : response()->json(['message' => 'Menü eklenirken bir hata oluşmuştur.', 'type' => 'error']);
+
+            } catch (\Exception $e) {
+
+                return response()->json(['message' => $e->getMessage(), 'type' => 'error']);
             }
 
         }
@@ -126,11 +162,12 @@ class MenuController extends Controller
 
     public function update(Request $request)
     {
-
-        Menu::where('Id', $request->Id)->update([
+        $visible = DB::table('elx_menu')->where('Id', $request->Id)->update(array(
             'visible' => $request->visible,
             'updated_user_id' => Auth::user()->Id,
-        ]);
-        return response()->json(['success' => 'Record saved successfully.']);
+        ));
+
+        return $visible ? response()->json(['message' => 'Kayıt başarıyla güncellenmiştir.']) : response()->json(['message' => 'Kayıt güncellenirken bir hata oluşmuştur.']);
+
     }
 }

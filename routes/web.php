@@ -65,12 +65,10 @@ Route::resource('rudder/menu', MenuController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/menu-post', [MenuController::class, 'datagrid']);
-Route::get('/rudder/get-language', [MenuController::class, 'getLanguageEdit']);
-Route::get('/rudder/get-language-create', [MenuController::class, 'getLanguageCreate']);
+Route::get('/rudder/upper-menu-list', [MenuController::class, 'upperMenuGetList']);
+Route::get('/rudder/get-language', [LanguageController::class, 'getLanguageEdit']);
+Route::get('/rudder/get-language-create', [LanguageController::class, 'getLanguageCreate']);
 Route::get('/rudder/get-language-detail', [LanguageController::class, 'getLanguage']);
-
-
-
 
 //Admin Contact
 

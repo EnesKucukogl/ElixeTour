@@ -19355,6 +19355,7 @@ input.dx-hidden {
   padding: 20px;
 }
 .dx-field-item-label-location-top {
+  margin-bottom: 0.5em;
   display: block;
 }
 .dx-form-group-content {
@@ -19423,7 +19424,8 @@ input.dx-hidden {
 }
 .dx-field-item-help-text,
 .dx-field-item-label-text {
-  color: #333;
+    color: #000;
+    font-size: 14px;
 }
 .dx-field-item-optional .dx-label > span::after,
 .dx-field-item-optional-mark {

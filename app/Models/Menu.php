@@ -12,9 +12,7 @@ class Menu extends Model
     const CREATED_AT = 'created_date';
     const UPDATED_AT  = 'updated_date';
 
-    protected $table = 'elx_menu';
-
-    protected $fillable = ['Id','url','upper_menu_id','menu_name_content_id','visible','created_user_id','updated_user_id'];
+    protected $table = 'vew_menu';
 
 
     public function children()
@@ -22,10 +20,24 @@ class Menu extends Model
         return $this->hasMany('App\Models\Menu', 'upper_menu_id', 'Id')->where("visible",'=',"1")->orderBy('sort_order');
     }
 
-    public function textContent()
+    public  function textContent()
     {
         return $this->hasMany('App\Models\TranslationView', 'text_content_id', 'menu_name_content_id');
     }
 
+    public  function upperMenuTextContent()
+    {
+        return $this->hasMany('App\Models\TranslationView', 'text_content_id', 'upper_menu_content_id');
+    }
+
+    public static function menuList()
+    {
+        return static::with("textContent")->with("upperMenuTextContent")->get();
+    }
+
+    public static function menuUpperList()
+    {
+        return static::with("textContent")->where("upper_menu_id","=","0")->get();
+    }
 
 }

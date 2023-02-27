@@ -9,6 +9,6 @@ class TranslationView extends Model
 {
     use HasFactory;
 
-    protected $table = 'vew_menu';
+    protected $table = 'vew_language_translation';
 
 }
