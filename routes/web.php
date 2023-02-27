@@ -10,6 +10,7 @@ use \App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\LookupController;
+use App\Http\Controllers\AccomodationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,9 +118,15 @@ Route::resource('rudder/customer', CustomerController::class, [
 Route::get('/rudder/customer-list', [CustomerController::class, 'datagrid']);
 
 
+//Accommodation
+Route::resource('rudder/accomodation', AccomodationController::class, [
+    'names' => [
+        'index' => 'admin.accomodation',
+    ]])->middleware('auth:webadmin');
 
 
 
+Route::get('/rudder/accomodation-list', [AccomodationController::class, 'datagrid']);
 
 
 

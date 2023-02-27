@@ -57,6 +57,12 @@
                 <div data-i18n="Tables">Tables</div>
             </a>
         </li>
+        <li class="menu-item">
+            <a href="{{route('admin.hotel')}}" class="menu-link">
+                <i class="menu-icon fa fa-hotel"></i>
+                <div data-i18n="Tables">Hotels</div>
+            </a>
+        </li>
         {{--language--}}
         <li class="menu-item">
             <a href="{{route('admin.menu')}}" class="menu-link">

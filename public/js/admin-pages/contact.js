@@ -289,7 +289,7 @@ $(document).ready(function () {
                         text: 'Message Content '
                     },
                     editorOptions: {
-                        height : "200px",
+                        height : 200,
                         readOnly: true
                     },
                 },
