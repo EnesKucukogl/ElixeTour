@@ -71,22 +71,22 @@ class MenuController extends Controller
                 foreach ($request->frmLang as $item) {
                     if ($item['language_id'] == $this->default_lang) {
 
-                        DB::table('elx_text_content')->where('Id', $item['text_content_id'])->update(array(
-                            'original_text' => $item['translation'],
+                        DB::table('elx_text_content')->where('Id', $item['text_content_id_menu'])->update(array(
+                            'original_text' => $item['translation_menu'],
                             'updated_user_id' => Auth::user()->Id,
                             'updated_date' => date("Y-m-d H:i:s"),
                         ));
 
                     } elseif ($item['language_id'] !== $this->default_lang) {
-                         if($item['translation'] == ''){
-                             DB::table('elx_translation')->where('text_content_id', $item['text_content_id'])->where('language_id', $item['language_id'])->update(array(
+                         if($item['translation_menu'] == ''){
+                             DB::table('elx_translation')->where('text_content_id', $item['text_content_id_menu'])->where('language_id', $item['language_id'])->update(array(
                                  'translation' => '',
                                  'updated_user_id' => Auth::user()->Id,
                                  'updated_date' => date("Y-m-d H:i:s"),
                              ));
                          }else{
-                             DB::table('elx_translation')->where('text_content_id', $item['text_content_id'])->where('language_id', $item['language_id'])->update(array(
-                                 'translation' => $item['translation'],
+                             DB::table('elx_translation')->where('text_content_id', $item['text_content_id_menu'])->where('language_id', $item['language_id'])->update(array(
+                                 'translation' => $item['translation_menu'],
                                  'updated_user_id' => Auth::user()->Id,
                                  'updated_date' => date("Y-m-d H:i:s"),
                              ));
@@ -108,8 +108,8 @@ class MenuController extends Controller
 
                 foreach ($request->frmLang as $item) {
 
-                    if ($item['id'] == $this->default_lang && isset($item['translation'])) {
-                        $values = array('original_text' => $item['translation'], 'language_id' => $this->default_lang, 'created_user_id' => Auth::user()->Id);
+                    if ($item['id'] == $this->default_lang && isset($item['translation_menu'])) {
+                        $values = array('original_text' => $item['translation_menu'], 'language_id' => $this->default_lang, 'created_user_id' => Auth::user()->Id);
                         $resultTextContent = DB::table('elx_text_content')->insert($values);
                         $textContentLastInsertId = DB::getPdo()->lastInsertId();
                         if ($resultTextContent == 1) {
@@ -135,12 +135,12 @@ class MenuController extends Controller
 
                         }
 
-                    } elseif ($item['id'] == $this->default_lang && !isset($item['translation'])) {
+                    } elseif ($item['id'] == $this->default_lang && !isset($item['translation_menu'])) {
                         return response()->json(['message' => 'Lütfen ingilizce giriniz', 'type' => 'error']);
-                    } elseif ($item['id'] !== $this->default_lang && isset($item['translation'])) {
-                        $values = array('text_content_id' => $textContentLastInsertId, 'language_id' => $item['id'], 'translation' => $item['translation'], 'created_user_id' => Auth::user()->Id);
+                    } elseif ($item['id'] !== $this->default_lang && isset($item['translation_menu'])) {
+                        $values = array('text_content_id' => $textContentLastInsertId, 'language_id' => $item['id'], 'translation' => $item['translation_menu'], 'created_user_id' => Auth::user()->Id);
                         DB::table('elx_translation')->insert($values);
-                    } elseif ($item['id'] !== $this->default_lang && !isset($item['translation'])) {
+                    } elseif ($item['id'] !== $this->default_lang && !isset($item['translation_menu'])) {
                         $values = array('text_content_id' => $textContentLastInsertId, 'language_id' => $item['id'], 'translation' => '', 'created_user_id' => Auth::user()->Id);
                         DB::table('elx_translation')->insert($values);
 

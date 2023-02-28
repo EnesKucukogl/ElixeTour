@@ -20,21 +20,6 @@
             </a>
         </li>
 
-        <!-- Layouts -->
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-layout"></i>
-                <div data-i18n="Layouts">Layouts</div>
-            </a>
-
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="{{route('admin.withoutMenu')}}" class="menu-link">
-                        <div data-i18n="Without menu">Without menu</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
 
             {{--Service--}}
         <li class="menu-item">
@@ -50,13 +35,7 @@
                     </a>
                 </li>
             </ul>
-        <!-- Tables -->
-        <li class="menu-item">
-            <a href="{{route('admin.table')}}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">Tables</div>
-            </a>
-        </li>
+
         <li class="menu-item">
             <a href="{{route('admin.hotel')}}" class="menu-link">
                 <i class="menu-icon fa fa-hotel"></i>
@@ -68,6 +47,13 @@
             <a href="{{route('admin.menu')}}" class="menu-link">
                 <i class="menu-icon fa-solid fa-language"></i>
                 <div data-i18n="Language">Menü</div>
+            </a>
+        </li>
+        {{--packages--}}
+        <li class="menu-item">
+            <a href="{{route('admin.package')}}" class="menu-link">
+                <i class="menu-icon fa-solid fa-language"></i>
+                <div data-i18n="Language">Paketler</div>
             </a>
         </li>
         {{--language--}}

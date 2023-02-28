@@ -356,7 +356,7 @@ $(document).ready(function () {
             $.ajax({
                 type: "GET",
                 url: 'get-language',
-                data: {id: textContentId, symbol: symbol},
+                data: {id: textContentId, symbol: symbol,name:'menu'},
                 datatype: "json",
                 async: false,
                 success: function (data) {
@@ -382,7 +382,7 @@ $(document).ready(function () {
             formData: data,
             items: [
                 {
-                    dataField: "translation",
+                    dataField: "translation_menu",
                     label: {
                         text: 'Menü Adı (' + data.symbol.toUpperCase() + ')'
                     },

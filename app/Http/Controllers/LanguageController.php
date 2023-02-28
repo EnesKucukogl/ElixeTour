@@ -28,7 +28,7 @@ class LanguageController extends Controller
     public function getLanguageEdit(Request $request)
     {
         $result = DB::table('vew_language_translation')
-            ->select('text_content_id', 'translation', 'symbol', 'language_id')
+            ->select('text_content_id as text_content_id_'.$request->name, 'translation as translation_'.$request->name, 'symbol', 'language_id')
             ->where('text_content_id', "=", $request->id,)
             ->where("symbol", $request->symbol)
             ->first();

@@ -19,6 +19,12 @@ class HotelController extends Controller
         return response()->json($hotels);
     }
 
+    public function datagridActive()
+    {
+        $hotels = Hotel::where("active","=","1")->get();
+        return response()->json($hotels);
+    }
+
     public function edit($id)
     {
         $hotelDetail = Hotel::find($id);

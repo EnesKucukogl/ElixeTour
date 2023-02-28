@@ -22,7 +22,14 @@ class CurrencyController extends Controller
 //        $language = Language::all();
 //        return response()->json($language);
 //    }
+
     public function datagrid()
+    {
+        $query=Currency::all();
+        return response()->json($query);
+    }
+
+    public function datagridActive()
     {
         $query=Currency::where('active', 1)->get();
         return response()->json($query);
