@@ -51,8 +51,10 @@ class MenuController extends Controller
 
     public function store(Request $request)
     {
+
+
         $menu = DB::table('elx_menu')
-            ->where("Id", "=", $request->Id)
+                ->where("Id", "=", $request->Id)
             ->first();
 
         if ($menu !== null) {

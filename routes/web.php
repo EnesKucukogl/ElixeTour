@@ -10,6 +10,7 @@ use \App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\LookupController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,6 +118,15 @@ Route::resource('rudder/customer', CustomerController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/customer-list', [CustomerController::class, 'datagrid']);
+
+// Profile
+
+Route::resource('rudder/profile', ProfileController::class, [
+    'names' => [
+        'index' => 'admin.profile',
+    ]])->middleware('auth:webadmin');
+
+Route::get('/rudder/getProfile', [ProfileController::class, 'getProfile'])->middleware('auth:webadmin');
 
 
 

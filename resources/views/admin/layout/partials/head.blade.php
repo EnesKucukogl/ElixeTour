@@ -9,6 +9,7 @@
     <meta name="description" content="" />
      <!-- DevExpress-->
     <link rel="stylesheet" href="{{ URL::asset('admin-assets/css/dev-express/dx.common.css') }}">
+{{--    <link rel="stylesheet" href="{{ URL::asset('admin-assets/css/dev-express/dx.light.css') }}">--}}
     <link rel="stylesheet" href="{{ URL::asset('admin-assets/css/dev-express/dx.light.css') }}">
 
 

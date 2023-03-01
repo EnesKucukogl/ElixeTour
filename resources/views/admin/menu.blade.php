@@ -17,7 +17,9 @@
 
                         <div id="frmEditMenu"></div>
 
-                        <div class="language"></div>
+                        <div class="language">
+
+                        </div>
 
                     </div>
 
