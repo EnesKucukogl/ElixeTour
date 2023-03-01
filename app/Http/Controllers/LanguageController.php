@@ -25,4 +25,23 @@ class LanguageController extends Controller
         return response()->json($language);
     }
 
+    public function getLanguageEdit(Request $request)
+    {
+        $result = DB::table('vew_language_translation')
+            ->select('text_content_id as text_content_id_'.$request->name, 'translation as translation_'.$request->name, 'symbol', 'language_id')
+            ->where('text_content_id', "=", $request->id,)
+            ->where("symbol", $request->symbol)
+            ->first();
+        return response()->json($result);
+    }
+
+    public function getLanguageCreate(Request $request)
+    {
+        $result = DB::table('elx_language')
+            ->select('id', 'name', 'symbol')
+            ->where("symbol", "=", $request->symbol)
+            ->first();
+        return response()->json($result);
+    }
+
 }

@@ -6,9 +6,9 @@ let ulkeId = 0;
 let sehirId = 0;
 
 $( document ).ready(function() {
-    getHotelListe();
+    getAccomodationListe();
 
-    $('#addHotel').on('click', function () {
+    $('#addAccomodation').on('click', function () {
         getFormById(-1);
     });
 
@@ -87,11 +87,11 @@ const getSehirler = async (ulkeId) => {
     }
 }
 
-const getHotelListe = () => {
+const getAccomodationListe = () => {
 
-    dataGrids["hotels"] = $('#gridContainer').dxDataGrid({
+    dataGrids["accomodations"] = $('#gridContainer').dxDataGrid({
         keyExpr: "Id",
-        dataSource: '/rudder/hotel-list' ,
+        dataSource: '/rudder/accomodation-list' ,
         columns: [
             {
                 type: "buttons",
@@ -123,18 +123,13 @@ const getHotelListe = () => {
                 ]
             },
             {
-                dataField: "name",
-                caption: "Name",
+                dataField: "room_type",
+                caption: "Room Type",
                 // minwidth: 100
             },
             {
-                dataField: "city_id",
-                caption: "City Name",
-                // minwidth: 100
-            },
-            {
-                dataField: "address",
-                caption: "Address",
+                dataField: "hotel_id",
+                caption: "Hotel",
                 // minwidth: 100
             },
             {
@@ -184,15 +179,15 @@ const getHotelListe = () => {
 const getFormById = async (formId) => {
 
     if (formId == "-1") {
-        $("#modalHeading").html("Otel Ekle");
-        let formJson = await hotelInsertUpdateForm();
+        $("#modalHeading").html("Konaklama Ekle");
+        let formJson = await accomodationInsertUpdateForm();
         $("#frmEdit").dxForm(formJson);
     }
     else {
         var result;
         $.ajax({
             type: "GET",
-            url: 'hotel' +'/'+formId+'/edit',
+            url: 'accomodation' +'/'+formId+'/edit',
             datatype: "json",
             async: false,
             success: function(data){
@@ -200,14 +195,14 @@ const getFormById = async (formId) => {
             }
         });
 
-        $('#modalHeading').html("Otel Düzenle");
-        let formJson = await hotelInsertUpdateForm(result);
+        $('#modalHeading').html("Konaklama Düzenle");
+        let formJson = await accomodationInsertUpdateForm(result);
         $("#frmEdit").dxForm(formJson);
 
     }
 
 
-    $('#updateOtel').modal('show');
+    $('#updateAccomodation').modal('show');
     $("#btnSave").unbind();
     $("#btnSave").on("click", function () {
         var frm = $("#frmEdit").dxForm("instance");
@@ -215,95 +210,43 @@ const getFormById = async (formId) => {
         if (validate.isValid) {
 
             var json = frm.option("formData");
-
             console.log(json);
-            delete json["countryId"];
             save(json);
         }
     });
 }
 
 
-const hotelInsertUpdateForm = async (data = {}) => {
+const accomodationInsertUpdateForm = async (data = {}) => {
 
-    // console.log("data", data);
-
-    sehirId = data !== {} ? data.city_id : null;
-    sehirData = await getSehir(sehirId);
-    // console.log(sehirData);
-
-    ulkeData = sehirId != null ? await getUlke(sehirData.country_id) : null;
-    // console.log(ulkeData);
-
-    sehirler = sehirId != null ? await getSehirler(sehirData.country_id) : null;
-    // console.log(sehirler);
-
+    console.log(data);
 
     return {
         colCount: 2,
         formData: data,
         items: [
             {
-                dataField: "name",
+                dataField: "roomType",
                 label: {
-                    text: 'Name'
+                    text: 'Room Type'
                 },
+                editorOptions: {
+                    value: data.room_type
+                }
             },
             {
-                dataField: "countryId",
+                dataField: "hotelId",
                 label: {
-                    text: 'Country'
+                    text: 'Hotel'
                 },
                 editorType: "dxSelectBox",
                 editorOptions: {
-                    dataSource: '/rudder/getCountryList',
+                    dataSource: '/rudder/hotel-list',
                     showClearButton: true,
                     searchEnabled: true,
                     displayExpr: "name",
                     valueExpr: "Id",
-                    value:  ulkeData ? ulkeData.Id : "",//{ "Id": ulkeData.Id, "name": ulkeData.name } : '',
-                    onValueChanged: async function (e) {
-                        ulkeId = e.value;
-                        // console.log(ulkeId);
-                        var formElement = $('#frmEdit').dxForm("instance");
-                        if (data.countryId == 0 || data.countryId == null) {
-                            formElement.getEditor('cityId').option('disabled', true);
-                        } else {
-                            formElement.getEditor('cityId').option('disabled', false);
-                            let newSehirListe = await getSehirler(ulkeId);
-                            // console.log(newSehirListe);
-                            formElement.getEditor('cityId').option('items', newSehirListe);
-                        }
-                        formElement.getEditor('cityId').option('value', null);
-
-                    },
-                }
-            },
-            {
-                dataField: "address",
-                label: {
-                    text: 'Address'
-                },
-                editorType: "dxTextArea",
-                editorOptions: {
-                    height: 100
-                }
-            },
-            {
-                dataField: "cityId",
-                label: {
-                    text: 'City'
-                },
-                editorType: "dxSelectBox",
-                editorOptions: {
-                    // dataSource: '/rudder/getCityList?ulkeId=243',
-                    items: sehirler,
-                    disabled: (data.city_id == 0 || data.city_id == null) ? true : false,
-                    showClearButton: true,
-                    searchEnabled: true,
-                    displayExpr: "name",
-                    valueExpr: "Id",
-                    value: sehirData ? sehirData.Id : ""//sehirData ? { "Id": sehirData.Id, "name": sehirData.name } : '',
+                    value:  data.hotel_id
                 }
             },
         ]
@@ -314,13 +257,13 @@ const save = async (json) => {
 
     $.ajax({
         data: json ,
-        url: "hotel",
+        url: "accomodation",
         type: "POST",
         dataType: 'json',
         success: function (data) {
             //console.log("result"+JSON.stringify(data));
             $("#gridContainer").dxDataGrid("instance").refresh();
-            $('#updateOtel').modal('toggle').fadeOut('slow');
+            $('#updateAccomodation').modal('toggle').fadeOut('slow');
         },
         error: function (data) {
             console.log('Error:', data);
@@ -333,11 +276,11 @@ const changeStatus = async (Id) => {
 
     $.ajax({
         data: {Id:Id},
-        url: 'hotel/'+Id,
+        url: 'accomodation/'+Id,
         type: "PUT",
         dataType: 'json',
         success: function (data) {
-            dataGrids["hotels"].refresh();
+            dataGrids["accomodations"].refresh();
         },
         error: function (data) {
             console.log('Error:', data);

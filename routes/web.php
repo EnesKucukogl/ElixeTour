@@ -11,6 +11,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\LookupController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\AccomodationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +60,10 @@ Route::get('/rudder/getCity', [LookupController::class, 'getCity']);
 Route::get('/rudder/getCountryList', [LookupController::class, 'getCountries']);
 Route::get('/rudder/getCountry', [LookupController::class, 'getCountry']);
 
+//Admin Language
+Route::get('/rudder/get-language', [LanguageController::class, 'getLanguageEdit']);
+Route::get('/rudder/get-language-create', [LanguageController::class, 'getLanguageCreate']);
+Route::get('/rudder/get-language-detail', [LanguageController::class, 'getLanguage']);
 
 //Admin Menu
 Route::resource('rudder/menu', MenuController::class, [
@@ -66,11 +72,15 @@ Route::resource('rudder/menu', MenuController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/menu-post', [MenuController::class, 'datagrid']);
-Route::get('/rudder/get-language', [MenuController::class, 'getLanguageEdit']);
-Route::get('/rudder/get-language-create', [MenuController::class, 'getLanguageCreate']);
-Route::get('/rudder/get-language-detail', [LanguageController::class, 'getLanguage']);
+Route::get('/rudder/upper-menu-list', [MenuController::class, 'upperMenuGetList']);
 
+//Admin Packages
+Route::resource('rudder/package', PackageController::class, [
+    'names' => [
+        'index' => 'admin.package',
+    ]])->middleware('auth:webadmin');
 
+Route::get('/rudder/package-list', [PackageController::class, 'datagrid']);
 
 
 //Admin Contact
@@ -91,6 +101,7 @@ Route::resource('rudder/hotel', HotelController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/hotel-list', [HotelController::class, 'datagrid']);
+Route::get('/rudder/hotel-list-active', [HotelController::class, 'datagridActive']);
 
 
 //language
@@ -109,6 +120,7 @@ Route::resource('rudder/currency', CurrencyController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/currency-list', [CurrencyController::class, 'datagrid']);
+Route::get('/rudder/currency-list-active', [CurrencyController::class, 'datagridActive']);
 
 //Customer
 
@@ -129,9 +141,15 @@ Route::resource('rudder/profile', ProfileController::class, [
 Route::get('/rudder/getProfile', [ProfileController::class, 'getProfile'])->middleware('auth:webadmin');
 
 
+//Accommodation
+Route::resource('rudder/accomodation', AccomodationController::class, [
+    'names' => [
+        'index' => 'admin.accomodation',
+    ]])->middleware('auth:webadmin');
 
 
 
+Route::get('/rudder/accomodation-list', [AccomodationController::class, 'datagrid']);
 
 
 

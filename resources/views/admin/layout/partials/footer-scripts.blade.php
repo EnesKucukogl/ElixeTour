@@ -10,3 +10,7 @@
 <script type="text/javascript" src="{{URL::asset('/admin-assets/js/dev-express/FileSaver.min.js')}}"></script>
 
 <script async defer src="https://buttons.github.io/buttons.js"></script>
+<script type="text/javascript" src="{{URL::asset('/admin-assets/js/dev-express/localization/dx.messages.tr.js')}}"></script>
+<script type="text/javascript">
+    DevExpress.localization.locale("tr");
+</script>
