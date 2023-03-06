@@ -10,6 +10,7 @@ use \App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\LookupController;
+use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\AccomodationController;
@@ -75,6 +76,15 @@ Route::resource('rudder/menu', MenuController::class, [
 Route::get('/rudder/menu-post', [MenuController::class, 'datagrid']);
 Route::get('/rudder/upper-menu-list', [MenuController::class, 'upperMenuGetList']);
 
+// Facility
+
+Route::resource('rudder/facility', FacilityController::class, [
+    'names' => [
+        'index' => 'admin.facility',
+    ]])->middleware('auth:webadmin');
+
+Route::get('/rudder/facility-list', [FacilityController::class, 'datagrid']);
+
 //Admin Packages
 Route::resource('rudder/package', PackageController::class, [
     'names' => [
@@ -121,7 +131,7 @@ Route::resource('rudder/currency', CurrencyController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/currency-list', [CurrencyController::class, 'datagrid']);
-Route::get('/rudder/currency-list-active', [CurrencyController::class, 'datagridActive']);
+Route::get('/rudder/currency-list-active', [CurrencyController::class, 'datagrid']);
 
 //Customer
 
@@ -147,8 +157,6 @@ Route::resource('rudder/accomodation', AccomodationController::class, [
     'names' => [
         'index' => 'admin.accomodation',
     ]])->middleware('auth:webadmin');
-
-
 
 Route::get('/rudder/accomodation-list', [AccomodationController::class, 'datagrid']);
 

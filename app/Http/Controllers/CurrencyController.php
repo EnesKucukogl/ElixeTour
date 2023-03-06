@@ -17,11 +17,6 @@ class CurrencyController extends Controller
     {
         return view('admin.currency',);
     }
-//    public function datagrid()
-//    {
-//        $language = Language::all();
-//        return response()->json($language);
-//    }
 
     public function datagrid()
     {
@@ -48,6 +43,7 @@ class CurrencyController extends Controller
             $currency->where('Id', $request->Id)->update([
                 'name' => $request->name,
                 'symbol' => $request->symbol,
+                'active' => $request->active,
                 'updated_user_id' =>  Auth::user()->Id,
             ]);
         } else {
@@ -55,7 +51,6 @@ class CurrencyController extends Controller
                 'name' => $request->name,
                 'symbol' => $request->symbol,
                 'created_user_id' =>  Auth::user()->Id,
-                'updated_user_id' =>  Auth::user()->Id,
             ]);
         }
         return response()->json(['success'=>'Record saved successfully.']);
