@@ -1,8 +1,6 @@
 @extends('admin.layout.mainlayout')
 @section('content')
-{{--    <button type='button' class='btn btn-primary  mb-3' id="addLanguage">--}}
-{{--        <i class="fa fa-plus"></i>--}}
-{{--    </button>--}}
+    <h4 class="fw-bold py-3 mb-4"><a href="{{route('admin.home')}}"><span class="text-muted fw-light">Anasayfa /</span></a> Müşteriler </h4>
     <div id="gridContainer"></div>
     <script type="text/javascript" src="{{URL::asset('/js/admin-pages/customer.js')}}"></script>
 

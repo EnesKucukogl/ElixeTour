@@ -28,12 +28,12 @@ class CurrencyController extends Controller
         $query=Currency::all();
         return response()->json($query);
     }
-
-    public function datagridActive()
-    {
-        $query=Currency::where('active', 1)->get();
-        return response()->json($query);
-    }
+//
+//    public function datagridActive()
+//    {
+//        $query=Currency::where('active', 1)->get();
+//        return response()->json($query);
+//    }
     public function edit($id)
     {
         $currencyDet = Currency::find($id);
@@ -48,6 +48,7 @@ class CurrencyController extends Controller
             $currency->where('Id', $request->Id)->update([
                 'name' => $request->name,
                 'symbol' => $request->symbol,
+                'active' => $request->active,
                 'updated_user_id' =>  Auth::user()->Id,
             ]);
         } else {
@@ -55,7 +56,6 @@ class CurrencyController extends Controller
                 'name' => $request->name,
                 'symbol' => $request->symbol,
                 'created_user_id' =>  Auth::user()->Id,
-                'updated_user_id' =>  Auth::user()->Id,
             ]);
         }
         return response()->json(['success'=>'Record saved successfully.']);

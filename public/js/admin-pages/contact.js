@@ -39,8 +39,6 @@ $(document).ready(function () {
                                         if(e.row.key.active == 1){
                                             active = 0;
                                         }
-
-
                                         changeStatus(e.row.key.Id,active);
 
                                     }
@@ -235,9 +233,7 @@ $(document).ready(function () {
 
     const contactInsertUpdateForm = async (data = {}) => {
 
-        console.log("data", data);
-
-
+        // console.log("data", data);
         return {
             colCount: 2,
             formData: data,
@@ -293,9 +289,6 @@ $(document).ready(function () {
                         readOnly: true
                     },
                 },
-
-
-
                 {
                     dataField: "send_date",
                     label: {
@@ -307,14 +300,12 @@ $(document).ready(function () {
                         displayFormat: "dd.MM.yyyy",
                         dateSerializationFormat: "yyyy-MM-dd",
                     },
-
                 },
                 {
                     dataField: "status",
                     editorType: 'dxSelectBox',
                     label: {
                         text: 'Status '
-
                     },
                     editorOptions: {
                         items: statuses,

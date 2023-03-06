@@ -1,5 +1,6 @@
 @extends('admin.layout.mainlayout')
 @section('content')
+    <h4 class="fw-bold py-3 mb-4"><a href="{{route('admin.home')}}"><span class="text-muted fw-light">Anasayfa /</span></a> Para Birimi </h4>
     <button type='button' class='btn btn-primary  mb-3' id="addCurrency">
         <i class="fa fa-plus"></i> Yeni Para Birimi Ekle
     </button>
