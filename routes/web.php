@@ -13,6 +13,7 @@ use App\Http\Controllers\LookupController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\AccomodationController;
+use App\Http\Controllers\TreatmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -150,6 +151,15 @@ Route::resource('rudder/accomodation', AccomodationController::class, [
 
 
 Route::get('/rudder/accomodation-list', [AccomodationController::class, 'datagrid']);
+
+//Treatment
+Route::resource('rudder/treatment', TreatmentController::class, [
+    'names' => [
+        'index' => 'admin.treatment',
+    ]])->middleware('auth:webadmin');
+
+Route::get('/rudder/treatment-list', [TreatmentController::class, 'datagrid']);
+
 
 
 

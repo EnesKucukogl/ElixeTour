@@ -32,6 +32,7 @@ class LanguageController extends Controller
             ->where('text_content_id', "=", $request->id,)
             ->where("symbol", $request->symbol)
             ->first();
+
         return response()->json($result);
     }
 

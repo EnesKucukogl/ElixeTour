@@ -63,6 +63,7 @@ const ProfileInsertUpdateForm = async (data = {}) => {
     console.log("data", data);
 
 
+
     return {
         colCount: 2,
         formData: data,
@@ -84,11 +85,10 @@ const ProfileInsertUpdateForm = async (data = {}) => {
                 },
                 editorOptions: {
                     mode: "password",
-                    // readOnly: true
+                    value: ""
                 }, validationRules: [{
                     type: "required",
-                    message: "Eski şifrenizi giriniz!",
-                    value : " "
+                    message: "Lütfen eski şifrenizi giriniz!",
                 }]
             },
             {
@@ -111,11 +111,10 @@ const ProfileInsertUpdateForm = async (data = {}) => {
                 },
                 editorOptions: {
                     mode: "password"
-                    // readOnly: true
                 }, validationRules: [{
                     type: 'stringLength',
                     min: 6,
-                    message: 'Name must have at least 6 character'
+                    message: 'Şifre en az 6 karakter içermelidir!'
                 }]
             },
             {
@@ -137,11 +136,9 @@ const ProfileInsertUpdateForm = async (data = {}) => {
                 },
                 editorOptions: {
                     mode: "password"
-                    // readOnly: true
                 }, validationRules: [{
                     type: 'stringLength',
-                    min: 6,
-                    message: 'Name must have at least 6 character'
+                    min: 6
                 }]
             },
 

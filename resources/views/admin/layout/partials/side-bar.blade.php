@@ -45,21 +45,28 @@
         {{--language--}}
         <li class="menu-item">
             <a href="{{route('admin.menu')}}" class="menu-link">
-                <i class="menu-icon fa-solid fa-language"></i>
+                <i class="menu-icon fa-solid fa-bars"></i>
                 <div data-i18n="Language">Menü</div>
             </a>
         </li>
         {{--packages--}}
         <li class="menu-item">
             <a href="{{route('admin.package')}}" class="menu-link">
-                <i class="menu-icon fa-solid fa-language"></i>
+                <i class="menu-icon fa-solid fa-spa"></i>
                 <div data-i18n="Language">Paketler</div>
+            </a>
+        </li>
+        {{--treatment--}}
+        <li class="menu-item">
+            <a href="{{route('admin.treatment')}}" class="menu-link">
+                <i class="menu-icon fa-solid fa-stethoscope"></i>
+                <div data-i18n="Language">Tedaviler</div>
             </a>
         </li>
         {{--language--}}
         <li class="menu-item">
             <a href="{{route('admin.language')}}" class="menu-link">
-                <i class="menu-icon fa-solid fa-language"></i>
+                <i class="menu-icon fa-solid fa-globe"></i>
                 <div data-i18n="Language">Diller</div>
             </a>
         </li>
