@@ -5,7 +5,7 @@
         <i class="fa fa-plus"></i> Yeni Menü Ekle
     </button>
     <div id="gridContainer"></div>
-
+    <script type="text/javascript" src="{{URL::asset('/js/admin-pages/menu.js')}}"></script>
 
     <div class="modal fade" id="updateMenu" aria-hidden="true">
         <div class="modal-dialog modal-xl">
@@ -25,6 +25,7 @@
 
                 </div>
                 <div class="modal-footer">
+
                     <button id="btnSaveMenu" type="button" class="btn btn-save btn-primary">Kaydet</button>
                 </div>
             </div>

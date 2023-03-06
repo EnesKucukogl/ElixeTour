@@ -297,6 +297,7 @@ $(document).ready(function () {
                     editorType: "dxDateBox",
                     editorOptions: {
                         dataType: "date",
+                        readOnly: true,
                         displayFormat: "dd.MM.yyyy",
                         dateSerializationFormat: "yyyy-MM-dd",
                     },

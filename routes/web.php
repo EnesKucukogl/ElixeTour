@@ -11,6 +11,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\LookupController;
 use App\Http\Controllers\FacilityController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\AccomodationController;
 
@@ -129,7 +130,7 @@ Route::resource('rudder/currency', CurrencyController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/currency-list', [CurrencyController::class, 'datagrid']);
-//Route::get('/rudder/currency-list-active', [CurrencyController::class, 'datagrid']);
+Route::get('/rudder/currency-list-active', [CurrencyController::class, 'datagrid']);
 
 //Customer
 
@@ -139,6 +140,16 @@ Route::resource('rudder/customer', CustomerController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/customer-list', [CustomerController::class, 'datagrid']);
+
+// Profile
+
+Route::resource('rudder/profile', ProfileController::class, [
+    'names' => [
+        'index' => 'admin.profile',
+    ]])->middleware('auth:webadmin');
+
+Route::get('/rudder/getProfile', [ProfileController::class, 'getProfile'])->middleware('auth:webadmin');
+
 
 //Accommodation
 Route::resource('rudder/accomodation', AccomodationController::class, [
