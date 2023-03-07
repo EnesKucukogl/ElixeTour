@@ -1548,7 +1548,7 @@
 }
 .dx-widget input,
 .dx-widget textarea {
-  /*height: 45px;*/
+  height: 45px;
   font-family: "Helvetica Neue","Segoe UI",helvetica,verdana,sans-serif;
 
 }
@@ -4375,6 +4375,7 @@
   -webkit-user-modify: read-write-plaintext-only;
 }
 .dx-texteditor.dx-editor-outlined {
+  margin-bottom: 0.3em;
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -19355,7 +19356,7 @@ input.dx-hidden {
   padding: 20px;
 }
 .dx-field-item-label-location-top {
-  margin-bottom: 0.5em;
+  margin-bottom: 0.75em;
   display: block;
 }
 .dx-form-group-content {

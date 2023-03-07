@@ -6,6 +6,8 @@ use App\Models\Package;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
+
 
 
 class PackageController extends Controller
@@ -34,33 +36,17 @@ class PackageController extends Controller
     }
 
 
+
     public function store(Request $request)
     {
-        $package = DB::table('elx_package')
-            ->where("Id", "=", $request->Id)
-            ->first();
 
-        if ($package !== null) {
+        $request = $request->json()->all();
+
+        if (isset($request['Id'])) {
             try {
-
-                $resultMenu = DB::table('elx_package')->where('Id', $request->Id)->update(array(
-                    'package_start_date' => $request->package_start_date,
-                    'package_expiry_date' => $request->package_expiry_date,
-                    'duration' => $request->duration,
-                    'cost' => $request->cost,
-                    'cost_currency_id' => $request->cost_currency_id,
-                    'price' => $request->price,
-                    'price_currency_id' => $request->price_currency_id,
-                    'discount_rate' => $request->discount_rate,
-                    'hotel_id' => $request->hotel_id,
-                    'active' => $request->active,
-                    'updated_user_id' => Auth::user()->Id,
-                    'updated_date' => date("Y-m-d H:i:s"),
-                ));
-
-                foreach ($request->frmLang as $item) {
+                foreach ($request['frmLang'] as $item) {
                     if ($item['language_id'] == $this->default_lang) {
-
+                        $slug = SlugService::createSlug(Package::class, 'slug', $item['translation_package']);
                         DB::table('elx_text_content')->where('Id', $item['text_content_id_package'])->update(array(
                             'original_text' => $item['translation_package'],
                             'updated_user_id' => Auth::user()->Id,
@@ -106,7 +92,23 @@ class PackageController extends Controller
 
 
                 }
-                return $resultMenu ? response()->json(['message' => 'Paket başarıyla güncellenmiştir.', 'type' => 'success']) : response()->json(['message' => 'Paket güncellenirken bir hata oluşmuştur.', 'type' => 'error']);
+                $resultPackage = DB::table('elx_package')->where('Id', $request['Id'])->update(array(
+                    'slug' => $slug,
+                    'highlighted' => $request['highlighted'],
+                    'package_start_date' => $request['package_start_date'],
+                    'package_expiry_date' => $request['package_expiry_date'],
+                    'duration' => $request['duration'],
+                    'cost' => $request['cost'],
+                    'cost_currency_id' => $request['cost_currency_id'],
+                    'price' => $request['price'],
+                    'price_currency_id' => $request['price_currency_id'],
+                    'discount_rate' => $request['discount_rate'],
+                    'hotel_id' => $request['hotel_id'],
+                    'active' => $request['active'],
+                    'updated_user_id' => Auth::user()->Id,
+                    'updated_date' => date("Y-m-d H:i:s"),
+                ));
+                return $resultPackage ? response()->json(['message' => 'Paket başarıyla güncellenmiştir.', 'type' => 'success']) : response()->json(['message' => 'Paket güncellenirken bir hata oluşmuştur.', 'type' => 'error']);
 
             } catch (\Exception $e) {
                 return response()->json(['message' => $e->getMessage(), 'type' => 'error']);
@@ -116,7 +118,7 @@ class PackageController extends Controller
 
             try {
 
-                foreach ($request->frmLang as $item) {
+                foreach ($request['frmLang'] as $item) {
 
                     /*  $json_str = '[{"translation":"'.$item["translation_package"].'"},{"translation":"'.$item["translation_description"].'"}]';
                       $json_arr = json_decode($json_str, true);
@@ -129,16 +131,18 @@ class PackageController extends Controller
                       }*/
 
                     if ($item['id'] == $this->default_lang && isset($item['translation_package']) && isset($item['translation_description'])) {
+                        $slug = SlugService::createSlug(Package::class, 'slug', $item['translation_package']);
                         $values = array('original_text' => $item['translation_package'], 'language_id' => $this->default_lang, 'created_user_id' => Auth::user()->Id);
                         $resultTextContentPackage = DB::table('elx_text_content')->insert($values);
                         $textContentLastPackageInsertId = DB::getPdo()->lastInsertId();
                         $values = array('original_text' => $item['translation_description'], 'language_id' => $this->default_lang, 'created_user_id' => Auth::user()->Id);
                         $resultTextContentDesc = DB::table('elx_text_content')->insert($values);
                         $textContentLastDescInsertId = DB::getPdo()->lastInsertId();
+
                         if ($resultTextContentPackage == 1 && $resultTextContentDesc == 1) {
 
 
-                            $values = array('package_name_content_id' => $textContentLastPackageInsertId, 'description_content_id' => $textContentLastDescInsertId, 'cost' => $request->cost, 'cost_currency_id' => $request->cost_currency_id, 'price' => $request->price, 'price_currency_id' => $request->price_currency_id, 'hotel_id' => $request->hotel_id, 'duration' => $request->duration, 'discount_rate' => $request->discount_rate, 'package_start_date' => $request->package_start_date, 'package_expiry_date' => $request->package_expiry_date, 'active' => $request->active, 'created_user_id' => Auth::user()->Id);
+                            $values = array('highlighted' => $request['highlighted'],'slug'=> $slug,'package_name_content_id' => $textContentLastPackageInsertId, 'description_content_id' => $textContentLastDescInsertId, 'cost' => $request['cost'], 'cost_currency_id' => $request['cost_currency_id'], 'price' => $request['price'], 'price_currency_id' => $request['price_currency_id'], 'hotel_id' => $request['hotel_id'], 'duration' => $request['duration'], 'discount_rate' => $request['discount_rate'], 'package_start_date' => $request['package_start_date'], 'package_expiry_date' => $request['package_expiry_date'], 'active' => $request['active'], 'created_user_id' => Auth::user()->Id);
                             $resultMenu = DB::table('elx_package')->insert($values);
                             if (!$resultMenu) {
                                 DB::delete('delete from elx_text_content where Id = ?', [$textContentLastPackageInsertId]);
@@ -193,6 +197,18 @@ class PackageController extends Controller
         ));
 
         return $visible ? response()->json(['message' => 'Kayıt başarıyla güncellenmiştir.']) : response()->json(['message' => 'Kayıt güncellenirken bir hata oluşmuştur.']);
+
+    }
+
+    public function uploadFile(Request $request)
+    {
+
+        $request = $request->json()->all();
+
+        $values = array('general_id' => $request['general_id'], 'file_type_id' => $request['file_type_id'], 'cover_image' => $request['cover_image'], 'file_path' => $this->file_path."/".$request['name'], 'tmp_name' => $request['tmp_name'], 'name' => $request['name'], 'created_user_id' => Auth::user()->Id);
+        $fileUpload = DB::table('elx_file')->insert($values);
+
+        return $fileUpload ? response()->json(['message' => 'Resim başarıyla eklenmiştir.','type' => 'success']) : response()->json(['message' => 'Resim eklenirken bir hata oluşmuştur.','type' => 'error']);
 
     }
 }

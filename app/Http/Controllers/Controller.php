@@ -13,5 +13,7 @@ class Controller extends BaseController
 
     protected $default_lang = 1;
 
+    protected  $file_path = 'img/admin-file-upload';
+
 
 }

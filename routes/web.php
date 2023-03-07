@@ -13,6 +13,7 @@ use App\Http\Controllers\LookupController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\AccomodationController;
+use App\Http\Controllers\FileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,7 +73,7 @@ Route::resource('rudder/menu', MenuController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/menu-post', [MenuController::class, 'datagrid']);
-Route::get('/rudder/upper-menu-list', [MenuController::class, 'upperMenuGetList']);
+Route::get('/rudder/upper-menu-list', [MenuController::class, 'upperMenuGetList'])->name('admin.upper-menu-list')->middleware('auth:webadmin');
 
 //Admin Packages
 Route::resource('rudder/package', PackageController::class, [
@@ -81,6 +82,7 @@ Route::resource('rudder/package', PackageController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/package-list', [PackageController::class, 'datagrid']);
+Route::post('/rudder/package-file-upload', [PackageController::class, 'uploadFile'])->middleware('auth:webadmin');
 
 
 //Admin Contact
@@ -150,6 +152,13 @@ Route::resource('rudder/accomodation', AccomodationController::class, [
 
 
 Route::get('/rudder/accomodation-list', [AccomodationController::class, 'datagrid']);
+
+
+//file upload
+Route::post('/rudder/file-upload', [FileController::class, 'uploadFile'])->name('uploadFile');
+Route::post('/rudder/get-file-list', [FileController::class, 'getFileList']);
+Route::post('/rudder/check-cover-file', [FileController::class, 'coverFileCheck']);
+Route::post('/rudder/delete-file', [FileController::class, 'deleteFile'])->middleware('auth:webadmin');
 
 
 
