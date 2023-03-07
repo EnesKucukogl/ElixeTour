@@ -43,5 +43,10 @@ class Package extends Model
         return static::with("packageTextContent")->with("descriptionTextContent")->orderBy("Id","desc")->get();
     }
 
+    public static function packageListActive()
+    {
+        return static::with("packageTextContent")->with("descriptionTextContent")->where("active","=","1")->orderBy("Id","desc")->get();
+    }
+
 
 }

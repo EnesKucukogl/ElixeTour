@@ -1,9 +1,10 @@
 <?php
 
-function viewLanguageSupport($arr){
+function viewLanguageSupport($arr)
+{
     $new = array_filter(json_decode($arr), function ($var) {
 
-        return  $var->symbol == Config::get('app.locale');
+        return $var->symbol == Config::get('app.locale');
 
     });
 
@@ -13,7 +14,20 @@ function viewLanguageSupport($arr){
     $translation = $translation[0];
     $default_lang = $default_lang[0];
 
-    $translation =  ($translation == '') ?   $default_lang :  $translation;
+    $translation = ($translation == '') ? $default_lang : $translation;
 
     return $translation;
 }
+
+function getImage($arr, $main_Id)
+{
+    foreach ($arr as $value) {
+        if ($value->general_id == $main_Id) {
+            $file_path = $value->file_path;
+        }
+    }
+    return $file_path;
+}
+
+
+

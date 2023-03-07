@@ -29,6 +29,7 @@ class PackageController extends Controller
     }
 
 
+
     public function edit($id)
     {
         $packageDetail = Package::find($id);

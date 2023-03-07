@@ -609,7 +609,7 @@ $(document).ready(function () {
                         },
                         multiple: false,
                         //accept: "*",
-                        allowedFileExtensions: [".jpg", ".png", ".jpeg"],
+                        allowedFileExtensions: [".jpg", ".png", ".jpeg",".webp"],
                         value: [],
                         uploadMode: "useButtons",
                         uploadUrl: 'file-upload',

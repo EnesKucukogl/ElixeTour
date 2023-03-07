@@ -303,24 +303,21 @@
                     <div class="row" style="justify-content: center;">
 
 
-
-        <div class="col-lg-5 col-md-6 col-sm-6 col-12">
-        <div class="theme_common_box_two img_hover">
-            <div class="theme_two_box_img">
-                <a href="'#'">
-                    <img src="'#'" alt="img">
-                </a>
-                <p><i class="fas fa-map-marker-alt"></i>Deneme</p>
-            </div>
-            <div class="theme_two_box_content">
-                <h4><a href="izmir-kaya.php">Deneme</a></h4>
-                <p><span class="review_rating">Excellent</span></p>
-                <h3>Deneme<span> Price starts from</span></h3>
-            </div>
-        </div>
-    </div>
-
-
+                        <div class="col-lg-5 col-md-6 col-sm-6 col-12">
+                            <div class="theme_common_box_two img_hover">
+                                <div class="theme_two_box_img">
+                                    <a href="'#'">
+                                        <img src="'#'" alt="img">
+                                    </a>
+                                    <p><i class="fas fa-map-marker-alt"></i>Deneme</p>
+                                </div>
+                                <div class="theme_two_box_content">
+                                    <h4><a href="izmir-kaya.php">Deneme</a></h4>
+                                    <p><span class="review_rating">Excellent</span></p>
+                                    <h3>Deneme<span> Price starts from</span></h3>
+                                </div>
+                            </div>
+                        </div>
 
 
                     </div>
@@ -353,26 +350,37 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
+
+
                 <div class="col-lg-12">
                     <div class="promotional_tour_slider owl-theme owl-carousel dot_style">
-                      <div class="theme_common_box_two img_hover">
-                                <div class="theme_two_box_img">
-                                    <a href="'#'"><img src="img" alt="img"></a>
-                                    <p><i class="fas fa-map-marker-alt"></i>Package</p>
+                        @foreach ($package as $item)
+                            @if($item->highlighted == 1)
+
+                                @php
+
+                                    $file_path = getImage($packageFile,$item->Id);
+                                    $package_name = viewLanguageSupport($item->packageTextContent);
+                                @endphp
+
+                                <div class="theme_common_box_two img_hover">
+                                    <div class="theme_two_box_img">
+                                        <a href="{{$item->slug}}"><img src="{{$file_path}}" alt="img"></a>
+                                        <p><i class="fas fa-map-marker-alt"></i>Package</p>
+                                    </div>
+                                    <div class="theme_two_box_content">
+                                        <h4><a href="{{$item->slug}}">{{$package_name}}</a></h4>
+                                        <p><span class="review_rating">{{$item->duration}} Days+</span></p>
+                                        <h3>{{$item->price}}<span>Price starts from</span></h3>
+                                    </div>
                                 </div>
-                                <div class="theme_two_box_content">
-                                    <h4><a href="'.$url.'">Name</a></h4>
-                                    <p><span class="review_rating">1 Days+</span></p>
-                                    <h3>500<span>Price starts from</span></h3>
-                                </div>
-                            </div>
-
-
-
-
+                            @endif
+                        @endforeach
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -1306,22 +1314,24 @@
                             </div>
                             <div class="home_news_content">
                                 <h3><a href="health-in-turkey.php">Türkiye’de Kaplıca Kaynakları ve Uygulamalar</a></h3>
-                                <p><a href="health-in-turkey.php">11 Ocak 2023</a> </p>
+                                <p><a href="health-in-turkey.php">11 Ocak 2023</a></p>
                             </div>
                         </div>
                         <div class="home_news_item">
                             <div class="home_news_img">
-                                <a href="mest-club-card.php"><img src="assets/img/mestcard-elixe-mockup-min.webp" alt="img"></a>
+                                <a href="mest-club-card.php"><img src="assets/img/mestcard-elixe-mockup-min.webp"
+                                                                  alt="img"></a>
                             </div>
                             <div class="home_news_content">
                                 <h3><a href="mest-club-card.php">Mest Club Card</a></h3>
-                                <p><a href="news.php">11 Ocak 2023</a> </p>
+                                <p><a href="news.php">11 Ocak 2023</a></p>
                             </div>
                         </div>
 
                         <div class="home_news_item">
                             <div class="seeall_link">
-                                <a href="health-in-turkey.php">See health in Turkey <i class="fas fa-arrow-right"></i></a>
+                                <a href="health-in-turkey.php">See health in Turkey <i
+                                        class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -1331,8 +1341,10 @@
                         <div class="news_home_bigest img_hover">
                             <a href="health-in-turkey.php"><img src="assets/img/banner/slider2-min.webp" alt="img"></a>
                         </div>
-                        <h3><a href="health-in-turkey.php">Türkiye’de Kaplıca Tatili İçin Gidilecek En Güzel 10 Şehir</a> </h3>
-                        <p>Türkiye'de bulunan kaplıca tatili için en güzel 10 şehri listelediğimiz bu yazımızda birbirinden güzel kaplıcalara yer veriyoruz.</p>
+                        <h3><a href="health-in-turkey.php">Türkiye’de Kaplıca Tatili İçin Gidilecek En Güzel 10
+                                Şehir</a></h3>
+                        <p>Türkiye'de bulunan kaplıca tatili için en güzel 10 şehri listelediğimiz bu yazımızda
+                            birbirinden güzel kaplıcalara yer veriyoruz.</p>
 
                         <a href="health-in-turkey.php">Read full article <i class="fas fa-arrow-right"></i></a>
                     </div>
