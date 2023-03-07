@@ -52,14 +52,21 @@
         {{--packages--}}
         <li class="menu-item">
             <a href="{{route('admin.package')}}" class="menu-link">
-                <i class="menu-icon fa-solid fa-language"></i>
+                <i class="menu-icon fa-solid fa-spa"></i>
                 <div data-i18n="Language">Paketler</div>
+            </a>
+        </li>
+        {{--treatment--}}
+        <li class="menu-item">
+            <a href="{{route('admin.treatment')}}" class="menu-link">
+                <i class="menu-icon fa-solid fa-stethoscope"></i>
+                <div data-i18n="Language">Tedaviler</div>
             </a>
         </li>
         {{--language--}}
         <li class="menu-item">
             <a href="{{route('admin.language')}}" class="menu-link">
-                <i class="menu-icon fa-solid fa-language"></i>
+                <i class="menu-icon fa-solid fa-globe"></i>
                 <div data-i18n="Language">Diller</div>
             </a>
         </li>
@@ -73,8 +80,15 @@
      <!-- Contact -->
         <li class="menu-item">
             <a href="{{route('admin.contact')}}" class="menu-link">
-                <i class="menu-icon fa-regular fa-address-book"></i>
+                <i class="menu-icon fa-solid fa-comments"></i>
                 <div data-i18n="Contact">Contact</div>
+            </a>
+        </li>
+
+        <li class="menu-item">
+            <a href="{{route('admin.facility')}}" class="menu-link">
+                <i class="menu-icon fa-solid fa-bell-concierge"></i>
+                <div data-i18n="Facility">Otel Hizmetleri</div>
             </a>
         </li>
 

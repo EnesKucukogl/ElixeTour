@@ -1,3 +1,7 @@
+const statuses = [
+    {"Id": 0, "Name": "Hayır"},
+    {"Id": 1, "Name": "Evet"}];
+
 $( document ).ready(function() {
     $('#gridContainer').dxDataGrid({
         keyExpr: "Id",
@@ -52,7 +56,23 @@ $( document ).ready(function() {
             {
                 dataField: "active",
                 caption: "Aktif",
-                minwidth: 100
+                width: 200,
+
+                lookup: {
+                    dataSource: {
+                        store: {
+                            type: "array",
+                            data: [
+                                { id: 0, name: "Hayır" },
+                                { id: 1, name: "Evet" },
+
+                            ],
+                            key: 'Id'
+                        }
+                    },
+                    valueExpr: "id", // contains the same values as the "statusId" field provides
+                    displayExpr: "name" // provides display values
+                },
             },
         ],
 
@@ -168,6 +188,19 @@ $( document ).ready(function() {
 
                     },
                 },
+                {
+                    dataField: "active",
+                    editorType: 'dxSelectBox',
+                    label: {
+                        text: 'Aktif '
+                    },
+                    editorOptions: {
+                        items: statuses,
+                        searchEnabled: true,
+                        displayExpr: 'Name',
+                        valueExpr: 'Id'
+                    }
+                    },
             ],
         }
     };

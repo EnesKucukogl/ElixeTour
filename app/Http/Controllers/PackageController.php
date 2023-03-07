@@ -24,8 +24,8 @@ class PackageController extends Controller
 
     public function datagrid()
     {
-        $menu = Package::packageList();
-        return response()->json($menu);
+        $package = Package::packageList();
+        return response()->json($package);
     }
 
 
@@ -114,8 +114,6 @@ class PackageController extends Controller
                 return response()->json(['message' => $e->getMessage(), 'type' => 'error']);
             }
         } else {
-
-
             try {
 
                 foreach ($request['frmLang'] as $item) {
@@ -135,6 +133,7 @@ class PackageController extends Controller
                         $values = array('original_text' => $item['translation_package'], 'language_id' => $this->default_lang, 'created_user_id' => Auth::user()->Id);
                         $resultTextContentPackage = DB::table('elx_text_content')->insert($values);
                         $textContentLastPackageInsertId = DB::getPdo()->lastInsertId();
+
                         $values = array('original_text' => $item['translation_description'], 'language_id' => $this->default_lang, 'created_user_id' => Auth::user()->Id);
                         $resultTextContentDesc = DB::table('elx_text_content')->insert($values);
                         $textContentLastDescInsertId = DB::getPdo()->lastInsertId();
@@ -154,7 +153,8 @@ class PackageController extends Controller
 
                     } elseif ($item['id'] == $this->default_lang && (!isset($item['translation_package']) || !isset($item['translation_description']))) {
                         return response()->json(['message' => 'Lütfen ingilizce giriniz', 'type' => 'error']);
-                    } elseif ($item['id'] !== $this->default_lang) {
+                    }
+                    elseif ($item['id'] !== $this->default_lang) {
                         if (isset($item['translation_package'])) {
                             $values = array('text_content_id' => $textContentLastPackageInsertId, 'language_id' => $item['id'], 'translation' => $item['translation_package'], 'created_user_id' => Auth::user()->Id);
                             DB::table('elx_translation')->insert($values);
@@ -166,6 +166,7 @@ class PackageController extends Controller
                         if (isset($item['translation_description'])) {
                             $values = array('text_content_id' => $textContentLastDescInsertId, 'language_id' => $item['id'], 'translation' => $item['translation_description'], 'created_user_id' => Auth::user()->Id);
                             DB::table('elx_translation')->insert($values);
+
                         }  elseif (!isset($item['translation_description'])) {
                             $values = array('text_content_id' => $textContentLastDescInsertId, 'language_id' => $item['id'], 'translation' => '', 'created_user_id' => Auth::user()->Id);
                             DB::table('elx_translation')->insert($values);
@@ -173,8 +174,6 @@ class PackageController extends Controller
                         }
 
                     }
-
-
                 }
                 return $resultMenu ? response()->json(['message' => 'Paket başarıyla eklenmiştir.', 'type' => 'success']) : response()->json(['message' => 'Paket eklenirken bir hata oluşmuştur.', 'type' => 'error']);
 

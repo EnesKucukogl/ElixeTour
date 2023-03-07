@@ -1,3 +1,6 @@
+const statuses = [
+    {"Id": 0, "Name": "Hayır"},
+    {"Id": 1, "Name": "Evet"}];
 $( document ).ready(function() {
     $('#gridContainer').dxDataGrid({
         keyExpr: "Id",
@@ -26,9 +29,9 @@ $( document ).ready(function() {
                                     if(e.row.key.active == 1){
                                         active = 0;
                                     }
-                                    else {
-                                        DevExpress.ui.dialog.confirm("<i>hatalı işlem!!!</i>", "Kayıt silme işlemi");
 
+                                    else if(e.row.key.active == 0){
+                                        active = 1;
                                     }
                                     changeStatus(e.row.key.Id,active);
                                 }
@@ -50,8 +53,24 @@ $( document ).ready(function() {
             },
             {
                 dataField: "active",
-                caption: "Aktif",
-                minwidth: 100
+                caption: "Active",
+                width: 200,
+
+                lookup: {
+                    dataSource: {
+                        store: {
+                            type: "array",
+                            data: [
+                                { id: 0, name: "Hayır" },
+                                { id: 1, name: "Evet" },
+
+                            ],
+                            key: 'Id'
+                        }
+                    },
+                    valueExpr: "id", // contains the same values as the "statusId" field provides
+                    displayExpr: "name" // provides display values
+                },
             },
         ],
 
@@ -164,7 +183,19 @@ $( document ).ready(function() {
                     dataField: "symbol",
                     label: {
                         text: 'Sembol',
-
+                    },
+                },
+                {
+                    dataField: "active",
+                    editorType: 'dxSelectBox',
+                    label: {
+                        text: 'Status '
+                    },
+                    editorOptions: {
+                        items: statuses,
+                        searchEnabled: true,
+                        displayExpr: 'Name',
+                        valueExpr: 'Id'
                     },
                 },
             ],

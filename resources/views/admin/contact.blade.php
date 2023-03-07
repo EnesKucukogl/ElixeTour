@@ -1,5 +1,6 @@
 @extends('admin.layout.mainlayout')
 @section('content')
+    <h4 class="fw-bold py-3 mb-4"><a href="{{route('admin.home')}}"><span class="text-muted fw-light">Anasayfa /</span></a> Müşteri Mailleri </h4>
     <div id="gridContainer"></div>
     <script type="text/javascript" src="{{URL::asset('/js/admin-pages/contact.js')}}"></script>
     <div class="modal fade" id="updateContact" aria-hidden="true">

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,7 +55,6 @@ class MenuController extends Controller
                         ->where("menu_name_content_id", "=", $request->upper_menu_content_id)
                         ->first();
                     $menuDetailId = $menuDetailId->Id;
-
                 } else {
 
                     $menuDetailId = 0;

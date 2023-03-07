@@ -10,10 +10,12 @@ use \App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\LookupController;
+use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\AccomodationController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\TreatmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +76,15 @@ Route::resource('rudder/menu', MenuController::class, [
 
 Route::get('/rudder/menu-post', [MenuController::class, 'datagrid']);
 Route::get('/rudder/upper-menu-list', [MenuController::class, 'upperMenuGetList'])->name('admin.upper-menu-list')->middleware('auth:webadmin');
+
+// Facility
+
+Route::resource('rudder/facility', FacilityController::class, [
+    'names' => [
+        'index' => 'admin.facility',
+    ]])->middleware('auth:webadmin');
+
+Route::get('/rudder/facility-list', [FacilityController::class, 'datagrid']);
 
 //Admin Packages
 Route::resource('rudder/package', PackageController::class, [
@@ -149,9 +160,16 @@ Route::resource('rudder/accomodation', AccomodationController::class, [
         'index' => 'admin.accomodation',
     ]])->middleware('auth:webadmin');
 
-
-
 Route::get('/rudder/accomodation-list', [AccomodationController::class, 'datagrid']);
+
+//Treatment
+Route::resource('rudder/treatment', TreatmentController::class, [
+    'names' => [
+        'index' => 'admin.treatment',
+    ]])->middleware('auth:webadmin');
+
+Route::get('/rudder/treatment-list', [TreatmentController::class, 'datagrid']);
+
 
 
 //file upload
