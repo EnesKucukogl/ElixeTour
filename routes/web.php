@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\AdminAuthController;
@@ -16,6 +15,7 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\AccomodationController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\TreatmentController;
+use App\Http\Controllers\ConfigController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +44,18 @@ Route::get('/about', function () {
     return view('about');
 });
 
+Route::get('/mest-club-card', function () {
+    return view('mest-club-card');
+});
+
+Route::get('/contact', function () {
+    return view('contact');
+});
+
+Route::get('/health-in-turkey', function () {
+    return view('health-in-turkey');
+});
+
 Route::get('/packages', [PackageController::class, 'frontSidePackages'])->name('packages');
 
 //Admin Side Login Routes
@@ -55,9 +67,9 @@ Route::get('rudder/logout', [AdminAuthController::class, 'logout'])->name('admin
 
 Route::get("rudder/dashboard", [AdminAuthController::class, 'dashboard'])->name('admin.dashboard')->middleware('auth:webadmin');
 
-Route::get("rudder/table" , [AdminAuthController::class, 'table'])->name('admin.table')->middleware('auth:webadmin');
+Route::get("rudder/table", [AdminAuthController::class, 'table'])->name('admin.table')->middleware('auth:webadmin');
 
-Route::get("rudder/withoutMenu" , [AdminAuthController::class, 'withoutMenu'])->name('admin.withoutMenu')->middleware('auth:webadmin');
+Route::get("rudder/withoutMenu", [AdminAuthController::class, 'withoutMenu'])->name('admin.withoutMenu')->middleware('auth:webadmin');
 
 //Lookup
 Route::get('/rudder/getCityList', [LookupController::class, 'getCities']);
@@ -108,7 +120,6 @@ Route::resource('rudder/contact', ContactController::class, [
 Route::get('/rudder/contact-list', [ContactController::class, 'datagrid']);
 
 
-
 //Hotel
 Route::resource('rudder/hotel', HotelController::class, [
     'names' => [
@@ -155,6 +166,12 @@ Route::resource('rudder/profile', ProfileController::class, [
 
 Route::get('/rudder/getProfile', [ProfileController::class, 'getProfile'])->middleware('auth:webadmin');
 
+//Config
+Route::resource('rudder/config', ConfigController::class, [
+    'names' => [
+        'index' => 'admin.config',
+    ]])->middleware('auth:webadmin');
+
 
 //Accommodation
 Route::resource('rudder/accomodation', AccomodationController::class, [
@@ -171,7 +188,6 @@ Route::resource('rudder/treatment', TreatmentController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/treatment-list', [TreatmentController::class, 'datagrid']);
-
 
 
 //file upload

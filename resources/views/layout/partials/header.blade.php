@@ -95,15 +95,15 @@
                 <div class="col-lg-6 col-md-6">
                     <ul class="topbar-list">
                         <li>
-                            <a href="https://www.facebook.com/profile.php?id=100088960760419"><i
+                            <a href="{{$config->facebook_link}}"><i
                                     class="fab fa-facebook"></i></a>
-                            <a href="https://www.instagram.com/elixetour/?next=%2F"><i class="fab fa-instagram"></i></a>
+                            <a href="{{$config->instagram_link}}"><i class="fab fa-instagram"></i></a>
                             <!--
                             <a href="#!"><i class="fab fa-twitter-square"></i></a>
                              <a href="#!"><i class="fab fa-linkedin"></i></a> -->
                         </li>
-                        <li><a href="tel:0232 462 11 13"><span>0232 462 11 13</span></a></li>
-                        <li><a href="#!"><span>info@elixetour.com</span></a></li>
+                        <li><a href="tel:0232 462 11 13"><span>{{$config->telephone}}</span></a></li>
+                        <li><a href="#!"><span>{{$config->mail}}</span></a></li>
                     </ul>
                 </div>
                 <div class="col-lg-6 col-md-6">
@@ -111,21 +111,10 @@
                         <li class="topbar-quick"><a href="contact.php" data-bs-toggle="modal"
                                                     data-bs-target="#quickAppointment" onclick="resetAnimation()">Quick
                                 appointment</a></li>
-                        <li><a href="https://wa.me/+905380968946"><img src="{{URL::asset('/wp.png')}}" width="21px"
+                        <li><a href="https://wa.me/{{$config->whatsapp}}"><img src="{{URL::asset('/wp.png')}}" width="21px"
                                                                        alt=""><span>Whatsapp</span></a></li>
-                        <!-- <li>
-                            <div class="dropdown language-option">
-                                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    <span class="lang-name"></span>
-                                </button>
-                                <div class="dropdown-menu language-dropdown-menu">
-                                    <a class="dropdown-item" href="#">English</a>
-                                    <a class="dropdown-item" href="#">Arabic</a>
-                                    <a class="dropdown-item" href="#">French</a>
-                                </div>
-                            </div>
-                        </li> -->
+
+                        @include('layout/partials/language_switcher')
 
                     </ul>
                 </div>
@@ -189,11 +178,12 @@
                             {{--  <li class="nav-item"><a href="mest-club-card.php" class="nav-link">Mest Club<span
                                           style="color:#4c8c40;font-weight:bold;"> Card</span></a></li>--}}
 
+
                             <li class="nav-item dropdown-quick"><a href="become-vendor.php" data-bs-toggle="modal"
                                                                    data-bs-target="#quickAppointment"
                                                                    onclick="resetAnimation()">Quick appointment</a></li>
                         </ul>
-                        @include('layout/partials/language_switcher')
+
                         <div class="others-options d-flex align-items-center menu-quick">
 
                             <div class="option-item">

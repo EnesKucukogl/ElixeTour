@@ -11408,3 +11408,8 @@ td{
   .price-starts{
       margin-left:0.25em;
   }
+
+  .language-selected{
+      background: #4c8c40;
+      color: #fff!important;
+  }

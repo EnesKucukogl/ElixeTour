@@ -92,5 +92,12 @@
             </a>
         </li>
 
+        <li class="menu-item">
+            <a href="{{route('admin.config')}}" class="menu-link">
+                <i class="menu-icon fa-solid fa-gear"></i>
+                <div data-i18n="Config">Ayarlar</div>
+            </a>
+        </li>
+
     </ul>
 </aside>
