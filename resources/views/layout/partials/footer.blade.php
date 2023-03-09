@@ -4,11 +4,11 @@
             <div class="col-lg-7">
                 <div class="cta_left">
                     <div class="cta_icon">
-                        <img src="{{URL::asset('/img/common/email.png')}}" alt="icon">
+                        <img width="90%" src="{{URL::asset('/img/common/email.png')}}" alt="icon">
                     </div>
                     <div class="cta_content">
-                        <h4>Get the latest news and offers</h4>
-                        <h2>Subscribe to our newsletter</h2>
+                        <h4>{{ __('Get the latest news and offers') }}</h4>
+                        <h2>{{ __('Subscribe to our newsletter') }}</h2>
                     </div>
                 </div>
             </div>
@@ -16,8 +16,8 @@
                 <div class="cat_form">
                     <form id="cta_form_wrappper">
                         <div class="input-group"><input type="text" class="form-control"
-                                                        placeholder="Enter your mail address"><button class="btn btn_theme btn_md"
-                                                                                                      type="button">Subscribe</button></div>
+                                                        placeholder="{{ __('Enter your mail address') }}"><button class="btn btn_theme btn_md"
+                                                                                                      type="button">{{ __('Subscribe') }}</button></div>
                     </form>
                 </div>
             </div>
@@ -31,19 +31,19 @@
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="footer_heading_area">
-                    <h5>Need any help?</h5>
+                    <h5>{{ __('Need any help?') }}</h5>
                 </div>
                 <div class="footer_first_area">
                     <div class="footer_inquery_area">
-                        <h5>Call 24/7 for any help</h5>
-                        <h3> <a href="tel:0232 462 11 11">0232 462 11 11</a></h3>
+                        <h5 class="mb-2">{{ __('Call 24/7 for any help') }}</h5>
+                        <h5> <a href="tel:0232 462 11 11">0232 462 11 11</a></h5>
                     </div>
                     <div class="footer_inquery_area">
-                        <h5>Mail to our support team</h5>
-                        <h3> <a href="mailto:info@elixetour.com">info@elixetour.com</a></h3>
+                        <h5 class="mb-2">{{ __('Mail to our support team') }}</h5>
+                        <h5> <a href="mailto:info@elixetour.com">info@elixetour.com</a></h5>
                     </div>
                     <div class="footer_inquery_area">
-                        <h5>Follow us on</h5>
+                        <h5>{{ __('Follow us on') }}</h5>
                         <ul class="soical_icon_footer">
                             <li><a href="https://www.facebook.com/profile.php?id=100088960760419"><i class="fab fa-facebook"></i></a></li>
                             <li><a href="https://www.instagram.com/elixetour/?next=%2F"><i class="fab fa-instagram"></i></a></li>
@@ -55,7 +55,7 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="footer_heading_area">
-                    <h5>Company</h5>
+                    <h5>{{ __('Company') }}</h5>
                 </div>
                 <div class="footer_link_area">
                     <ul>
@@ -69,7 +69,7 @@
 
             <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                 <div class="footer_heading_area">
-                    <h5>Other Treatments</h5>
+                    <h5>{{ __('Other Treatments') }}</h5>
                 </div>
                 <div class="footer_link_area">
                     <ul>
@@ -82,7 +82,7 @@
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                 <div class="footer_heading_area">
-                    <h5>Top Hotels</h5>
+                    <h5>{{ __('Top Hotels') }}</h5>
                 </div>
                 <div class="footer_link_area">
                     <ul>

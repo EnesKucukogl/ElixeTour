@@ -139,7 +139,7 @@
             <div class="container">
                 <div class="main-responsive-menu">
                     <div class="logo">
-                        <a href="index.php">
+                        <a href="{{route("home")}}">
                             <img src="{{URL::asset('/img/elixelogo.png')}}" alt="logo">
                         </a>
                     </div>
@@ -149,7 +149,7 @@
         <div class="main-navbar">
             <div class="container">
                 <nav class="navbar navbar-expand-md navbar-light">
-                    <a class="navbar-brand" href="index.php">
+                    <a class="navbar-brand" href="{{route("home")}}">
                         <img src="{{URL::asset('/img/elixelogo.png')}}" width="225" alt="logo">
                     </a>
                     <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">

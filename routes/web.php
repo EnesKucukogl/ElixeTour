@@ -40,9 +40,11 @@ Route::get('/login', [UserAuthController::class, 'login'])->name('login');
 Route::post('/login', [UserAuthController::class, 'handleLogin'])->name('handleLogin');
 Route::get('/logout', [UserAuthController::class, 'index'])->name('logout');
 
-Route::get('/about-us', function () {
+Route::get('/about', function () {
     return view('about');
 });
+
+Route::get('/packages', [PackageController::class, 'frontSidePackages'])->name('packages');
 
 //Admin Side Login Routes
 Route::get('rudder/', [AdminAuthController::class, 'index'])->name('admin.home')->middleware('auth:webadmin');

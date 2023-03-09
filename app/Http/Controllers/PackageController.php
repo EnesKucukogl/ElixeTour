@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Package;
+use App\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -20,6 +21,13 @@ class PackageController extends Controller
     public function index()
     {
         return view('admin.package');
+    }
+
+    public function frontSidePackages()
+    {
+        $package = Package::packageListActive();
+        $file = File::where("file_type_id","1")->where("cover_image","1")->get();
+        return view('packages', ['package' => $package,'packageFile'=>$file]);
     }
 
     public function datagrid()

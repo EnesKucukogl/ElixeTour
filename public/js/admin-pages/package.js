@@ -462,7 +462,8 @@ $(document).ready(function () {
                     editorType: "dxNumberBox",
                     editorOptions: {
                         min: 0,
-                        max: 100
+                        max: 100,
+                        value:data == null ? '' : data.discount_rate
 
                     },
                     validationRules: [{

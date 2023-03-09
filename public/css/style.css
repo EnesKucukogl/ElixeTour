@@ -263,7 +263,7 @@ h1 {
 
 h2 {
 
-    font-size: 36px;
+    font-size: 27px;
 
     font-weight: 500;
 
@@ -11403,4 +11403,8 @@ td{
 
     transition:800ms ease all;
 
+  }
+
+  .price-starts{
+      margin-left:0.25em;
   }

@@ -373,7 +373,7 @@
                                     <div class="theme_two_box_content">
                                         <h4><a href="{{$item->slug}}">{{$package_name}}</a></h4>
                                         <p><span class="review_rating">{{$item->duration}} Days+</span></p>
-                                        <h3>{{$item->price}}<span>Price starts from</span></h3>
+                                        <h3>{{$item->price_currency_code."".$item->price}}<span>Price starts from</span></h3>
                                     </div>
                                 </div>
                             @endif
