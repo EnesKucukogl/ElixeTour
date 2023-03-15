@@ -128,8 +128,13 @@ const getHotelListe = () => {
                 // minwidth: 100
             },
             {
-                dataField: "city_id",
+                dataField: "city_name",
                 caption: "City Name",
+                // minwidth: 100
+            },
+            {
+                dataField: "country_name",
+                caption: "Country Name",
                 // minwidth: 100
             },
             {

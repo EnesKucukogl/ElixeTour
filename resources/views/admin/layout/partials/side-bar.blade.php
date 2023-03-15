@@ -77,6 +77,13 @@
                 <div data-i18n="Currency">Para Birimi</div>
             </a>
         </li>
+        <!-- Exchange Rates -->
+        <li class="menu-item">
+            <a href="{{route('admin.exchangeRate')}}" class="menu-link">
+                <i class="menu-icon fa-solid fa-dollar-sign"></i>
+                <div data-i18n="Currency">Exchange Rates</div>
+            </a>
+        </li>
      <!-- Contact -->
         <li class="menu-item">
             <a href="{{route('admin.contact')}}" class="menu-link">
@@ -98,6 +105,19 @@
                 <div data-i18n="Config">Ayarlar</div>
             </a>
         </li>
-
+        <!-- Accomodation -->
+        <li class="menu-item">
+            <a href="{{route('admin.accomodation')}}" class="menu-link">
+                <i class="menu-icon fa-solid fa-building-user"></i>
+                <div data-i18n="Contact">Accomodation</div>
+            </a>
+        </li>
+        <!-- Accomodation Type -->
+        <li class="menu-item">
+            <a href="{{route('admin.accomodationType')}}" class="menu-link">
+                <i class="menu-icon fa-solid fa-list-check"></i>
+                <div data-i18n="Contact">Accomodation Types</div>
+            </a>
+        </li>
     </ul>
 </aside>

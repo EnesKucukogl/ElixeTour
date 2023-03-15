@@ -6,9 +6,9 @@ let ulkeId = 0;
 let sehirId = 0;
 
 $( document ).ready(function() {
-    getAccomodationListe();
+    getAccomodationTypeListe();
 
-    $('#addAccomodation').on('click', function () {
+    $('#addAccomodationType').on('click', function () {
         getFormById(-1);
     });
 
@@ -87,11 +87,11 @@ const getSehirler = async (ulkeId) => {
     }
 }
 
-const getAccomodationListe = () => {
+const getAccomodationTypeListe = () => {
 
-    dataGrids["accomodations"] = $('#gridContainer').dxDataGrid({
+    dataGrids["accomodationTypes"] = $('#gridContainer').dxDataGrid({
         keyExpr: "Id",
-        dataSource: '/rudder/accomodation-list' ,
+        dataSource: '/rudder/accomodationType-list' ,
         columns: [
             {
                 type: "buttons",
@@ -124,22 +124,27 @@ const getAccomodationListe = () => {
             },
             {
                 dataField: "room_type",
-                caption: "Room Type",
+                caption: "Konaklama Oda Tipi",
                 // minwidth: 100
             },
             {
-                dataField: "hotel_name",
-                caption: "Hotel",
+                dataField: "room_type_detail",
+                caption: "Oda Tipi",
                 // minwidth: 100
             },
             {
-                dataField: "city_name",
-                caption: "City",
+                dataField: "room_board",
+                caption: "Pansiyon",
                 // minwidth: 100
             },
             {
-                dataField: "country_name",
-                caption: "Country",
+                dataField: "sales_price",
+                caption: "Satış Tutar",
+                // minwidth: 100
+            },
+            {
+                dataField: "sales_currency_symbol",
+                caption: "Para Birimi",
                 // minwidth: 100
             },
             {
@@ -189,15 +194,15 @@ const getAccomodationListe = () => {
 const getFormById = async (formId) => {
 
     if (formId == "-1") {
-        $("#modalHeading").html("Konaklama Ekle");
-        let formJson = await accomodationInsertUpdateForm();
+        $("#modalHeading").html("Konaklama Tipi Ekle");
+        let formJson = await accomodationTypeInsertUpdateForm();
         $("#frmEdit").dxForm(formJson);
     }
     else {
         var result;
         $.ajax({
             type: "GET",
-            url: 'accomodation' +'/'+formId+'/edit',
+            url: 'accomodationType' +'/'+formId+'/edit',
             datatype: "json",
             async: false,
             success: function(data){
@@ -205,14 +210,14 @@ const getFormById = async (formId) => {
             }
         });
 
-        $('#modalHeading').html("Konaklama Düzenle");
-        let formJson = await accomodationInsertUpdateForm(result);
+        $('#modalHeading').html("Konaklama Tipi Düzenle");
+        let formJson = await accomodationTypeInsertUpdateForm(result);
         $("#frmEdit").dxForm(formJson);
 
     }
 
 
-    $('#updateAccomodation').modal('show');
+    $('#updateAccomodationType').modal('show');
     $("#btnSave").unbind();
     $("#btnSave").on("click", function () {
         var frm = $("#frmEdit").dxForm("instance");
@@ -220,14 +225,14 @@ const getFormById = async (formId) => {
         if (validate.isValid) {
 
             var json = frm.option("formData");
-            // console.log(json);
+             console.log(json);
             save(json);
         }
     });
 }
 
 
-const accomodationInsertUpdateForm = async (data = {}) => {
+const accomodationTypeInsertUpdateForm = async (data = {}) => {
 
     // console.log(data);
 
@@ -236,27 +241,60 @@ const accomodationInsertUpdateForm = async (data = {}) => {
         formData: data,
         items: [
             {
-                dataField: "roomType",
+                dataField: "accomodationId",
                 label: {
-                    text: 'Room Type'
-                },
-                editorOptions: {
-                    value: data.room_type
-                }
-            },
-            {
-                dataField: "hotelId",
-                label: {
-                    text: 'Hotel'
+                    text: 'Konaklama'
                 },
                 editorType: "dxSelectBox",
                 editorOptions: {
-                    dataSource: '/rudder/hotel-list',
+                    dataSource: '/rudder/accomodation-list',
+                    showClearButton: true,
+                    searchEnabled: true,
+                    displayExpr: "room_type",
+                    valueExpr: "Id",
+                    value:  data.accomodation_id
+                }
+            },
+            {
+                dataField: "roomTypeDetail",
+                label: {
+                    text: 'Oda Tipi'
+                },
+                editorOptions: {
+                    value:  data.room_type_detail
+                }
+            },
+            {
+                dataField: "roomBoard",
+                label: {
+                    text: 'Pansiyon'
+                },
+                editorOptions: {
+                    value:  data.room_board
+                }
+            },
+            {
+                dataField: "salesPrice",
+                label: {
+                    text: 'Tutar'
+                },
+                editorOptions: {
+                    value:  data.sales_price
+                }
+            },
+            {
+                dataField: "salesCurrencyId",
+                label: {
+                    text: 'Para Birimi'
+                },
+                editorType: "dxSelectBox",
+                editorOptions: {
+                    dataSource: '/rudder/currency-list',
                     showClearButton: true,
                     searchEnabled: true,
                     displayExpr: "name",
                     valueExpr: "Id",
-                    value:  data.hotel_id
+                    value:  data.sales_currency_id
                 }
             },
         ]
@@ -267,13 +305,13 @@ const save = async (json) => {
 
     $.ajax({
         data: json ,
-        url: "accomodation",
+        url: "accomodationType",
         type: "POST",
         dataType: 'json',
         success: function (data) {
             //console.log("result"+JSON.stringify(data));
-            $("#gridContainer").dxDataGrid("instance").refresh();
-            $('#updateAccomodation').modal('toggle').fadeOut('slow');
+            dataGrids["accomodationTypes"].refresh();
+            $('#updateAccomodationType').modal('toggle').fadeOut('slow');
         },
         error: function (data) {
             console.log('Error:', data);
@@ -286,11 +324,11 @@ const changeStatus = async (Id) => {
 
     $.ajax({
         data: {Id:Id},
-        url: 'accomodation/'+Id,
+        url: 'accomodationType/'+Id,
         type: "PUT",
         dataType: 'json',
         success: function (data) {
-            dataGrids["accomodations"].refresh();
+            dataGrids["accomodationTypes"].refresh();
         },
         error: function (data) {
             console.log('Error:', data);
