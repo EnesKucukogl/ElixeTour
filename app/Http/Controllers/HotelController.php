@@ -40,10 +40,10 @@ class HotelController extends Controller
 
     public function store(Request $request)
     {
-        $hotel = Hotel::where('Id',  $request->Id)->first();
+        $hotel = DB::table('elx_hotel')->where('Id',  $request->Id)->first();
 
         if ($hotel !== null) {
-            $hotel->where('Id', $request->Id)->update([
+            DB::table('elx_hotel')->where('Id', $request->Id)->update([
                 'name' => $request->name,
                 'city_id' => $request->cityId,
                 'address' => $request->address,
@@ -51,7 +51,7 @@ class HotelController extends Controller
                 'updated_user_id' =>  Auth::user()->Id
             ]);
         } else {
-            Hotel::create([
+            DB::table('elx_hotel')->insert([
                 'name' => $request->name,
                 'city_id' => $request->cityId,
                 'address' => $request->address,
@@ -64,8 +64,8 @@ class HotelController extends Controller
 
     public function update(Request $request)
     {
-        $hotelDetail = Hotel::find($request -> Id);
-        Hotel::where('Id', $request->Id)->update([
+        $hotelDetail = DB::table('elx_hotel')->find($request -> Id);
+        DB::table('elx_hotel')->where('Id', $request->Id)->update([
             'active' => !($hotelDetail->active),
             'updated_user_id' =>  Auth::user()->Id,
         ]);

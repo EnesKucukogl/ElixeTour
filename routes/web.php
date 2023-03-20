@@ -17,6 +17,8 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\TreatmentController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\QuestionsController;
+use App\Http\Controllers\AccomodationTypeController;
+use App\Http\Controllers\ExchangeRateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -187,6 +189,24 @@ Route::resource('rudder/accomodation', AccomodationController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/accomodation-list', [AccomodationController::class, 'datagrid']);
+
+//Accommodation Type
+Route::resource('rudder/accomodationType', AccomodationTypeController::class, [
+    'names' => [
+        'index' => 'admin.accomodationType',
+    ]])->middleware('auth:webadmin');
+
+Route::get('/rudder/accomodationType-list', [AccomodationTypeController::class, 'datagrid']);
+
+//Exchange Rate
+Route::resource('rudder/exchangeRate', ExchangeRateController::class, [
+    'names' => [
+        'index' => 'admin.exchangeRate',
+    ]])->middleware('auth:webadmin');
+
+Route::get('/rudder/exchangeRate-list', [ExchangeRateController::class, 'datagrid']);
+
+Route::get('/rudder/getExchangeRates', [ExchangeRateController::class, 'getExchangeRates']);
 
 //Treatment
 Route::resource('rudder/treatment', TreatmentController::class, [
