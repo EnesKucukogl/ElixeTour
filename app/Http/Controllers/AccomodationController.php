@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Accomodation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AccomodationController extends Controller
 {
@@ -27,24 +28,24 @@ class AccomodationController extends Controller
 
     public function store(Request $request)
     {
-        $accomodation = Accomodation::where('Id',  $request->Id)->first();
+        $accomodation = DB::Table('elx_accomodation')->where('Id',  $request->Id)->first();
 
         if ($accomodation !== null) {
-            $accomodation->where('Id', $request->Id)->update([
+            DB::Table('elx_accomodation')->where('Id', $request->Id)->update([
                 'room_type' => $request->roomType,
                 'hotel_id' => $request->hotelId,
                 'active' => $request->active,
                 'updated_user_id' =>  Auth::user()->Id
             ]);
-            return response()->json(['success'=>'Record saved successfully if.']);
+            return response()->json(['success'=>'Record saved successfully.']);
         } else {
-            Accomodation::create([
+            DB::Table('elx_accomodation')->create([
                 'room_type' => $request->roomType,
                 'hotel_id' => $request->hotelId,
                 'active' => $request->active,
                 'created_user_id' =>  Auth::user()->Id,
             ]);
-            return response()->json(['success'=>'Record saved successfully. else']);
+            return response()->json(['success'=>'Record saved successfully.']);
         }
         return response()->json(['success'=>'Record saved successfully.']);
     }
@@ -52,7 +53,7 @@ class AccomodationController extends Controller
     public function update(Request $request)
     {
         $accomodationDetail = Accomodation::find($request -> Id);
-        Accomodation::where('Id', $request->Id)->update([
+        DB::Table('elx_accomodation')->where('Id', $request->Id)->update([
             'active' => !($accomodationDetail->active),
             'updated_user_id' =>  Auth::user()->Id,
         ]);

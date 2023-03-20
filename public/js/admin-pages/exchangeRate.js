@@ -1,15 +1,26 @@
 const dataGrids = {};
-let ulkeData = [];
-let sehirData = [];
-let sehirler = [];
-let ulkeId = 0;
-let sehirId = 0;
-
 $( document ).ready(function() {
-    getAccomodationListe();
+    getExchangeRateListe();
 
-    $('#addAccomodation').on('click', function () {
-        getFormById(-1);
+    $('#tcmbkurguncelle').on('click', function () {
+
+        let date = new Date().toLocaleDateString().replaceAll('.','-');
+        console.log(date);
+        let url = 'https://evds2.tcmb.gov.tr/service/evds/series=TP.DK.GBP.A-TP.DK.USD.A-TP.DK.EUR.A&startDate=' + date + '&endDate=' + date + '&type=json&key=dTAqyU2i3u';
+
+
+        $.ajax({
+            url:  '/rudder/getExchangeRates',
+            type: "get",
+            success: function (data) {
+                //console.log("result"+JSON.stringify(data));
+                dataGrids["accomodationTypes"].refresh();
+                // $('#updateExchangeRate').modal('toggle').fadeOut('slow');
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
     });
 
     $.ajaxSetup({
@@ -19,79 +30,12 @@ $( document ).ready(function() {
     });
 });
 
-const getUlke = async (ulkeId) => {
 
-    if (!ulkeId) return null;
+const getExchangeRateListe = () => {
 
-    let result;
-
-    $.ajax({
-        type: "GET",
-        url: '/rudder/getCountry?id='+ulkeId,
-        datatype: "json",
-        async: false,
-        success: function(data){
-            result = data == null ? [] : data;
-        }
-    });
-
-    if (result) {
-        return result;
-    } else {
-        console.log("Ülke Bilgisi Bulunamadı.");
-    }
-}
-
-const getSehir = async (id) => {
-
-    if (!id) return null;
-
-    let result;
-
-    $.ajax({
-        type: "GET",
-        url: '/rudder/getCity?id='+id,
-        datatype: "json",
-        async: false,
-        success: function(data){
-            result = data == null ? [] : data;
-        }
-    });
-
-    if (result) {
-        return result;
-    } else {
-        console.log("Şehir Bilgisi Bulunamadı.");
-    }
-}
-
-const getSehirler = async (ulkeId) => {
-
-    if (!ulkeId) return null;
-    // console.log(ulkeId);
-    let result;
-    $.ajax({
-        type: "GET",
-        url: 'getCityList?ulkeId='+ulkeId,
-        datatype: "json",
-        async: false,
-        success: function(data){
-            result = data;
-        }
-    });
-
-    if (result) {
-        return result;
-    } else {
-        console.log("Şehir Bilgisi Bulunamadı.");
-    }
-}
-
-const getAccomodationListe = () => {
-
-    dataGrids["accomodations"] = $('#gridContainer').dxDataGrid({
+    dataGrids["exchangeRates"] = $('#gridContainer').dxDataGrid({
         keyExpr: "Id",
-        dataSource: '/rudder/accomodation-list' ,
+        dataSource: '/rudder/exchangeRate-list' ,
         columns: [
             {
                 type: "buttons",
@@ -123,23 +67,24 @@ const getAccomodationListe = () => {
                 ]
             },
             {
-                dataField: "room_type",
-                caption: "Room Type",
+                dataField: "currency_id",
+                caption: "Para Birimi",
                 // minwidth: 100
             },
             {
-                dataField: "hotel_name",
-                caption: "Hotel",
+                dataField: "exchange",
+                caption: "Kur",
                 // minwidth: 100
             },
             {
-                dataField: "city_name",
-                caption: "City",
-                // minwidth: 100
-            },
-            {
-                dataField: "country_name",
-                caption: "Country",
+                dataField: "exchange_date",
+                caption: "Tarih",
+                editorType: "dxDateBox",
+                editorOptions: {
+                    dataType: "date",
+                    displayFormat: "dd.MM.yyyy",
+                    dateSerializationFormat: "yyyy-MM-dd",
+                },
                 // minwidth: 100
             },
             {
@@ -189,15 +134,15 @@ const getAccomodationListe = () => {
 const getFormById = async (formId) => {
 
     if (formId == "-1") {
-        $("#modalHeading").html("Konaklama Ekle");
-        let formJson = await accomodationInsertUpdateForm();
+        $("#modalHeading").html("Konaklama Tipi Ekle");
+        let formJson = await accomodationTypeInsertUpdateForm();
         $("#frmEdit").dxForm(formJson);
     }
     else {
         var result;
         $.ajax({
             type: "GET",
-            url: 'accomodation' +'/'+formId+'/edit',
+            url: 'accomodationType' +'/'+formId+'/edit',
             datatype: "json",
             async: false,
             success: function(data){
@@ -205,14 +150,14 @@ const getFormById = async (formId) => {
             }
         });
 
-        $('#modalHeading').html("Konaklama Düzenle");
-        let formJson = await accomodationInsertUpdateForm(result);
+        $('#modalHeading').html("Konaklama Tipi Düzenle");
+        let formJson = await accomodationTypeInsertUpdateForm(result);
         $("#frmEdit").dxForm(formJson);
 
     }
 
 
-    $('#updateAccomodation').modal('show');
+    $('#updateAccomodationType').modal('show');
     $("#btnSave").unbind();
     $("#btnSave").on("click", function () {
         var frm = $("#frmEdit").dxForm("instance");
@@ -220,14 +165,14 @@ const getFormById = async (formId) => {
         if (validate.isValid) {
 
             var json = frm.option("formData");
-            // console.log(json);
+            console.log(json);
             save(json);
         }
     });
 }
 
 
-const accomodationInsertUpdateForm = async (data = {}) => {
+const exchangeRateInsertUpdateForm = async (data = {}) => {
 
     // console.log(data);
 
@@ -236,27 +181,60 @@ const accomodationInsertUpdateForm = async (data = {}) => {
         formData: data,
         items: [
             {
-                dataField: "roomType",
+                dataField: "accomodationId",
                 label: {
-                    text: 'Room Type'
-                },
-                editorOptions: {
-                    value: data.room_type
-                }
-            },
-            {
-                dataField: "hotelId",
-                label: {
-                    text: 'Hotel'
+                    text: 'Konaklama'
                 },
                 editorType: "dxSelectBox",
                 editorOptions: {
-                    dataSource: '/rudder/hotel-list',
+                    dataSource: '/rudder/accomodation-list',
+                    showClearButton: true,
+                    searchEnabled: true,
+                    displayExpr: "room_type",
+                    valueExpr: "Id",
+                    value:  data.accomodation_id
+                }
+            },
+            {
+                dataField: "roomTypeDetail",
+                label: {
+                    text: 'Oda Tipi'
+                },
+                editorOptions: {
+                    value:  data.room_type_detail
+                }
+            },
+            {
+                dataField: "roomBoard",
+                label: {
+                    text: 'Pansiyon'
+                },
+                editorOptions: {
+                    value:  data.room_board
+                }
+            },
+            {
+                dataField: "salesPrice",
+                label: {
+                    text: 'Tutar'
+                },
+                editorOptions: {
+                    value:  data.sales_price
+                }
+            },
+            {
+                dataField: "salesCurrencyId",
+                label: {
+                    text: 'Para Birimi'
+                },
+                editorType: "dxSelectBox",
+                editorOptions: {
+                    dataSource: '/rudder/currency-list',
                     showClearButton: true,
                     searchEnabled: true,
                     displayExpr: "name",
                     valueExpr: "Id",
-                    value:  data.hotel_id
+                    value:  data.sales_currency_id
                 }
             },
         ]
@@ -267,30 +245,29 @@ const save = async (json) => {
 
     $.ajax({
         data: json ,
-        url: "accomodation",
+        url: "exchangeRate",
         type: "POST",
         dataType: 'json',
         success: function (data) {
             //console.log("result"+JSON.stringify(data));
-            $("#gridContainer").dxDataGrid("instance").refresh();
-            $('#updateAccomodation').modal('toggle').fadeOut('slow');
+            dataGrids["accomodationTypes"].refresh();
+            $('#updateExchangeRate').modal('toggle').fadeOut('slow');
         },
         error: function (data) {
             console.log('Error:', data);
         }
     });
-
 }
 
 const changeStatus = async (Id) => {
 
     $.ajax({
         data: {Id:Id},
-        url: 'accomodation/'+Id,
+        url: 'accomodationType/'+Id,
         type: "PUT",
         dataType: 'json',
         success: function (data) {
-            dataGrids["accomodations"].refresh();
+            dataGrids["accomodationTypes"].refresh();
         },
         error: function (data) {
             console.log('Error:', data);

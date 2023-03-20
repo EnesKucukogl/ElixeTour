@@ -28,5 +28,4 @@ class Treatment extends Model
         return static::with("treatmentTextContent")->with("descriptionTextContent")->get();
     }
 
-
 }

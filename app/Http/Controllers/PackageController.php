@@ -56,7 +56,9 @@ class PackageController extends Controller
                 foreach ($request['frmLang'] as $item) {
                     if ($item['language_id'] == $this->default_lang) {
                         $slug = SlugService::createSlug(Package::class, 'slug', $item['translation_package']);
-                        DB::table('elx_text_content')->where('Id', $item['text_content_id_package'])->update(array(
+                        DB::table('elx_text_content')
+                            ->where('Id', $item['text_content_id_package'])
+                            ->update(array(
                             'original_text' => $item['translation_package'],
                             'updated_user_id' => Auth::user()->Id,
                             'updated_date' => date("Y-m-d H:i:s"),
@@ -70,13 +72,19 @@ class PackageController extends Controller
 
                     } elseif ($item['language_id'] !== $this->default_lang) {
                         if ($item['translation_package'] == '') {
-                            DB::table('elx_translation')->where('text_content_id', $item['text_content_id_package'])->where('language_id', $item['language_id'])->update(array(
+                            DB::table('elx_translation')
+                                ->where('text_content_id', $item['text_content_id_package'])
+                                ->where('language_id', $item['language_id'])
+                                ->update(array(
                                 'translation' => '',
                                 'updated_user_id' => Auth::user()->Id,
                                 'updated_date' => date("Y-m-d H:i:s"),
                             ));
                         } else {
-                            DB::table('elx_translation')->where('text_content_id', $item['text_content_id_package'])->where('language_id', $item['language_id'])->update(array(
+                            DB::table('elx_translation')
+                                ->where('text_content_id', $item['text_content_id_package'])
+                                ->where('language_id', $item['language_id'])
+                                ->update(array(
                                 'translation' => $item['translation_package'],
                                 'updated_user_id' => Auth::user()->Id,
                                 'updated_date' => date("Y-m-d H:i:s"),
@@ -84,13 +92,19 @@ class PackageController extends Controller
                         }
 
                         if ($item['translation_description'] == '') {
-                            DB::table('elx_translation')->where('text_content_id', $item['text_content_id_description'])->where('language_id', $item['language_id'])->update(array(
+                            DB::table('elx_translation')
+                                ->where('text_content_id', $item['text_content_id_description'])
+                                ->where('language_id', $item['language_id'])
+                                ->update(array(
                                 'translation' => '',
                                 'updated_user_id' => Auth::user()->Id,
                                 'updated_date' => date("Y-m-d H:i:s"),
                             ));
                         } else {
-                            DB::table('elx_translation')->where('text_content_id', $item['text_content_id_description'])->where('language_id', $item['language_id'])->update(array(
+                            DB::table('elx_translation')
+                                ->where('text_content_id', $item['text_content_id_description'])
+                                ->where('language_id', $item['language_id'])
+                                ->update(array(
                                 'translation' => $item['translation_description'],
                                 'updated_user_id' => Auth::user()->Id,
                                 'updated_date' => date("Y-m-d H:i:s"),
@@ -101,7 +115,9 @@ class PackageController extends Controller
 
 
                 }
-                $resultPackage = DB::table('elx_package')->where('Id', $request['Id'])->update(array(
+                $resultPackage = DB::table('elx_package')
+                    ->where('Id', $request['Id'])
+                    ->update(array(
                     'slug' => $slug,
                     'highlighted' => $request['highlighted'],
                     'package_start_date' => $request['package_start_date'],

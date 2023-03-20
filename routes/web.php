@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\AdminAuthController;
@@ -19,6 +18,10 @@ use App\Http\Controllers\TreatmentController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\HotelFacilityController;
+use App\Http\Controllers\QuestionsController;
+use App\Http\Controllers\AccomodationTypeController;
+use App\Http\Controllers\ExchangeRateController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -59,6 +62,11 @@ Route::get('/health-in-turkey', function () {
 });
 
 Route::get('/packages', [PackageController::class, 'frontSidePackages'])->name('packages');
+
+Route::get('/hotel', [HotelController::class, 'frontSideHotel'])->name('hotel');
+
+Route::get('/treatment', [TreatmentController::class, 'frontSideTreatment'])->name('treatment');
+
 
 //Admin Side Login Routes
 Route::get('rudder/', [AdminAuthController::class, 'index'])->name('admin.home')->middleware('auth:webadmin');
@@ -132,7 +140,6 @@ Route::resource('rudder/contact', ContactController::class, [
 Route::get('/rudder/contact-list', [ContactController::class, 'datagrid']);
 
 
-
 //Hotel
 Route::resource('rudder/hotel', HotelController::class, [
     'names' => [
@@ -141,6 +148,7 @@ Route::resource('rudder/hotel', HotelController::class, [
 
 Route::get('/rudder/hotel-list', [HotelController::class, 'datagrid']);
 Route::get('/rudder/hotel-list-active', [HotelController::class, 'datagridActive']);
+Route::post('/rudder/hotel-file-upload', [HotelController::class, 'uploadFile'])->middleware('auth:webadmin');
 
 
 //language
@@ -194,6 +202,24 @@ Route::resource('rudder/accomodation', AccomodationController::class, [
 
 Route::get('/rudder/accomodation-list', [AccomodationController::class, 'datagrid']);
 
+//Accommodation Type
+Route::resource('rudder/accomodationType', AccomodationTypeController::class, [
+    'names' => [
+        'index' => 'admin.accomodationType',
+    ]])->middleware('auth:webadmin');
+
+Route::get('/rudder/accomodationType-list', [AccomodationTypeController::class, 'datagrid']);
+
+//Exchange Rate
+Route::resource('rudder/exchangeRate', ExchangeRateController::class, [
+    'names' => [
+        'index' => 'admin.exchangeRate',
+    ]])->middleware('auth:webadmin');
+
+Route::get('/rudder/exchangeRate-list', [ExchangeRateController::class, 'datagrid']);
+
+Route::get('/rudder/getExchangeRates', [ExchangeRateController::class, 'getExchangeRates']);
+
 //Treatment
 Route::resource('rudder/treatment', TreatmentController::class, [
     'names' => [
@@ -201,7 +227,15 @@ Route::resource('rudder/treatment', TreatmentController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/treatment-list', [TreatmentController::class, 'datagrid']);
+Route::post('/rudder/treatment-file-upload', [TreatmentController::class, 'uploadFile'])->middleware('auth:webadmin');
 
+//Questions
+Route::resource('rudder/questions', QuestionsController::class, [
+    'names' => [
+        'index' => 'admin.questions',
+    ]])->middleware('auth:webadmin');
+
+Route::get('/rudder/questions-list', [QuestionsController::class, 'datagrid']);
 
 
 //file upload
