@@ -21,38 +21,40 @@
         </li>
 
 
-            {{--Service--}}
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon fa-solid fa-laptop "></i>
-                <div data-i18n="Service">Hizmetler</div>
-            </a>
+
             {{--Hotel--}}
-            <ul class="menu-sub">
                 <li class="menu-item">
                     <a href="{{route('admin.customer')}}" class="menu-link">
-                        <div data-i18n="Hotel">Müşteriler</div>
+                        <i class="menu-icon fa-solid fa-users-line"></i>
+                        <div data-i18n="Customer">Müşteriler</div>
                     </a>
                 </li>
-            </ul>
+            {{--Accomodation--}}
+        <li class="menu-item">
+            <a href="{{route('admin.accomodation')}}" class="menu-link">
+                <i class="menu-icon fa-solid fa-bed"></i>
+                <div data-i18n="Customer">Konaklama Seçenekleri</div>
+            </a>
+        </li>
 
+            {{--Hotel--}}
         <li class="menu-item">
             <a href="{{route('admin.hotel')}}" class="menu-link">
                 <i class="menu-icon fa fa-hotel"></i>
-                <div data-i18n="Tables">Hotels</div>
+                <div data-i18n="Tables">Oteller</div>
             </a>
         </li>
-        {{--language--}}
+        {{--Menü--}}
         <li class="menu-item">
             <a href="{{route('admin.menu')}}" class="menu-link">
-                <i class="menu-icon fa-solid fa-language"></i>
+                <i class="menu-icon fa-solid fa-bars"></i>
                 <div data-i18n="Language">Menü</div>
             </a>
         </li>
         {{--packages--}}
         <li class="menu-item">
             <a href="{{route('admin.package')}}" class="menu-link">
-                <i class="menu-icon fa-solid fa-spa"></i>
+                <i class="menu-icon fa-solid fa-boxes-stacked"></i>
                 <div data-i18n="Language">Paketler</div>
             </a>
         </li>
@@ -66,7 +68,7 @@
         {{--language--}}
         <li class="menu-item">
             <a href="{{route('admin.language')}}" class="menu-link">
-                <i class="menu-icon fa-solid fa-globe"></i>
+                <i class="menu-icon fa-solid fa-language"></i>
                 <div data-i18n="Language">Diller</div>
             </a>
         </li>
@@ -77,14 +79,14 @@
                 <div data-i18n="Currency">Para Birimi</div>
             </a>
         </li>
-     <!-- Contact -->
+        {{--Contact --}}
         <li class="menu-item">
             <a href="{{route('admin.contact')}}" class="menu-link">
                 <i class="menu-icon fa-solid fa-comments"></i>
-                <div data-i18n="Contact">Contact</div>
+                <div data-i18n="Contact">Müşteri Mailleri</div>
             </a>
         </li>
-
+        {{--Facility--}}
         <li class="menu-item">
             <a href="{{route('admin.facility')}}" class="menu-link">
                 <i class="menu-icon fa-solid fa-bell-concierge"></i>

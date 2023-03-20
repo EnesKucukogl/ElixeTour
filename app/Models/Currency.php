@@ -14,5 +14,5 @@ class Currency extends Model
 
     protected $table = 'elx_currency';
 
-    protected $fillable = ['id','name','symbol','active','created_user_id','updated_user_id'];
+    protected $fillable = ['id','name','symbol', 'code' ,'active','created_user_id','updated_user_id'];
 }

@@ -230,7 +230,6 @@ $(document).ready(function () {
             }
         });
     }
-
     const contactInsertUpdateForm = async (data = {}) => {
 
         // console.log("data", data);

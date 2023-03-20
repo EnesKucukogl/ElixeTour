@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\Hotel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,8 +12,12 @@ class Facility extends Model
     const CREATED_AT = 'created_date';
     const UPDATED_AT  = 'updated_date';
 
-    protected $table = 'vew_facility';
-
+    protected $table = 'elx_facility';
+//
+//    public function hotels()
+//    {
+//        return $this->belongsToMany(Hotel::class, 'elx_hotel_facility');
+//    }
 
 //    public function children()
 //    {

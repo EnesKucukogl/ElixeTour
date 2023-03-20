@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\AdminAuthController;
@@ -15,8 +16,9 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\AccomodationController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\TreatmentController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ConfigController;
-
+use App\Http\Controllers\HotelFacilityController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -82,6 +84,16 @@ Route::get('/rudder/get-language', [LanguageController::class, 'getLanguageEdit'
 Route::get('/rudder/get-language-create', [LanguageController::class, 'getLanguageCreate']);
 Route::get('/rudder/get-language-detail', [LanguageController::class, 'getLanguage']);
 
+//Admin Facility_Hotel
+Route::resource('rudder/hotel_facility', HotelFacilityController::class, [
+    'names' => [
+        'index' => 'admin.hotel_facility',
+    ]])->middleware('auth:webadmin');
+
+Route::post('/rudder/get-hotel-facility', [HotelFacilityController::class, 'HotelInsertFacility'])->middleware('auth:webadmin');
+
+
+
 //Admin Menu
 Route::resource('rudder/menu', MenuController::class, [
     'names' => [
@@ -118,6 +130,7 @@ Route::resource('rudder/contact', ContactController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/contact-list', [ContactController::class, 'datagrid']);
+
 
 
 //Hotel
@@ -190,37 +203,17 @@ Route::resource('rudder/treatment', TreatmentController::class, [
 Route::get('/rudder/treatment-list', [TreatmentController::class, 'datagrid']);
 
 
+
 //file upload
 Route::post('/rudder/file-upload', [FileController::class, 'uploadFile'])->name('uploadFile');
 Route::post('/rudder/get-file-list', [FileController::class, 'getFileList']);
 Route::post('/rudder/check-cover-file', [FileController::class, 'coverFileCheck']);
 Route::post('/rudder/delete-file', [FileController::class, 'deleteFile'])->middleware('auth:webadmin');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Blog
+Route::resource('rudder/blog', BlogController::class, [
+    'names' => [
+        'index' => 'admin.blog',
+    ]])->middleware('auth:webadmin');
+Route::get('/rudder/blog-list', [BlogController::class, 'datagrid']);
+Route::post('/rudder/blog-file-upload', [BlogController::class, 'uploadFile'])->middleware('auth:webadmin');

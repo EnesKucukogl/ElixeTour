@@ -22,9 +22,6 @@ $(document).ready(function () {
                             name: "edit",
                             hint: "Güncelle",
                             icon: "fa fa-edit",
-                            disabled: function (e) {
-                                return !e.row.key.active;
-                            },
                             onClick: function (e) {
                                 getFormById(e.row.key.Id);
                             }

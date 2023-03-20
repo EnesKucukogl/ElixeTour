@@ -19,6 +19,7 @@ class AdminAuthController extends Controller
 
     public function handleLogin(Request $request)
     {
+
         $validator =  $request->validate([
             'user_name' => 'required',
             'password' => 'required',
@@ -27,6 +28,7 @@ class AdminAuthController extends Controller
         if(Auth::guard('webadmin')
             ->attempt($request->only(['user_name', 'password'])))
         {
+
             return redirect()->route('admin.home');
         }
 
