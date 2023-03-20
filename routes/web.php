@@ -16,6 +16,7 @@ use App\Http\Controllers\AccomodationController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\TreatmentController;
 use App\Http\Controllers\ConfigController;
+use App\Http\Controllers\QuestionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,11 @@ Route::get('/health-in-turkey', function () {
 });
 
 Route::get('/packages', [PackageController::class, 'frontSidePackages'])->name('packages');
+
+Route::get('/hotel', [HotelController::class, 'frontSideHotel'])->name('hotel');
+
+Route::get('/treatment', [TreatmentController::class, 'frontSideTreatment'])->name('treatment');
+
 
 //Admin Side Login Routes
 Route::get('rudder/', [AdminAuthController::class, 'index'])->name('admin.home')->middleware('auth:webadmin');
@@ -128,6 +134,7 @@ Route::resource('rudder/hotel', HotelController::class, [
 
 Route::get('/rudder/hotel-list', [HotelController::class, 'datagrid']);
 Route::get('/rudder/hotel-list-active', [HotelController::class, 'datagridActive']);
+Route::post('/rudder/hotel-file-upload', [HotelController::class, 'uploadFile'])->middleware('auth:webadmin');
 
 
 //language
@@ -188,6 +195,15 @@ Route::resource('rudder/treatment', TreatmentController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/treatment-list', [TreatmentController::class, 'datagrid']);
+Route::post('/rudder/treatment-file-upload', [TreatmentController::class, 'uploadFile'])->middleware('auth:webadmin');
+
+//Questions
+Route::resource('rudder/questions', QuestionsController::class, [
+    'names' => [
+        'index' => 'admin.questions',
+    ]])->middleware('auth:webadmin');
+
+Route::get('/rudder/questions-list', [QuestionsController::class, 'datagrid']);
 
 
 //file upload

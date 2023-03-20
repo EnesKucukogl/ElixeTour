@@ -524,7 +524,8 @@ $(document).ready(function () {
                     validationRules: [{
                         type: "required",
                         message: "Aktiflik boş geçilemez !"
-                    }]
+                    }],
+
 
                 },
                 {
@@ -838,7 +839,7 @@ $(document).ready(function () {
             $.ajax({
                 type: "GET",
                 url: 'get-language-create',
-                data: {symbol: symbol},
+                data: {id: descriptionTextContentId ,symbol: symbol, name:'description'},
                 datatype: "json",
                 async: false,
                 success: function (data) {
@@ -865,7 +866,7 @@ $(document).ready(function () {
             $.ajax({
                 type: "GET",
                 url: 'get-language-create',
-                data: {symbol: symbol, name: 'package'},
+                data: {id: packageTextContentId, symbol: symbol, name: 'package'},
                 datatype: "json",
                 async: false,
                 success: function (data) {
@@ -895,6 +896,7 @@ $(document).ready(function () {
 
     }
 
+
     const languageInsertUpdateForm = async (data = {}) => {
 
         console.log("data", data);
@@ -907,9 +909,9 @@ $(document).ready(function () {
                 {
                     dataField: "translation_package",
                     label: {
-                        text: 'Paket Adı (' + data.symbol + ')'
-                    },
+                        text: 'Paket Adı (' + data.symbol + ')',
 
+                    },
                 },
                 {
                     dataField: "translation_description",

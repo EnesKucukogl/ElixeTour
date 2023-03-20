@@ -84,7 +84,7 @@
                 <div data-i18n="Contact">Contact</div>
             </a>
         </li>
-
+        {{--facility--}}
         <li class="menu-item">
             <a href="{{route('admin.facility')}}" class="menu-link">
                 <i class="menu-icon fa-solid fa-bell-concierge"></i>
@@ -92,12 +92,23 @@
             </a>
         </li>
 
+        {{--questions--}}
         <li class="menu-item">
-            <a href="{{route('admin.config')}}" class="menu-link">
-                <i class="menu-icon fa-solid fa-gear"></i>
-                <div data-i18n="Config">Ayarlar</div>
+            <a href="{{route('admin.questions')}}" class="menu-link">
+                <i class="menu-icon fa-solid fa-circle-question"></i>
+                <div data-i18n="Language">S.S.S</div>
             </a>
-        </li>
+
+            {{--config--}}
+            </li>
+            <li class="menu-item">
+                     <a href="{{route('admin.config')}}" class="menu-link">
+                         <i class="menu-icon fa-solid fa-gear"></i>
+                         <div data-i18n="Config">Ayarlar</div>
+                      </a>
+              </li>
+
+
 
     </ul>
 </aside>

@@ -167,7 +167,9 @@ $(document).ready(function () {
             });
 
             let formJson = await treatmentInsertUpdateForm(null);
+            let formJsonResim = await resimInsertUpdateForm(null);
             $("#frmEditTreatment").dxForm(formJson);
+            $("#frmResimMenu").dxForm(formJsonResim);
 
         } else {
             var result;
@@ -198,13 +200,16 @@ $(document).ready(function () {
 
             $('#modelHeading').html("Tedavi Düzenle");
             let formJson = await treatmentInsertUpdateForm(result);
+            let formJsonResim = await resimInsertUpdateForm(result);
             $("#frmEditTreatment").dxForm(formJson);
+            $("#frmResimMenu").dxForm(formJsonResim);
 
         }
 
         $('#updateTreatment').modal('show');
         $("#btnSaveTreatment").unbind();
         $("#btnSaveTreatment").on("click", function () {
+
             var frm = $("#frmEditTreatment").dxForm("instance");
 
             var validate = frm.validate();
@@ -263,6 +268,283 @@ $(document).ready(function () {
         }
     };
 
+    const resimInsertUpdateForm = async (data = {}) => {
+        console.log("ddsdsds" + data);
+        if(data !== null){
+            var file;
+            $.ajax({
+                type: "POST",
+                url: 'get-file-list',
+                data: {id: data.Id, file_type_id: 1},
+                datatype: "json",
+                async: false,
+                success: function (data) {
+                    file = data;
+
+                }
+            });
+        }
+        let cover_image = [{Id: 0, status: "Hayır"}, {Id: 1, status: "Evet"}];
+
+        return {
+            colCount: 2,
+            labelLocation: 'top',
+            formData: data,
+            items: [
+                {
+                    dataField: "cover_image",
+                    label: {
+                        text: 'Ana Resim'
+                    },
+                    editorType: "dxSelectBox",
+                    editorOptions: {
+                        items: cover_image,
+                        displayExpr: "status",
+                        valueExpr: "Id",
+                        //value: data.BirimId ? 0 : data.BirimId,
+                        showClearButton: true,
+                        searchEnabled: true,
+                    },
+                    validationRules: [{
+                        type: "required",
+                        message: "Ana Resim boş geçilemez !"
+                    }]
+
+                },
+                {
+                    dataField: "Dosya",
+                    colSpan: 2,
+                    editorType: "dxFileUploader",
+                    //visible: data.Id == undefined || data.Id < 0,
+                    label: {
+                        text: "Dosya"
+                    },
+                    editorOptions: {
+                        uploadHeaders: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+                        },
+                        multiple: false,
+                        //accept: "*",
+                        allowedFileExtensions: [".jpg", ".png", ".jpeg",".webp"],
+                        value: [],
+                        uploadMode: "useButtons",
+                        uploadUrl: 'file-upload',
+                        activeStateEnabled: true,
+                        onValueChanged: function (e) {
+                            var values = e.component.option("values");
+                            $.each(values, function (index, value) {
+                                e.element.find(".dx-fileuploader-upload-button").hide();
+                            });
+                            e.element.find(".dx-fileuploader-upload-button").hide();
+                        },
+                        onUploaded: function (e) {
+
+                            e.file["guid"] = e.request.responseText;
+
+                            const obj = JSON.parse(e.file["guid"]);
+
+                            e.file['guid'] = obj;
+                            saveUploadFile();
+                        }
+                    },
+
+                },
+                {
+                    itemType: "button",
+                    colSpan: 2,
+                    horizontalAlignment: "right",
+                    cssClass: "add-contact-button",
+                    buttonOptions: {
+                        icon: "add",
+                        text: "Resim Ekle",
+                        onClick: async function () {
+                            //debugger;
+                            var formElement = $('#frmEditTreatment').dxForm("instance");
+
+                            var dataa = formElement.option("formData");
+                            var formElementResim = $('#frmResimMenu').dxForm("instance");
+                            var dataaResim = formElementResim.option("formData");
+
+                            if (!dataa.Id) {
+                                msg("Önce tedaviyi kaydediniz,sonra dosya yükleyiniz!", "error");
+                            } else {
+                                var checkFiles = formElementResim.getEditor("Dosya");
+
+                                if (checkFiles._files.length > 0) {
+                                    var coverFileCheck;
+                                    $.ajax({
+                                        type: "POST",
+                                        url: 'check-cover-file',
+                                        data: {id: data.Id, file_type_id: 1},
+                                        datatype: "json",
+                                        async: false,
+                                        success: function (data) {
+                                            coverFileCheck = data;
+
+                                        }
+                                    });
+
+                                    console.log("dsdsds"+coverFileCheck);
+                                    console.log("dsdsds"+dataaResim.cover_image);
+                                    if(coverFileCheck !== '' && dataaResim.cover_image == 1 ){
+                                        msg("Ana resim zaten mevcuttur", "error");
+                                    }
+                                    else
+                                    {
+                                        await saveImage();
+
+                                    }
+                                } else msg("Lütfen dosya yükleyiniz!", "error");
+                            }
+                        }
+                    }
+                },
+                {
+                    editorType: "dxDataGrid",
+                    name: "documents",
+                    colSpan: 2,
+                    editorOptions: {
+                        dataSource: file,
+                        rowAlternationEnabled: true,
+                        filterRow: {visible: true},
+                        showBorders: true,
+                        keyExpr: "Id",
+                        columns: [
+                            {
+                                type: "buttons",
+                                //width: 40,
+                                buttons: [{
+                                    hint: "Sil",
+                                    icon: "fa fa-remove fa-lg text-danger",
+                                    onClick: function (e) {
+                                        var result = DevExpress.ui.dialog.confirm("<i>" + "Kayıdı silmek istediğinize emin misiniz?" + "</i>", "Kayıt silme işlemi");
+                                        result.done(function (dialogResult) {
+                                            if (dialogResult) {
+                                                removeDokuman(e.row.key);
+                                            }
+                                        });
+                                        e.event.preventDefault();
+                                    }
+                                }]
+                            },
+                            {
+                                dataField: "name",
+                                caption: "Adı",
+                                wordWrapEnabled: true,
+                                cellTemplate: function (container, options) {
+                                    //console.log("options" + options.data.name);
+                                    container.append($("<a>", {
+                                        "href": "/"+options.data.file_path,
+                                        "text": options.data.name,
+                                        "target": "blank"
+                                    }));
+                                }
+                            },
+                            {
+                                dataField: "cover_image",
+                                caption: "Ana Resim",
+                                lookup: {
+                                    dataSource: {
+                                        store: {
+                                            type: "array",
+                                            data: [
+                                                {id: 0, name: "Hayır"},
+                                                {id: 1, name: "Evet"},
+                                            ],
+                                            key: "id"
+                                        }
+                                    },
+                                    valueExpr: "id", // contains the same values as the "statusId" field provides
+                                    displayExpr: "name" // provides display values
+                                }
+                            },
+
+
+                        ],
+                        columnAutoWidth: true
+                    },
+                },
+            ]
+        }
+    };
+
+    function refreshDokuman() {
+        let grid = $("#frmResimMenu").dxForm("instance").getEditor("documents");
+        grid.refresh();
+    }
+
+    const removeDokuman = async (id) => {
+        $.ajax({
+            data: {Id: id, active: 0},
+            url: 'delete-file',
+            type: "POST",
+            dataType: 'json',
+            success: function (data) {
+                //console.log(data.message);
+                msg(data.message, 'success');
+                refreshDokuman();
+
+            },
+            error: function (data) {
+                console.log('Error:', data);
+
+            }
+        });
+    }
+
+
+
+
+    const saveImage = async () => {
+
+        var form = $("#frmResimMenu").dxForm("instance");
+        var validate = form.validate();
+        if (validate.isValid) {
+            var uploader = form.getEditor("Dosya");
+            uploader._uploadFiles();
+        }
+    }
+
+    const saveUploadFile = async (file) => {
+
+        //debugger;
+        var form = $("#frmResimMenu").dxForm("instance");
+        var json = form.option("formData");
+
+
+        //console.log("tmpp"+json.Dosya[0].guid.tmp);
+        //var jsonParse = JSON.parse();
+
+        let postData = {
+            file_type_id: 1,
+            tmp_name: json.Dosya[0].guid.tmp,
+            name: json.Dosya[0].guid.name,
+            general_id: json.Id,
+            cover_image: json.cover_image,
+        };
+
+        form.getEditor("Dosya").reset();
+        console.log(postData);
+
+        $.ajax({
+            data: JSON.stringify(postData),
+            url: "treatment-file-upload",
+            type: "POST",
+            dataType: 'json',
+            success: function (data) {
+                //console.log("result"+JSON.stringify(data));
+                msg(data.message, data.type);
+                refreshDokuman();
+
+            },
+            error: function (data) {
+
+                console.log('Error:', data);
+            }
+        });
+
+    }
 
     const getLanguageFormById = async (treatmentTextContentId,descriptionTextContentId, symbol) => {
 

@@ -14,5 +14,10 @@ class Hotel extends Model
 
     protected $table = 'elx_hotel';
 
-    protected $fillable = ['id','name','city_id','address','active','created_user_id','created_date'];
+    protected $fillable = ['id','name','city_id','address','active','highlighted','created_user_id','created_date'];
+
+    public static function hotelListActive()
+    {
+        return static::with("name")->where("active","=","1")->orderBy("Id","desc")->get();
+    }
 }

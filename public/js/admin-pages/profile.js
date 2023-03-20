@@ -85,7 +85,8 @@ const ProfileInsertUpdateForm = async (data = {}) => {
                 },
                 editorOptions: {
                     mode: "password",
-                    value: ""
+                    // value: ""
+                    value: ''
                 }, validationRules: [{
                     type: "required",
                     message: "Lütfen eski şifrenizi giriniz!",
