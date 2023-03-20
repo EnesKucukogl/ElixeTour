@@ -44,7 +44,6 @@
                 <div class="modal-body">
                     <!-- dxDataGrid bileşenini göstermek için <div> öğesi -->
                     <div class="nav-align-top mb-4">
-                        <div id="gridContainerModal"></div>
                         <div id="frmEditHotel"></div>
 
 

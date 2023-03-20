@@ -237,24 +237,25 @@ $(document).ready(function () {
     const GetHotel = async (facilityId) => {
 
         $('#myModalLabel').html("Otel Seç");
-        await HotelSelectForm();
-        //$("#frmEditHotel").dxForm(formJson);
+        let formJson = await HotelSelectForm();
+        $("#frmEditHotel").dxForm(formJson);
 
 
         $('#myModal').modal('show');
         $("#btnSaveHotel").unbind();
         $("#btnSaveHotel").on("click", function () {
-            var formSelectedRows = $("#gridContainerModal").dxDataGrid("instance").getSelectedRowKeys();
+            var formSelectedRows = $('#frmEditHotel').dxForm("instance").getEditor("hotel").getSelectedRowKeys();
+
 
             //const frmHotel = [];
 
-                //frmHotel.push(formSelectedRows);
+            //frmHotel.push(formSelectedRows);
 
-                // formSelectedRows['frmHotel'] = frmHotel;
+            // formSelectedRows['frmHotel'] = frmHotel;
 
-                console.log("keys"+JSON.stringify(formSelectedRows));
-                console.log("facId"+facilityId);
-                saveHotel(formSelectedRows);
+            console.log("keys" + JSON.stringify(formSelectedRows));
+            console.log("facId" + facilityId);
+            saveHotel(formSelectedRows);
 
 
         });
@@ -262,51 +263,59 @@ $(document).ready(function () {
 
     const HotelSelectForm = async () => {
 
-        var gridOptions = {
-            dataSource: 'hotel-list-active',
-            keyExpr: "Id",
-            columns: [
-                {
-                    dataField: "Id",
-                    caption: "No",
-                    visible: 'false'
-                },
-                {
-                    dataField: "name",
-                    caption: "Otel Adı",
-                    minwidth: 100
-                },
-                {
-                    dataField: "address",
-                    caption: "Adresi",
-                    minwidth: 100
-                },
-            ],
+    return {
 
-            paging: {
-                pageSize: 10
-            },
-            filterRow: {
-                visible: true
-            },
-            headerFilter: {
-                visible: false
-            },
-            groupPanel: {
-                visible: false
-            },
-            selection: {
-                mode: "multiple"
-            },
-            // onSelectionChanged(selectedItems) {
-            //     const data = selectedItems.selectedRowsData[0];
-            //     if (data) {
-            //         $("#gridContainerModal").text(data);
-            //     }
-            // },
-        };
-        $("#gridContainerModal").dxDataGrid(gridOptions);
+        items: [{
+            itemType: "group",
+
+            items: [{
+                editorType: "dxDataGrid",
+                name: "hotel",
+
+                editorOptions: {
+
+                        dataSource: 'hotel-list-active',
+                        keyExpr: "Id",
+                        columns: [
+                            {
+                                dataField: "Id",
+                                caption: "No",
+                                visible: 'false'
+                            },
+                            {
+                                dataField: "name",
+                                caption: "Otel Adı",
+                                minwidth: 100
+                            },
+                            {
+                                dataField: "address",
+                                caption: "Adresi",
+                                minwidth: 100
+                            },
+                        ],
+
+
+                    paging: {
+                        pageSize: 10
+                    },
+                    filterRow: {
+                        visible: true
+                    },
+                    headerFilter: {
+                        visible: false
+                    },
+                    groupPanel: {
+                        visible: false
+                    },
+                    selection: {
+                        mode: "multiple"
+                    },
+                }
+            }]
+        }]
     }
+
+}
 
 
     const facilityInsertUpdateForm = async (data = {}) => {
@@ -460,7 +469,7 @@ $(document).ready(function () {
     }
 
     const saveHotel = async (json) => {
-          console.log(JSON.stringify(json));
+          //console.log(JSON.stringify(json));
         $.ajax({
             data: JSON.stringify(json),
             url: "get-hotel-facility",
@@ -472,7 +481,6 @@ $(document).ready(function () {
 
                 //console.log("result"+JSON.stringify(data));
                 msg(data.message, data.type);
-                $("#gridContainerModal").dxDataGrid("instance").refresh();
                 $('#myModal').modal('hide').fadeOut('slow');
 
             },

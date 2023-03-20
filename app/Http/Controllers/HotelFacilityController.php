@@ -14,7 +14,11 @@ class HotelFacilityController extends Controller
 
     public function HotelInsertFacility(Request $request){
 
-        return $request;
+        $request = $request->json()->all();
+        foreach ($request as $item){
+            return $item['Id'];
+        }
+
 
         $hotels = HotelFacility::where("facility_id","=",$request->facility_id)->get();
 
