@@ -85,6 +85,25 @@ $(document).ready(function () {
                     displayExpr: "name" // provides display values
                 }
             },
+            {
+                dataField: "highlighted",
+                caption: "Anasayfada Göster",
+                minWidth:50,
+                lookup: {
+                    dataSource: {
+                        store: {
+                            type: "array",
+                            data: [
+                                {id: 0, name: "Hayır"},
+                                {id: 1, name: "Evet"},
+                            ],
+                            key: "id"
+                        }
+                    },
+                    valueExpr: "id", // contains the same values as the "statusId" field provides
+                    displayExpr: "name" // provides display values
+                }
+            },
               ],
 
         editing: {
@@ -239,6 +258,7 @@ $(document).ready(function () {
         //console.log("data", data);
 
         let active = [{ Id: 0, status: "Pasif" }, { Id: 1, status: "Aktif" }];
+        let highlighted = [{Id: 0, status: "Hayır"}, {Id: 1, status: "Evet"}];
         return {
             colCount: 2,
             labelLocation: 'top',
@@ -252,6 +272,26 @@ $(document).ready(function () {
                     editorType: "dxSelectBox",
                     editorOptions: {
                         items: active,
+                        displayExpr: "status",
+                        valueExpr: "Id",
+                        //value: data.BirimId ? 0 : data.BirimId,
+                        showClearButton: true,
+                        searchEnabled: true,
+                    },
+                    validationRules: [{
+                        type: "required",
+                        message: "Aktiflik boş geçilemez !"
+                    }]
+
+                },
+                {
+                    dataField: "highlighted",
+                    label: {
+                        text: 'Anasayfada göster'
+                    },
+                    editorType: "dxSelectBox",
+                    editorOptions: {
+                        items: highlighted,
                         displayExpr: "status",
                         valueExpr: "Id",
                         //value: data.BirimId ? 0 : data.BirimId,
@@ -285,7 +325,6 @@ $(document).ready(function () {
             });
         }
         let cover_image = [{Id: 0, status: "Hayır"}, {Id: 1, status: "Evet"}];
-
         return {
             colCount: 2,
             labelLocation: 'top',
@@ -665,3 +704,4 @@ $(document).ready(function () {
 
 
 });
+

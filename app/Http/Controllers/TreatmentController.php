@@ -51,6 +51,7 @@ class TreatmentController extends Controller
 
                 $resultMenu = DB::table('elx_treatment')->where('Id', $request->Id)->update(array(
                     'active' => $request->active,
+                    'highlighted' => $request['highlighted'],
                     'updated_user_id' => Auth::user()->Id,
                     'updated_date' => date("Y-m-d H:i:s"),
                 ));
@@ -155,7 +156,7 @@ class TreatmentController extends Controller
                         if ($resultTextContentTreatment == 1 && $resultTextContentDesc == 1) {
 
 
-                            $values = array('treatment_name_content_id' => $textContentLastTreatmentInsertId, 'description_content_id' => $textContentLastDescInsertId,  'active' => $request->active, 'created_user_id' => Auth::user()->Id);
+                            $values = array('highlighted' => $request['highlighted'],'treatment_name_content_id' => $textContentLastTreatmentInsertId, 'description_content_id' => $textContentLastDescInsertId,  'active' => $request->active, 'created_user_id' => Auth::user()->Id);
                             $resultMenu = DB::table('elx_treatment')->insert($values);
                             if (!$resultMenu) {
                                 DB::delete('delete from elx_text_content where Id = ?', [$textContentLastTreatmentInsertId]);
