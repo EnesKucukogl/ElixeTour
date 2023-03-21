@@ -1,14 +1,14 @@
 @extends('admin.layout.mainlayout')
 @section('content')
     <h4 class="fw-bold py-3 mb-4"><a href="{{route('admin.home')}}"><span class="text-muted fw-light">Anasayfa /</span></a>
-        Paketler</h4>
-    <button type='button' class='btn btn-primary  mb-3' id="addMenu">
-        <i class="fa fa-plus"></i> Yeni Paket Ekle
+        Blog </h4>
+    <button type='button' class='btn btn-primary  mb-3' id="addBlog">
+        <i class="fa fa-plus"></i> Yeni Blog Ekle
     </button>
     <div id="gridContainer"></div>
 
 
-    <div class="modal fade" id="updateMenu" aria-hidden="true">
+    <div class="modal fade" id="updateBlog" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -53,17 +53,17 @@
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
 
-                                    <div id="frmEditMenu"></div>
+                                    <div id="frmEditBlog"></div>
 
                                     <div class="language row md-form "></div>
-                                    <button id="btnSaveMenu" type="button" class="btn btn-save btn-primary mt-3">
+                                    <button id="btnSaveBlog" type="button" class="btn btn-save btn-primary mt-3">
                                         Kaydet
                                     </button>
 
                                 </div>
 
                                 <div class="tab-pane fade show " id="navs-top-image" role="tabpanel">
-                                    <div id="frmResimMenu"></div>
+                                    <div id="frmResimBlog"></div>
                                 </div>
 
 
@@ -80,7 +80,7 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="{{URL::asset('/js/admin-pages/package.js')}}"></script>
+    <script type="text/javascript" src="{{URL::asset('/js/admin-pages/blog.js')}}"></script>
 @endsection
 
 

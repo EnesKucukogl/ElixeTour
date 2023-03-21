@@ -13,6 +13,7 @@ class CurrencyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         return view('admin.currency',);
@@ -43,13 +44,14 @@ class CurrencyController extends Controller
             $currency->where('Id', $request->Id)->update([
                 'name' => $request->name,
                 'symbol' => $request->symbol,
-                'active' => $request->active,
+                'code' => $request->code,
                 'updated_user_id' =>  Auth::user()->Id,
             ]);
         } else {
             Currency::create([
                 'name' => $request->name,
                 'symbol' => $request->symbol,
+                'code' => $request->code,
                 'created_user_id' =>  Auth::user()->Id,
             ]);
         }

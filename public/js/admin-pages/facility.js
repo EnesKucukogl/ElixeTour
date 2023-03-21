@@ -6,7 +6,7 @@ $(document).ready(function () {
         columns: [
             {
                 type: "buttons",
-                width: 75,
+                width: 150,
                 buttons: [
                     {
                         name: "edit",
@@ -35,7 +35,15 @@ $(document).ready(function () {
                                 }
                             });
                         }
-                    }
+                    },
+                    {
+                        name: " SelectHotel ",
+                        hint: "Otel Seç",
+                        icon: "fa-solid fa-paperclip",
+                        onClick: function (e) {
+                            GetHotel(e.row.key.Id);
+                        }
+                    },
 
                 ]
             },
@@ -130,7 +138,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 console.log(data.message);
-                msg(data.message,'success');
+                msg(data.message, 'success');
                 $("#gridContainer").dxDataGrid("instance").refresh();
 
             },
@@ -159,7 +167,7 @@ $(document).ready(function () {
             $(".language").empty();
             $.each(languages, function (index, value) {
                 $(".language").append("<div class='col-md-6 mt-3' id='frmLanguageFacility" + value.symbol + "'></div>");
-                getLanguageFormById(null,null, value.symbol)
+                getLanguageFormById(null, null, value.symbol)
             });
 
             let formJson = await facilityInsertUpdateForm(null);
@@ -190,10 +198,10 @@ $(document).ready(function () {
             $(".language").empty();
             $.each(languages, function (index, value) {
                 $(".language").append("<div class='col-md-6 mt-3'  id='frmLanguageFacility" + value.symbol + "'> </div>");
-                getLanguageFormById(result.facility_name_content_id,result.description_content_id, value.symbol)
+                getLanguageFormById(result.facility_name_content_id, result.description_content_id, value.symbol)
             });
 
-            $('#modelHeading').html("Paket Düzenle");
+            $('#modelHeading').html("Otel Hizmeti Düzenle");
             let formJson = await facilityInsertUpdateForm(result);
             $("#frmEditFacility").dxForm(formJson);
 
@@ -211,24 +219,108 @@ $(document).ready(function () {
 
                 var json = frm.option("formData");
                 $.each(languages, function (index, value) {
-                    var frmData = $("#frmLanguageFacility" + value.symbol).dxForm("instance").option("formData");
-                    if (!frmData.text_content_id_facility)
-                    {
-                        frmData["text_content_id_facility"] = json.facility_name_content_id;
+                        var frmData = $("#frmLanguageFacility" + value.symbol).dxForm("instance").option("formData");
+                        if (!frmData.text_content_id_facility) {
+                            frmData["text_content_id_facility"] = json.facility_name_content_id;
+                        }
+                        frmLang.push(frmData);
                     }
-                    frmLang.push(frmData);
-                }
                 );
                 json['frmLang'] = frmLang;
+
                 console.log(json);
                 saveFacility(json);
             }
         });
     }
 
+    const GetHotel = async (facilityId) => {
+
+        $('#myModalLabel').html("Otel Seç");
+        let formJson = await HotelSelectForm();
+        $("#frmEditHotel").dxForm(formJson);
+
+
+        $('#myModal').modal('show');
+        $("#btnSaveHotel").unbind();
+        $("#btnSaveHotel").on("click", function () {
+            var formSelectedRows = $('#frmEditHotel').dxForm("instance").getEditor("hotel").getSelectedRowKeys();
+
+
+            //const frmHotel = [];
+
+            //frmHotel.push(formSelectedRows);
+
+            // formSelectedRows['frmHotel'] = frmHotel;
+
+            console.log("keys" + JSON.stringify(formSelectedRows));
+            console.log("facId" + facilityId);
+            saveHotel(formSelectedRows);
+
+
+        });
+    }
+
+    const HotelSelectForm = async () => {
+
+    return {
+
+        items: [{
+            itemType: "group",
+
+            items: [{
+                editorType: "dxDataGrid",
+                name: "hotel",
+
+                editorOptions: {
+
+                        dataSource: 'hotel-list-active',
+                        keyExpr: "Id",
+                        columns: [
+                            {
+                                dataField: "Id",
+                                caption: "No",
+                                visible: 'false'
+                            },
+                            {
+                                dataField: "name",
+                                caption: "Otel Adı",
+                                minwidth: 100
+                            },
+                            {
+                                dataField: "address",
+                                caption: "Adresi",
+                                minwidth: 100
+                            },
+                        ],
+
+
+                    paging: {
+                        pageSize: 10
+                    },
+                    filterRow: {
+                        visible: true
+                    },
+                    headerFilter: {
+                        visible: false
+                    },
+                    groupPanel: {
+                        visible: false
+                    },
+                    selection: {
+                        mode: "multiple"
+                    },
+                }
+            }]
+        }]
+    }
+
+}
+
+
     const facilityInsertUpdateForm = async (data = {}) => {
 
-        let active = [{ Id: 0, status: "Pasif" }, { Id: 1, status: "Aktif" }];
+        let active = [{Id: 0, status: "Pasif"}, {Id: 1, status: "Aktif"}];
         return {
             colCount: 2,
             labelLocation: 'top',
@@ -259,14 +351,14 @@ $(document).ready(function () {
     };
 
 
-    const getLanguageFormById = async (facilityNameTextContentId,descriptionTextContentId, symbol) => {
+    const getLanguageFormById = async (facilityNameTextContentId, descriptionTextContentId, symbol) => {
 
         if (descriptionTextContentId == null) {
             var resultDesc;
             $.ajax({
                 type: "GET",
                 url: 'get-language-create',
-                data: {symbol: symbol, },
+                data: {symbol: symbol,},
                 datatype: "json",
                 async: false,
                 success: function (data) {
@@ -274,13 +366,13 @@ $(document).ready(function () {
                 }
             });
 
-        }else{
+        } else {
 
             var resultDesc;
             $.ajax({
                 type: "GET",
                 url: 'get-language',
-                data: {id: descriptionTextContentId, symbol: symbol,name:'description'},
+                data: {id: descriptionTextContentId, symbol: symbol, name: 'description'},
                 datatype: "json",
                 async: false,
                 success: function (data) {
@@ -293,7 +385,7 @@ $(document).ready(function () {
             $.ajax({
                 type: "GET",
                 url: 'get-language-create',
-                data: {symbol: symbol,name:'facility'},
+                data: {symbol: symbol, name: 'facility'},
                 datatype: "json",
                 async: false,
                 success: function (data) {
@@ -306,7 +398,7 @@ $(document).ready(function () {
             $.ajax({
                 type: "GET",
                 url: 'get-language',
-                data: {id: facilityNameTextContentId, symbol: symbol,name:'facility'},
+                data: {id: facilityNameTextContentId, symbol: symbol, name: 'facility'},
                 datatype: "json",
                 async: false,
                 success: function (data) {
@@ -342,7 +434,7 @@ $(document).ready(function () {
                 {
                     dataField: "translation_description",
                     label: {
-                        text: 'Hizmet Açıklaması (' + data.symbol+ ')'
+                        text: 'Hizmet Açıklaması (' + data.symbol + ')'
                     },
                     editorType: "dxTextArea",
                     editorOptions: {
@@ -363,9 +455,33 @@ $(document).ready(function () {
             success: function (data) {
 
                 //console.log("result"+JSON.stringify(data));
-                msg(data.message,data.type);
+                msg(data.message, data.type);
                 $("#gridContainer").dxDataGrid("instance").refresh();
                 $('#updateFacility').modal('hide').fadeOut('slow');
+
+            },
+            error: function (data) {
+
+                console.log('Error:', data);
+            }
+        });
+
+    }
+
+    const saveHotel = async (json) => {
+          //console.log(JSON.stringify(json));
+        $.ajax({
+            data: JSON.stringify(json),
+            url: "get-hotel-facility",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: function (data) {
+
+                //console.log("result"+JSON.stringify(data));
+                msg(data.message, data.type);
+                $('#myModal').modal('hide').fadeOut('slow');
 
             },
             error: function (data) {

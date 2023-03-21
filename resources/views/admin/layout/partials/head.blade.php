@@ -7,6 +7,7 @@
     <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
+
      <!-- DevExpress-->
     <link rel="stylesheet" href="{{ URL::asset('admin-assets/css/dev-express/dx.common.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('admin-assets/css/dev-express/dx.light.css') }}">
@@ -16,6 +17,7 @@
 
 
     <script type="text/javascript" src="{{URL::asset('/admin-assets/vendor/libs/jquery/jquery.js')}}"></script>
+
     <!-- Favicon -->
     <link rel="stylesheet" href="{{ URL::asset('admin-assets/img/favicon/favicon.ico') }}">
     <link rel="stylesheet" href="{{ URL::asset('admin-assets/css/fontawesome/css/all.min.css') }}">
@@ -49,6 +51,7 @@
     <!-- Page CSS -->
 
     <!-- Helpers -->
+
     <script type="text/javascript" src="{{URL::asset('/admin-assets/vendor/js/helpers.js')}}"></script>
 
 
@@ -59,4 +62,7 @@
     {{--toastr--}}
     <script type="text/javascript" src="{{URL::asset('/admin-assets/js/toastr.min.js')}}"></script>
     <link rel="stylesheet" href="{{URL:: asset('admin-assets/css/toastr.min.css')}}" type="text/css">
+
+
+
 

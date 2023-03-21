@@ -1,8 +1,16 @@
+const Active = [
+    {"id": 0, "Name": "Pasif"},
+    {"id": 1, "Name": "Aktif"}];
+
+const Visible = [
+    {"id": 0, "Name": "Hayır"},
+    {"id": 1, "Name": "Evet"}];
+
 $(document).ready(function () {
 
     $('#gridContainer').dxDataGrid({
         keyExpr: "Id",
-        dataSource: 'package-list',
+        dataSource: 'blog-list',
         columns: [
             {
                 type: "buttons",
@@ -40,78 +48,39 @@ $(document).ready(function () {
                 ]
             },
             {
-                dataField: "Id",
-                caption: "ID",
-                minWidth:30
-            },
-
-            {
-                dataField: "package_text_content",
-                caption: "Paket Adı",
-                minWidth:200,
+                dataField: "title_text_content",
+                caption: "Metin Başlığı",
                 calculateCellValue: function (data) {
                     var text = "";
-                    data.package_text_content.forEach(function (item) {
+                    // console.log(data);
+                    data.title_text_content.forEach(function (item) {
                         text += item.translation + " (" + item.symbol.toUpperCase() + ") ";
                     });
                     return text.trim();
-                }
+                },
             },
             {
-                dataField: "cost",
-                caption: "Maliyet Fiyat",
-                dataType: "number",
-                minWidth:50,
-            },
-            {
-                dataField: "cost_currency_symbol",
-                caption: "Maliyet Para Birimi",
-                minWidth:50,
-            },
-            {
-                dataField: "price",
-                caption: "Satış Fiyat",
-                dataType: "number",
-                minWidth:50,
-            },
-            {
-                dataField: "price_currency_symbol",
-                caption: "Satış Para Birimi",
-                minWidth:50,
-            },
-            {
-                dataField: "duration",
-                caption: "Süre",
-                minWidth:50,
-            },
-
-            {
-                dataField: "package_start_date",
-                caption: "Paket Başlangıç Tarihi",
-                dataType: "date",
-                displayFormat: "dd.MM.yyyy",
-                dateSerializationFormat: "yyyy-MM-dd",
-                minWidth:70,
-            },
-            {
-                dataField: "package_expiry_date",
-                caption: "Paket Bitiş Tarihi",
-                dataType: "date",
-                displayFormat: "dd.MM.yyyy",
-                dateSerializationFormat: "yyyy-MM-dd",
-                minWidth:70,
+                dataField: "short_description_text_content",
+                caption: "Kısa Metin",
+                calculateCellValue: function (data) {
+                    var text = "";
+                    // console.log(data);
+                    data.short_description_text_content.forEach(function (item) {
+                        text += item.translation + " (" + item.symbol.toUpperCase() + ") ";
+                    });
+                    return text.trim();
+                },
             },
             {
                 dataField: "description_text_content",
-                caption: "Paket Açıklama",
-                minWidth:250,
+                caption: "Asıl Metin",
                 calculateCellValue: function (data) {
                     var text = "";
                     data.description_text_content.forEach(function (item) {
                         text += item.translation + " (" + item.symbol.toUpperCase() + ") ";
                     });
                     return text.trim();
-                }
+                },
             },
             {
                 dataField: "slug",
@@ -119,31 +88,16 @@ $(document).ready(function () {
                 minWidth:70,
             },
             {
-                dataField: "hotel_name",
-                caption: "Hotel Adı",
-                minWidth:70,
-            },
-            {
-                dataField: "hotel_address",
-                caption: "Hotel Adress",
-                minWidth:100,
-            },
-            {
-                dataField: "city_name",
-                caption: "Şehir Adı",
-                minWidth:50,
-            },
-            {
                 dataField: "active",
                 caption: "Aktif",
-                minWidth:50,
+                minWidth:150,
                 lookup: {
                     dataSource: {
                         store: {
                             type: "array",
                             data: [
-                                {id: 0, name: "Hayır"},
-                                {id: 1, name: "Evet"},
+                                {id: 0, name: "Pasif"},
+                                {id: 1, name: "Aktif"},
                             ],
                             key: "id"
                         }
@@ -155,7 +109,7 @@ $(document).ready(function () {
             {
                 dataField: "highlighted",
                 caption: "Anasayfada Göster",
-                minWidth:50,
+                minWidth:150,
                 lookup: {
                     dataSource: {
                         store: {
@@ -171,7 +125,6 @@ $(document).ready(function () {
                     displayExpr: "name" // provides display values
                 }
             },
-
         ],
 
         editing: {
@@ -200,14 +153,13 @@ $(document).ready(function () {
         },
 
     });
-
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
 
-    $('#addMenu').on('click', function () {
+    $('#addBlog').on('click', function () {
 
         getFormById(-1);
     });
@@ -217,7 +169,7 @@ $(document).ready(function () {
 
         $.ajax({
             data: {Id: formId, active: active},
-            url: 'package/' + formId,
+            url: 'blog/' + formId,
             type: "PUT",
             dataType: 'json',
             success: function (data) {
@@ -236,7 +188,7 @@ $(document).ready(function () {
     const getFormById = async (formId) => {
 
         if (formId == "-1") {
-            $("#modelHeading").html("Paket Ekle");
+            $("#modelHeading").html("Blog Ekle");
             var languages;
             $.ajax({
                 type: "GET",
@@ -250,20 +202,20 @@ $(document).ready(function () {
 
             $(".language").empty();
             $.each(languages, function (index, value) {
-                $(".language").append("<div class='col-md-6 mt-3' id='frmLanguageMenu" + value.symbol + "'></div>");
-                getLanguageFormById(null, null, value.symbol)
+                $(".language").append("<div class='col-md-6 mt-3' id='frmLanguageBlog" + value.symbol + "'></div>");
+                getLanguageFormById(null, null, null,value.symbol)
             });
 
-            let formJson = await menuInsertUpdateForm(null);
+            let formJson = await blogInsertUpdateForm(null);
             let formJsonResim = await resimInsertUpdateForm(null);
-            $("#frmEditMenu").dxForm(formJson);
-            $("#frmResimMenu").dxForm(formJsonResim);
+            $("#frmEditBlog").dxForm(formJson);
+            $("#frmResimBlog").dxForm(formJsonResim);
 
         } else {
             var result;
             $.ajax({
                 type: "GET",
-                url: 'package' + '/' + formId + '/edit',
+                url: 'blog' + '/' + formId + '/edit',
                 datatype: "json",
                 async: false,
                 success: function (data) {
@@ -280,26 +232,25 @@ $(document).ready(function () {
                     languages = data;
                 }
             });
+            // console.log(languages);
             $(".language").empty();
             $.each(languages, function (index, value) {
-                $(".language").append("<div class='col-md-6 mt-3'  id='frmLanguageMenu" + value.symbol + "'></div>");
-                getLanguageFormById(result.package_name_content_id, result.description_content_id, value.symbol)
+                $(".language").append("<div class='col-md-6 mt-3'  id='frmLanguageBlog" + value.symbol + "'> </div>");
+                getLanguageFormById(result.title_content_id ,result.short_description_content_id ,result.description_content_id , value.symbol)
             });
 
-            $('#modelHeading').html("Paket Düzenle");
-            let formJson = await menuInsertUpdateForm(result);
-            let formJsonResim = await resimInsertUpdateForm(result);
-            $("#frmEditMenu").dxForm(formJson);
-            $("#frmResimMenu").dxForm(formJsonResim);
+            $('#modelHeading').html("Blog Düzenle");
+            let formJson = await blogInsertUpdateForm(result);
+            let formJsonResim = await resimInsertUpdateForm(null);
+            $("#frmEditBlog").dxForm(formJson);
+            $("#frmResimBlog").dxForm(formJsonResim);
 
         }
 
-        $('#updateMenu').modal('show');
-        $("#btnSaveMenu").unbind();
-        $("#btnSaveMenu").on("click", function () {
-
-
-            var frm = $("#frmEditMenu").dxForm("instance");
+        $('#updateBlog').modal('show');
+        $("#btnSaveBlog").unbind();
+        $("#btnSaveBlog").on("click", function () {
+            var frm = $("#frmEditBlog").dxForm("instance");
 
             var validate = frm.validate();
             if (validate.isValid) {
@@ -308,205 +259,30 @@ $(document).ready(function () {
 
                 var json = frm.option("formData");
                 $.each(languages, function (index, value) {
-                    frmLang.push($("#frmLanguageMenu" + value.symbol).dxForm("instance").option("formData"));
-                });
+                        var frmData = $("#frmLanguageBlog" + value.symbol).dxForm("instance").option("formData");
+                        if (!frmData.text_content_id_title) {
+                            frmData["text_content_id_title"] = json.title_content_id;
+                        }
+                        frmLang.push(frmData);
+                    }
+                );
                 json['frmLang'] = frmLang;
-                console.log("json" + JSON.stringify(json));
-                saveMenu(json);
+                // console.log(json);
+                saveBlog(json);
             }
         });
     }
 
-    const menuInsertUpdateForm = async (data = {}) => {
+    const blogInsertUpdateForm = async (data = {}) => {
 
-        //console.log("data", data);
-        var hotel;
-        $.ajax({
-            type: "GET",
-            url: 'hotel-list-active',
-            datatype: "json",
-            async: false,
-            success: function (data) {
-                hotel = data;
-
-            }
-        });
-        var currency;
-        $.ajax({
-            type: "GET",
-            url: 'currency-list-active',
-            datatype: "json",
-            async: false,
-            success: function (data) {
-                currency = data;
-
-            }
-        });
-
-        //console.log("hotel"+JSON.stringify(hotel));
-
-
-        let active = [{Id: 0, status: "Pasif"}, {Id: 1, status: "Aktif"}];
-        let highlighted = [{Id: 0, status: "Hayır"}, {Id: 1, status: "Evet"}];
+        // let active = [{id: 0, status: "Pasif"}, {id: 1, status: "Aktif"}];
         return {
-            colCount: 2,
+
+
+            colCount: 1,
             labelLocation: 'top',
             formData: data,
             items: [
-                {
-                    dataField: "cost",
-                    label: {
-                        text: 'Maliyet Fiyat'
-                    },
-                    editorType: "dxNumberBox",
-
-                    validationRules: [{
-                        type: "required",
-                        message: "Maliyet Fiyatı boş geçilemez !"
-                    }]
-                },
-                {
-                    dataField: "cost_currency_id",
-                    label: {
-                        text: 'Maliyet Para Birimi'
-                    },
-                    editorType: "dxSelectBox",
-                    editorOptions: {
-                        items: currency,
-                        displayExpr: "symbol",
-                        valueExpr: "Id",
-                        //value: data.BirimId ? 0 : data.BirimId,
-                        showClearButton: true,
-                        searchEnabled: true,
-                    },
-                    validationRules: [{
-                        type: "required",
-                        message: "Maliyet Para Birimi boş geçilemez"
-                    }]
-
-                },
-                {
-                    dataField: "price",
-                    label: {
-                        text: 'Satış Fiyat'
-                    },
-                    editorType: "dxNumberBox",
-                    validationRules: [{
-                        type: "required",
-                        message: "Satış Fiyatı boş geçilemez !"
-                    }]
-                },
-                {
-                    dataField: "price_currency_id",
-                    label: {
-                        text: 'Satış Para Birimi'
-                    },
-                    editorType: "dxSelectBox",
-                    editorOptions: {
-                        items: currency,
-                        displayExpr: "symbol",
-                        valueExpr: "Id",
-                        //value: data.BirimId ? 0 : data.BirimId,
-                        showClearButton: true,
-                        searchEnabled: true,
-                    },
-                    validationRules: [{
-                        type: "required",
-                        message: "Satış Para Birimi boş geçilemez"
-                    }]
-
-                },
-                {
-                    dataField: "hotel_id",
-                    label: {
-                        text: 'Hotel'
-                    },
-                    editorType: "dxSelectBox",
-                    editorOptions: {
-                        items: hotel,
-                        displayExpr: "name",
-                        valueExpr: "Id",
-                        //value: data.BirimId ? 0 : data.BirimId,
-                        showClearButton: true,
-                        searchEnabled: true,
-                    },
-                    validationRules: [{
-                        type: "required",
-                        message: "Hotel boş geçilemez"
-                    }]
-
-                },
-
-                {
-                    dataField: "duration",
-                    label: {
-                        text: 'Süre (Gün)'
-                    },
-                    editorType: "dxNumberBox",
-                    editorOptions: {
-                        min: 1,
-                        max: 300
-
-                    },
-                    validationRules: [{
-                        type: "required",
-                        message: "Gün boş geçilemez !"
-                    }]
-                },
-
-                {
-                    dataField: "discount_rate",
-                    label: {
-                        text: 'İndirim oranı'
-                    },
-                    editorType: "dxNumberBox",
-                    editorOptions: {
-                        min: 0,
-                        max: 100,
-                        value:data == null ? '' : data.discount_rate
-
-                    },
-                    validationRules: [{
-                        type: "required",
-                        message: "İndirim oranı boş geçilemez !"
-                    }]
-                },
-                {
-                    dataField: "package_start_date",
-                    colSpan: 1,
-                    label: {
-                        text: "Paket Başlangıç Tarihi"
-                    },
-                    editorType: "dxDateBox",
-                    editorOptions: {
-                        showClearButton: true,
-                        dataType: "date",
-                        displayFormat: "dd.MM.yyyy",
-                        dateSerializationFormat: "yyyy-MM-dd",
-                    },
-                    validationRules: [{
-                        type: "required",
-                        message: "Başlangıç tarihi boş geçilemez"
-                    }]
-                },
-                {
-                    dataField: "package_expiry_date",
-                    colSpan: 1,
-                    label: {
-                        text: "Paket Bitiş Tarihi"
-                    },
-                    editorType: "dxDateBox",
-                    editorOptions: {
-                        showClearButton: true,
-                        dataType: "date",
-                        displayFormat: "dd.MM.yyyy",
-                        dateSerializationFormat: "yyyy-MM-dd",
-                    },
-                    validationRules: [{
-                        type: "required",
-                        message: "Bitiş tarihi boş geçilemez"
-                    }]
-                },
                 {
                     dataField: "active",
                     label: {
@@ -514,9 +290,9 @@ $(document).ready(function () {
                     },
                     editorType: "dxSelectBox",
                     editorOptions: {
-                        items: active,
-                        displayExpr: "status",
-                        valueExpr: "Id",
+                        items:Active,
+                        displayExpr: "Name",
+                        valueExpr: "id",
                         //value: data.BirimId ? 0 : data.BirimId,
                         showClearButton: true,
                         searchEnabled: true,
@@ -524,9 +300,7 @@ $(document).ready(function () {
                     validationRules: [{
                         type: "required",
                         message: "Aktiflik boş geçilemez !"
-                    }],
-
-
+                    }]
                 },
                 {
                     dataField: "highlighted",
@@ -535,20 +309,19 @@ $(document).ready(function () {
                     },
                     editorType: "dxSelectBox",
                     editorOptions: {
-                        items: highlighted,
-                        displayExpr: "status",
-                        valueExpr: "Id",
+                        items: Visible,
+                        displayExpr: "Name",
+                        valueExpr: "id",
                         //value: data.BirimId ? 0 : data.BirimId,
                         showClearButton: true,
                         searchEnabled: true,
                     },
                     validationRules: [{
                         type: "required",
-                        message: "Aktiflik boş geçilemez !"
+                        message: "Bu alan boş geçilemez !"
                     }]
 
                 },
-
             ]
         }
     };
@@ -556,18 +329,17 @@ $(document).ready(function () {
     const resimInsertUpdateForm = async (data = {}) => {
         console.log("ddsdsds" + data);
         if(data !== null){
-        var file;
-        $.ajax({
-            type: "POST",
-            url: 'get-file-list',
-            data: {id: data.Id, file_type_id: 1},
-            datatype: "json",
-            async: false,
-            success: function (data) {
-                file = data;
-
-            }
-        });
+            var file;
+            $.ajax({
+                type: "POST",
+                url: 'get-file-list',
+                data: {id: data.Id, file_type_id: 1},
+                datatype: "json",
+                async: false,
+                success: function (data) {
+                    file = data;
+                }
+            });
         }
         let cover_image = [{Id: 0, status: "Hayır"}, {Id: 1, status: "Evet"}];
 
@@ -645,14 +417,14 @@ $(document).ready(function () {
                         text: "Resim Ekle",
                         onClick: async function () {
                             //debugger;
-                            var formElement = $('#frmEditMenu').dxForm("instance");
+                            var formElement = $('#frmEditBlog').dxForm("instance");
 
                             var dataa = formElement.option("formData");
-                            var formElementResim = $('#frmResimMenu').dxForm("instance");
+                            var formElementResim = $('#frmResimBlog').dxForm("instance");
                             var dataaResim = formElementResim.option("formData");
 
                             if (!dataa.Id) {
-                                msg("Önce paketi kaydediniz,sonra dosya yükleyiniz!", "error");
+                                msg("Önce bloğu kaydediniz,sonra dosya yükleyiniz!", "error");
                             } else {
                                 var checkFiles = formElementResim.getEditor("Dosya");
 
@@ -755,7 +527,7 @@ $(document).ready(function () {
     };
 
     function refreshDokuman() {
-        let grid = $("#frmResimMenu").dxForm("instance").getEditor("documents");
+        let grid = $("#frmResimBlog").dxForm("instance").getEditor("documents");
         grid.refresh();
     }
 
@@ -783,7 +555,7 @@ $(document).ready(function () {
 
     const saveImage = async () => {
 
-        var form = $("#frmResimMenu").dxForm("instance");
+        var form = $("#frmResimBlog").dxForm("instance");
         var validate = form.validate();
         if (validate.isValid) {
             var uploader = form.getEditor("Dosya");
@@ -794,7 +566,7 @@ $(document).ready(function () {
     const saveUploadFile = async (file) => {
 
         //debugger;
-        var form = $("#frmResimMenu").dxForm("instance");
+        var form = $("#frmResimBlog").dxForm("instance");
         var json = form.option("formData");
 
 
@@ -814,7 +586,7 @@ $(document).ready(function () {
 
         $.ajax({
             data: JSON.stringify(postData),
-            url: "package-file-upload",
+            url: "blog-file-upload",
             type: "POST",
             dataType: 'json',
             success: function (data) {
@@ -832,14 +604,70 @@ $(document).ready(function () {
     }
 
 
-    const getLanguageFormById = async (packageTextContentId, descriptionTextContentId, symbol) => {
+    const getLanguageFormById = async (titleTextContentId, shortDescriptionTextContent ,descriptionTextContentId, symbol) => {
+
+        if (titleTextContentId == null) {
+            var resultTitle;
+            $.ajax({
+                type: "GET",
+                url: 'get-language-create',
+                data: {id: titleTextContentId, symbol: symbol, name: 'title'},
+                datatype: "json",
+                async: false,
+                success: function (data) {
+                    resultTitle = data;
+                }
+            });
+
+        } else {
+
+            var resultTitle;
+            $.ajax({
+                type: "GET",
+                url: 'get-language',
+                data: {id: titleTextContentId, symbol: symbol, name: 'title'},
+                datatype: "json",
+                async: false,
+                success: function (data) {
+                    resultTitle = data;
+                }
+            });
+        }
+
+        if (shortDescriptionTextContent == null) {
+            var resultShortDesc;
+            $.ajax({
+                type: "GET",
+                url: 'get-language-create',
+                data: {id: shortDescriptionTextContent, symbol: symbol, name:'short_description' },
+                datatype: "json",
+                async: false,
+                success: function (data) {
+                    resultShortDesc = data;
+                }
+            });
+
+        } else {
+
+            var resultShortDesc;
+            $.ajax({
+                type: "GET",
+                url: 'get-language',
+                data: {id: shortDescriptionTextContent, symbol: symbol, name: 'short_description'},
+                datatype: "json",
+                async: false,
+                success: function (data) {
+                    resultShortDesc = data;
+                }
+            });
+        }
 
         if (descriptionTextContentId == null) {
             var resultDesc;
             $.ajax({
                 type: "GET",
                 url: 'get-language-create',
-                data: {id: descriptionTextContentId ,symbol: symbol, name:'description'},
+                data: {id: descriptionTextContentId, symbol: symbol, name: 'description'},
                 datatype: "json",
                 async: false,
                 success: function (data) {
@@ -848,7 +676,6 @@ $(document).ready(function () {
             });
 
         } else {
-
             var resultDesc;
             $.ajax({
                 type: "GET",
@@ -860,46 +687,19 @@ $(document).ready(function () {
                     resultDesc = data;
                 }
             });
-        }
-        if (packageTextContentId == null) {
-            var resultPack;
-            $.ajax({
-                type: "GET",
-                url: 'get-language-create',
-                data: {id: packageTextContentId, symbol: symbol, name: 'package'},
-                datatype: "json",
-                async: false,
-                success: function (data) {
-                    resultPack = data;
-                }
-            });
-
-        } else {
-            var resultPack;
-            $.ajax({
-                type: "GET",
-                url: 'get-language',
-                data: {id: packageTextContentId, symbol: symbol, name: 'package'},
-                datatype: "json",
-                async: false,
-                success: function (data) {
-                    resultPack = data;
-                }
-            });
 
         }
 
-        var combined = $.extend({}, resultPack, resultDesc);
+        var combined = $.extend({}, resultTitle, resultShortDesc,resultDesc);
 
         let formJson = await languageInsertUpdateForm(combined);
-        $("#frmLanguageMenu" + symbol).dxForm(formJson);
+        $("#frmLanguageBlog" + symbol).dxForm(formJson);
 
     }
 
-
     const languageInsertUpdateForm = async (data = {}) => {
 
-        console.log("data", data);
+        // console.log("data", data);
 
         return {
             colCount: 1,
@@ -907,41 +707,82 @@ $(document).ready(function () {
             formData: data,
             items: [
                 {
-                    dataField: "translation_package",
+                    dataField: "translation_title",
                     label: {
-                        text: 'Paket Adı (' + data.symbol + ')',
-
+                        text: 'Metin Başlığı (' + data.symbol + ')'
                     },
+                    editorType: "dxTextArea",
+                    validationRules: [{
+                        type: "required",
+                        message: "Başlık boş geçilemez !"
+                    }]
+                },
+                {
+                    dataField: "translation_short_description",
+                    label: {
+                        text: 'Kısa Metin (' + data.symbol + ')'
+                    },
+                    editorType: "dxTextArea",
+                    validationRules: [{
+                        type: "required",
+                        message: "Başlık boş geçilemez !"
+                    }]
                 },
                 {
                     dataField: "translation_description",
                     label: {
-                        text: 'Paket Açıklama (' + data.symbol + ')'
+                        text: 'Asıl Metin (' + data.symbol + ')'
                     },
-                    editorType: "dxTextArea",
+                    editorType: "dxHtmlEditor",
                     editorOptions: {
-                        height: 100
-                    }
+                        height: 1000,
+                        weight: 500,
+                        toolbar: {
+                            items: [
+                                'undo', 'redo', 'separator',
+                                {
+                                    name: 'size',
+                                    acceptedValues: ['8pt', '10pt', '12pt', '14pt', '18pt', '24pt', '36pt'],
+                                },
+                                {
+                                    name: 'font',
+                                    acceptedValues: ['Arial', 'Courier New', 'Georgia', 'Impact', 'Lucida Console', 'Tahoma', 'Times New Roman', 'Verdana'],
+                                },
+                                'separator', 'bold', 'italic', 'strike', 'underline', 'separator',
+                                'alignLeft', 'alignCenter', 'alignRight', 'alignJustify', 'separator',
+                                'orderedList', 'bulletList', 'separator',
+                                {
+                                    name: 'header',
+                                    acceptedValues: [false, 1, 2, 3, 4, 5],
+                                }
+                            ],
+                        },
+                        mediaResizing: {
+                            enabled: true,
+                        }
+                    },
+                    validationRules: [{
+                        type: "required",
+                        message: "Asıl metin boş geçilemez !"
+                    }]
                 },
             ]
         }
     };
 
-    const saveMenu = async (json) => {
+    const saveBlog = async (json) => {
 
         $.ajax({
-            data: JSON.stringify(json),
-            url: "package",
+            data: json,
+            url: "blog",
             type: "POST",
             dataType: 'json',
-            contentType: false,
-            processData: false,
             success: function (data) {
 
                 //console.log("result"+JSON.stringify(data));
                 msg(data.message, data.type);
                 $("#gridContainer").dxDataGrid("instance").refresh();
-                $('#updateMenu').modal('hide').fadeOut('slow');
+                $('#updateBlog').modal('hide').fadeOut('slow');
 
             },
             error: function (data) {
@@ -949,6 +790,5 @@ $(document).ready(function () {
                 console.log('Error:', data);
             }
         });
-
     }
 });

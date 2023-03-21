@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use App\Models\Facility;
 use Illuminate\Http\Request;
@@ -17,7 +16,6 @@ class FacilityController extends Controller
         $facility = Facility::FacilityList();
         return response()->json($facility);
     }
-
     public function edit($id)
     {
         $facilityDetail = Facility::find($id);
@@ -29,7 +27,6 @@ class FacilityController extends Controller
         $facility = DB::table('elx_facility')
             ->where("Id", "=", $request->Id)
             ->first();
-
         if ($facility !== null) {
             try {
                 $resultFacility = DB::table('elx_facility')->where('Id', $request->Id)->update(array(
@@ -39,6 +36,7 @@ class FacilityController extends Controller
                 ));
 
                 foreach ($request->frmLang as $item) {
+
                     $queryName= DB::table('vew_language_translation')
                         ->where('text_content_id',$item['text_content_id_facility'])
                         ->where('language_id', $item['language_id'])->first();
@@ -103,11 +101,10 @@ class FacilityController extends Controller
                                 'created_user_id' => Auth::user()->Id
                             ]);
                         }
-
                     }
+
                 }
                 return $resultFacility ? response()->json(['message' => 'Otel hizmetleri başarıyla güncellenmiştir.', 'type' => 'success']) : response()->json(['message' => 'Otel hizmetleri güncellenirken bir hata oluşmuştur.', 'type' => 'error']);
-
             } catch (\Exception $e) {
                 return response()->json(['message' => $e->getMessage(), 'type' => 'error']);
             }
@@ -156,9 +153,7 @@ class FacilityController extends Controller
                         }  elseif (!isset($item['translation_description'])) {
                             $values = array('text_content_id' => $textDescriptionLastInsertId, 'language_id' => $item['id'], 'translation_description' => '', 'created_user_id' => Auth::user()->Id);
                             DB::table('elx_translation')->insert($values);
-
                         }
-
                     }
                 }
                 return $resultFacility ? response()->json(['message' => 'Otel hizmeti başarıyla eklenmiştir.', 'type' => 'success']) : response()->json(['message' => 'Otel hizmeti eklenirken bir hata oluşmuştur.', 'type' => 'error']);
@@ -167,10 +162,7 @@ class FacilityController extends Controller
 
                 return response()->json(['message' => $e->getMessage(), 'type' => 'error']);
             }
-
         }
-
-
     }
 
     public function update(Request $request)

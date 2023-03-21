@@ -1,10 +1,10 @@
 const statuses = [
     {"Id": 0, "Name": "Hayır"},
     {"Id": 1, "Name": "Evet"}];
-$( document ).ready(function() {
+$(document).ready(function () {
     $('#gridContainer').dxDataGrid({
         keyExpr: "Id",
-        dataSource: '/rudder/currency-list' ,
+        dataSource: '/rudder/currency-list',
         columns: [
             {
                 type: "buttons",
@@ -26,14 +26,12 @@ $( document ).ready(function() {
                             result.done(function (dialogResult) {
                                 if (dialogResult) {
 
-                                    if(e.row.key.active == 1){
+                                    if (e.row.key.active == 1) {
                                         active = 0;
-                                    }
-
-                                    else if(e.row.key.active == 0){
+                                    } else if (e.row.key.active == 0) {
                                         active = 1;
                                     }
-                                    changeStatus(e.row.key.Id,active);
+                                    changeStatus(e.row.key.Id, active);
                                 }
                             });
                         }
@@ -52,6 +50,11 @@ $( document ).ready(function() {
                 minwidth: 100
             },
             {
+                dataField: "code",
+                caption: "Kod",
+                minwidth: 100
+            },
+            {
                 dataField: "active",
                 caption: "Active",
                 width: 200,
@@ -61,8 +64,8 @@ $( document ).ready(function() {
                         store: {
                             type: "array",
                             data: [
-                                { id: 0, name: "Hayır" },
-                                { id: 1, name: "Evet" },
+                                {id: 0, name: "Hayır"},
+                                {id: 1, name: "Evet"},
 
                             ],
                             key: 'Id'
@@ -111,10 +114,10 @@ $( document ).ready(function() {
     });
 
 
-    const changeStatus = async (formId,visible) => {
+    const changeStatus = async (formId, visible) => {
         $.ajax({
-            data: {Id:formId,active:visible},
-            url: 'currency/'+formId,
+            data: {Id: formId, active: visible},
+            url: 'currency/' + formId,
             type: "PUT",
             dataType: 'json',
             success: function (data) {
@@ -123,7 +126,8 @@ $( document ).ready(function() {
             error: function (data) {
                 console.log('Error:', data);
             }
-        })};
+        })
+    };
 
     const getFormById = async (formId) => {
 
@@ -131,15 +135,14 @@ $( document ).ready(function() {
             $("#modelHeading").html("Dil Ekle");
             let formJson = await CurrencyInsertUpdateForm(null);
             $("#frmEditCurrency").dxForm(formJson);
-        }
-        else {
+        } else {
             var result;
             $.ajax({
                 type: "GET",
-                url: 'currency' +'/'+formId+'/edit',
+                url: 'currency' + '/' + formId + '/edit',
                 datatype: "json",
                 async: false,
-                success: function(data){
+                success: function (data) {
                     result = data;
                 }
             });
@@ -186,6 +189,12 @@ $( document ).ready(function() {
                     },
                 },
                 {
+                    dataField: "code",
+                    label: {
+                        text: 'Kod',
+                    },
+                },
+                {
                     dataField: "active",
                     editorType: 'dxSelectBox',
                     label: {
@@ -204,7 +213,7 @@ $( document ).ready(function() {
 
     const saveCurrency = async (json) => {
         $.ajax({
-            data: json ,
+            data: json,
             url: "currency",
             type: "POST",
             dataType: 'json',
@@ -215,7 +224,7 @@ $( document ).ready(function() {
                 $('#updateCurrency').modal('toggle').fadeOut('slow');
             },
             error: function (data) {
-                toastr.error("name and symbol column cannot be null");
+                toastr.error("name symbol and code column cannot be null");
                 console.log('Error:', data);
             }
         });
