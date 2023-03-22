@@ -22,6 +22,7 @@ use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\AccomodationTypeController;
 use App\Http\Controllers\ExchangeRateController;
 use App\Http\Controllers\OfficesController;
+use App\Http\Controllers\PackageTreatmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -217,12 +218,15 @@ Route::get('/rudder/exchangeRate-list', [ExchangeRateController::class, 'datagri
 
 Route::get('/rudder/getExchangeRates', [ExchangeRateController::class, 'getExchangeRates']);
 
+//Package Treatment
+Route::post('/rudder/get-treatment-package', [PackageTreatmentController::class, 'TreatmentInsertFacility'])->middleware('auth:webadmin');
+
 //Treatment
 Route::resource('rudder/treatment', TreatmentController::class, [
     'names' => [
         'index' => 'admin.treatment',
     ]])->middleware('auth:webadmin');
-
+Route::get('/rudder/treatment-list-active', [TreatmentController::class, 'datagridActive'])->middleware('auth:webadmin');
 Route::get('/rudder/treatment-list', [TreatmentController::class, 'datagrid']);
 Route::post('/rudder/treatment-file-upload', [TreatmentController::class, 'uploadFile'])->middleware('auth:webadmin');
 Route::get('/treatment/{slug}', [TreatmentController::class, 'frontSideTreatmentsDetail']);

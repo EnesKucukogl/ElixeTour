@@ -6,7 +6,7 @@ $(document).ready(function () {
         columns: [
             {
                 type: "buttons",
-                width: 150,
+                width: 110,
                 buttons: [
                     {
                         name: "edit",
@@ -39,7 +39,7 @@ $(document).ready(function () {
                     {
                         name: " SelectHotel ",
                         hint: "Otel Seç",
-                        icon: "fa-solid fa-paperclip",
+                        icon: "fa-solid fa-square-h",
                         onClick: function (e) {
                             GetHotel(e.row.key.Id);
                         }
@@ -244,18 +244,15 @@ $(document).ready(function () {
         $('#myModal').modal('show');
         $("#btnSaveHotel").unbind();
         $("#btnSaveHotel").on("click", function () {
-            var formSelectedRows = $('#frmEditHotel').dxForm("instance").getEditor("hotel").getSelectedRowKeys();
+            var formSelectedRows = $('#frmEditHotel').dxForm("instance").getEditor('hotel').getSelectedRowKeys();
 
 
-            //const frmHotel = [];
+            var combined = $.extend({}, {SelectedRows: formSelectedRows}, {facilityId: facilityId});
 
-            //frmHotel.push(formSelectedRows);
 
-            // formSelectedRows['frmHotel'] = frmHotel;
-
-            console.log("keys" + JSON.stringify(formSelectedRows));
+            console.log("keys" + JSON.stringify(combined));
             console.log("facId" + facilityId);
-            saveHotel(formSelectedRows);
+            saveHotel(combined);
 
 
         });
