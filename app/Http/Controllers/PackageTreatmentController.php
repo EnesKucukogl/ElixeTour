@@ -27,7 +27,7 @@ class PackageTreatmentController extends Controller
                 ->delete();
 
 
-            foreach ($request['selectedRows'] as $item) {
+            foreach ($request['SelectedRows'] as $item) {
 
                 $values = array('package_id' => $request['packageId'], 'treatment_id' => $item['Id'], 'created_user_id' => Auth::user()->Id);
                 DB::Table("elx_package_treatment")->insert($values);

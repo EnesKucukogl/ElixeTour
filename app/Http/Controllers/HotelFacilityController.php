@@ -12,29 +12,28 @@ use Illuminate\Support\Facades\DB;
 class HotelFacilityController extends Controller
 {
 
-    public function HotelInsertFacility(Request $request){
+    public function HotelInsertFacility(Request $request)
+    {
 
-        $request = $request->json()->all();
-        foreach ($request as $item){
-            return $item['Id'];
-        }
-
-
-        $hotels = HotelFacility::where("facility_id","=",$request->facility_id)->get();
-
-        foreach($hotels as $item){
+        try{
+            $request = $request->json()->all();
 
             DB::Table("elx_hotel_facility")
-                ->where("facility_id","=",$item['facility_id'])
+                ->where("facility_id", "=", $request['facilityId'])
                 ->delete();
 
+            foreach ($request['SelectedRows'] as $item) {
+                $values = array('facility_id' => $request['facilityId'], 'hotel_id' => $item['Id'], 'created_user_id' => Auth::user()->Id);
+                DB::Table("elx_hotel_facility")->insert($values);
+            }
+
+            return response()->json(['message' => 'Oteller başarıyla eklendi.', 'type' => 'success']);
         }
-        foreach($request->frmHotel as $item){
-            $values = array('facility_id'=>$request['facility_id'],'hotel_id'=>$item);
-            DB::Table("elx_hotel_facility")->insert($values);
+        catch (\Exception $e) {
+
+            return response()->json(['message' => $e->getMessage(), 'type' => 'error']);
         }
 
-        return response()->json($hotels);
 
     }
 }

@@ -28,7 +28,11 @@ class TreatmentController extends Controller
         $menu = Treatment::treatmentList();
         return response()->json($menu);
     }
-
+    public function datagridActive()
+    {
+        $hotels = Treatment::treatmentListActive();
+        return response()->json($hotels);
+    }
 
     public function edit($id)
     {

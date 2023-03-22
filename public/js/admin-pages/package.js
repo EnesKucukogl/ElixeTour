@@ -6,7 +6,7 @@ $(document).ready(function () {
         columns: [
             {
                 type: "buttons",
-                width: 75,
+                width: 110,
                 buttons: [
                     {
                         name: "edit",
@@ -35,20 +35,27 @@ $(document).ready(function () {
                                 }
                             });
                         }
-                    }
-
+                    },
+                    {
+                        name: " SelectTreatment ",
+                        hint: "Tedavi Seç",
+                        icon: "fa-solid fa-heart-pulse",
+                        onClick: function (e) {
+                            GetTreatment(e.row.key.Id);
+                        }
+                    },
                 ]
             },
             {
                 dataField: "Id",
                 caption: "ID",
-                minWidth:30
+                minWidth: 30
             },
 
             {
                 dataField: "package_text_content",
                 caption: "Paket Adı",
-                minWidth:200,
+                minWidth: 200,
                 calculateCellValue: function (data) {
                     var text = "";
                     data.package_text_content.forEach(function (item) {
@@ -61,28 +68,28 @@ $(document).ready(function () {
                 dataField: "cost",
                 caption: "Maliyet Fiyat",
                 dataType: "number",
-                minWidth:50,
+                minWidth: 50,
             },
             {
                 dataField: "cost_currency_symbol",
                 caption: "Maliyet Para Birimi",
-                minWidth:50,
+                minWidth: 50,
             },
             {
                 dataField: "price",
                 caption: "Satış Fiyat",
                 dataType: "number",
-                minWidth:50,
+                minWidth: 50,
             },
             {
                 dataField: "price_currency_symbol",
                 caption: "Satış Para Birimi",
-                minWidth:50,
+                minWidth: 50,
             },
             {
                 dataField: "duration",
                 caption: "Süre",
-                minWidth:50,
+                minWidth: 50,
             },
 
             {
@@ -91,7 +98,7 @@ $(document).ready(function () {
                 dataType: "date",
                 displayFormat: "dd.MM.yyyy",
                 dateSerializationFormat: "yyyy-MM-dd",
-                minWidth:70,
+                minWidth: 70,
             },
             {
                 dataField: "package_expiry_date",
@@ -99,12 +106,12 @@ $(document).ready(function () {
                 dataType: "date",
                 displayFormat: "dd.MM.yyyy",
                 dateSerializationFormat: "yyyy-MM-dd",
-                minWidth:70,
+                minWidth: 70,
             },
             {
                 dataField: "description_text_content",
                 caption: "Paket Açıklama",
-                minWidth:250,
+                minWidth: 250,
                 calculateCellValue: function (data) {
                     var text = "";
                     data.description_text_content.forEach(function (item) {
@@ -116,27 +123,27 @@ $(document).ready(function () {
             {
                 dataField: "slug",
                 caption: "Url",
-                minWidth:70,
+                minWidth: 70,
             },
             {
                 dataField: "hotel_name",
                 caption: "Hotel Adı",
-                minWidth:70,
+                minWidth: 70,
             },
             {
                 dataField: "hotel_address",
                 caption: "Hotel Adress",
-                minWidth:100,
+                minWidth: 100,
             },
             {
                 dataField: "city_name",
                 caption: "Şehir Adı",
-                minWidth:50,
+                minWidth: 50,
             },
             {
                 dataField: "active",
                 caption: "Aktif",
-                minWidth:50,
+                minWidth: 50,
                 lookup: {
                     dataSource: {
                         store: {
@@ -155,7 +162,7 @@ $(document).ready(function () {
             {
                 dataField: "highlighted",
                 caption: "Anasayfada Göster",
-                minWidth:50,
+                minWidth: 50,
                 lookup: {
                     dataSource: {
                         store: {
@@ -317,6 +324,94 @@ $(document).ready(function () {
         });
     }
 
+    const GetTreatment = async (packageId) => {
+
+        $('#myModalLabel').html("Tedavi Seç");
+        let formJson = await TreatmentSelectForm();
+        $("#frmEditTreatment").dxForm(formJson);
+
+
+        $('#myModal').modal('show');
+        $("#btnSaveTreatment").unbind();
+        $("#btnSaveTreatment").on("click", function () {
+            var formSelectedRows = $('#frmEditTreatment').dxForm("instance").getEditor('treatment').getSelectedRowKeys();
+
+
+            var combined = $.extend({}, {SelectedRows: formSelectedRows}, {packageId: packageId});
+
+
+            console.log("keys" + JSON.stringify(combined));
+            console.log("facId" + packageId);
+            saveTreatment(combined);
+        });
+    }
+
+    const TreatmentSelectForm = async () => {
+
+        return {
+
+            items: [{
+                itemType: "group",
+
+                items: [{
+                    editorType: "dxDataGrid",
+                    name: "treatment",
+
+                    editorOptions: {
+                        dataSource: 'treatment-list-active',
+                        keyExpr: "Id",
+                        columns: [
+                            {
+                                dataField: "Id",
+                                caption: "No",
+                            },
+                            {
+                                // dataField: "treatment_text_content",
+                                caption: "Tedavi Adı",
+                                calculateCellValue: function (data) {
+                                    console.log(data);
+                                    var text = "";
+                                    data.treatment_text_content.forEach(function (item) {
+                                        text += item.translation + " (" + item.symbol.toUpperCase() + ") ";
+                                    });
+                                    return text.trim();
+                                }
+                            },
+
+                            {
+                                // dataField: "description_text_content",
+                                caption: "Tedavi Açıklama",
+                                calculateCellValue: function (data) {
+                                    var text = "";
+                                    data.description_text_content.forEach(function (item) {
+                                        text += item.translation + " (" + item.symbol.toUpperCase() + ") ";
+                                    });
+                                    return text.trim();
+                                }
+                            },
+                        ],
+                        paging: {
+                            pageSize: 10
+                        },
+                        filterRow: {
+                            visible: true
+                        },
+                        headerFilter: {
+                            visible: false
+                        },
+                        groupPanel: {
+                            visible: false
+                        },
+                        selection: {
+                            mode: "multiple"
+                        },
+                    }
+                }]
+            }]
+        }
+
+    }
+
     const menuInsertUpdateForm = async (data = {}) => {
 
         //console.log("data", data);
@@ -463,7 +558,7 @@ $(document).ready(function () {
                     editorOptions: {
                         min: 0,
                         max: 100,
-                        value:data == null ? '' : data.discount_rate
+                        value: data == null ? '' : data.discount_rate
 
                     },
                     validationRules: [{
@@ -555,19 +650,19 @@ $(document).ready(function () {
 
     const resimInsertUpdateForm = async (data = {}) => {
         console.log("ddsdsds" + data);
-        if(data !== null){
-        var file;
-        $.ajax({
-            type: "POST",
-            url: 'get-file-list',
-            data: {id: data.Id, file_type_id: 1},
-            datatype: "json",
-            async: false,
-            success: function (data) {
-                file = data;
+        if (data !== null) {
+            var file;
+            $.ajax({
+                type: "POST",
+                url: 'get-file-list',
+                data: {id: data.Id, file_type_id: 1},
+                datatype: "json",
+                async: false,
+                success: function (data) {
+                    file = data;
 
-            }
-        });
+                }
+            });
         }
         let cover_image = [{Id: 0, status: "Hayır"}, {Id: 1, status: "Evet"}];
 
@@ -611,7 +706,7 @@ $(document).ready(function () {
                         },
                         multiple: false,
                         //accept: "*",
-                        allowedFileExtensions: [".jpg", ".png", ".jpeg",".webp"],
+                        allowedFileExtensions: [".jpg", ".png", ".jpeg", ".webp"],
                         value: [],
                         uploadMode: "useButtons",
                         uploadUrl: 'file-upload',
@@ -670,13 +765,11 @@ $(document).ready(function () {
                                         }
                                     });
 
-                                    console.log("dsdsds"+coverFileCheck);
-                                    console.log("dsdsds"+dataaResim.cover_image);
-                                    if(coverFileCheck !== '' && dataaResim.cover_image == 1 ){
+                                    console.log("dsdsds" + coverFileCheck);
+                                    console.log("dsdsds" + dataaResim.cover_image);
+                                    if (coverFileCheck !== '' && dataaResim.cover_image == 1) {
                                         msg("Ana resim zaten mevcuttur", "error");
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         await saveImage();
 
                                     }
@@ -720,7 +813,7 @@ $(document).ready(function () {
                                 cellTemplate: function (container, options) {
                                     //console.log("options" + options.data.name);
                                     container.append($("<a>", {
-                                        "href": "/"+options.data.file_path,
+                                        "href": "/" + options.data.file_path,
                                         "text": options.data.name,
                                         "target": "blank"
                                     }));
@@ -777,8 +870,6 @@ $(document).ready(function () {
             }
         });
     }
-
-
 
 
     const saveImage = async () => {
@@ -839,7 +930,7 @@ $(document).ready(function () {
             $.ajax({
                 type: "GET",
                 url: 'get-language-create',
-                data: {id: descriptionTextContentId ,symbol: symbol, name:'description'},
+                data: {id: descriptionTextContentId, symbol: symbol, name: 'description'},
                 datatype: "json",
                 async: false,
                 success: function (data) {
@@ -942,6 +1033,28 @@ $(document).ready(function () {
                 msg(data.message, data.type);
                 $("#gridContainer").dxDataGrid("instance").refresh();
                 $('#updateMenu').modal('hide').fadeOut('slow');
+
+            },
+            error: function (data) {
+
+                console.log('Error:', data);
+            }
+        });
+    }
+    const saveTreatment = async (json) => {
+        //console.log(JSON.stringify(json));
+        $.ajax({
+            data: JSON.stringify(json),
+            url: "get-treatment-package",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: function (data) {
+
+                //console.log("result"+JSON.stringify(data));
+                msg(data.message, data.type);
+                $('#myModal').modal('hide').fadeOut('slow');
 
             },
             error: function (data) {
