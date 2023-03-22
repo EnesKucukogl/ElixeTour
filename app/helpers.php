@@ -21,6 +21,7 @@ function viewLanguageSupport($arr)
 
 function getImage($arr, $main_Id)
 {
+    $file_path = '';
     foreach ($arr as $value) {
         if ($value->general_id == $main_Id) {
             $file_path = $value->file_path;

@@ -202,6 +202,10 @@
                             @if($item->highlighted == 1)
                                 @php
                                     $file_path = getImage($treatmentFile,$item->Id);
+                                    if($file_path === null || $file_path === '')
+                                    {
+                                        $file_path = 'img/no-image.png';
+                                    }
                                     $treatment_name = viewLanguageSupport($item->treatmentTextContent);
                                 @endphp
                                 <div class="top_destinations_box img_hover">
@@ -247,6 +251,11 @@
                                 @php
 
                                     $file_path = getImage($hotelFile,$item->Id);
+
+                                    if($file_path === null || $file_path === '')
+                                    {
+                                        $file_path = 'img/no-image.png';
+                                    }
 
                                 @endphp
                                 <div class="col-lg-5 col-md-6 col-sm-6 col-12">
@@ -299,6 +308,11 @@
                             @php
                                 $file_path = getImage($packageFile,$item->Id);
                                 $package_name = viewLanguageSupport($item->packageTextContent);
+
+                              if($file_path === null || $file_path === '')
+                                    {
+                                        $file_path = 'img/no-image.png';
+                                    }
                             @endphp
 
                             <div class="theme_common_box_two img_hover">
