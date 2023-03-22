@@ -21,23 +21,15 @@
         </li>
 
 
-
-            {{--Hotel--}}
-                <li class="menu-item">
-                    <a href="{{route('admin.customer')}}" class="menu-link">
-                        <i class="menu-icon fa-solid fa-users-line"></i>
-                        <div data-i18n="Customer">Müşteriler</div>
-                    </a>
-                </li>
-            {{--Accomodation--}}
+        {{--Hotel--}}
         <li class="menu-item">
-            <a href="{{route('admin.accomodation')}}" class="menu-link">
-                <i class="menu-icon fa-solid fa-bed"></i>
-                <div data-i18n="Customer">Konaklama Seçenekleri</div>
+            <a href="{{route('admin.customer')}}" class="menu-link">
+                <i class="menu-icon fa-solid fa-users-line"></i>
+                <div data-i18n="Customer">Müşteriler</div>
             </a>
         </li>
 
-            {{--Hotel--}}
+        {{--Hotel--}}
         <li class="menu-item">
             <a href="{{route('admin.hotel')}}" class="menu-link">
                 <i class="menu-icon fa fa-hotel"></i>
@@ -86,7 +78,6 @@
                 <div data-i18n="Currency">Exchange Rates</div>
             </a>
         </li>
-     <!-- Contact -->
         {{--Contact --}}
         <li class="menu-item">
             <a href="{{route('admin.contact')}}" class="menu-link">
@@ -94,7 +85,7 @@
                 <div data-i18n="Contact">Müşteri Mailleri</div>
             </a>
         </li>
-        {{--facility--}}
+
         {{--Facility--}}
         <li class="menu-item">
             <a href="{{route('admin.facility')}}" class="menu-link">
@@ -103,13 +94,6 @@
             </a>
         </li>
 
-        {{--questions--}}
-        <li class="menu-item">
-            <a href="{{route('admin.config')}}" class="menu-link">
-                <i class="menu-icon fa-solid fa-gear"></i>
-                <div data-i18n="Config">Ayarlar</div>
-            </a>
-        </li>
         <!-- Accomodation -->
         <li class="menu-item">
             <a href="{{route('admin.accomodation')}}" class="menu-link">
@@ -124,20 +108,26 @@
                 <div data-i18n="Contact">Accomodation Types</div>
             </a>
         </li>
+        <li class="menu-item">
             <a href="{{route('admin.questions')}}" class="menu-link">
                 <i class="menu-icon fa-solid fa-circle-question"></i>
                 <div data-i18n="Language">S.S.S</div>
             </a>
 
-            {{--config--}}
-            </li>
-            <li class="menu-item">
-                     <a href="{{route('admin.config')}}" class="menu-link">
-                         <i class="menu-icon fa-solid fa-gear"></i>
-                         <div data-i18n="Config">Ayarlar</div>
-                      </a>
-              </li>
+        </li>
+        <li class="menu-item">
+            <a href="{{route('admin.offices')}}" class="menu-link">
+                <i class="menu-icon fa fa-map-marker"></i>
+                <div data-i18n="Language">Ofisler</div>
+            </a>
 
+        </li>
+        <li class="menu-item">
+            <a href="{{route('admin.config')}}" class="menu-link">
+                <i class="menu-icon fa-solid fa-gear"></i>
+                <div data-i18n="Config">Ayarlar</div>
+            </a>
+        </li>
 
 
     </ul>

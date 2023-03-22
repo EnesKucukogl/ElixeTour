@@ -38,4 +38,16 @@ class Facility extends Model
     {
         return static::with("textContent")->with("descriptionTextContent")->get();
     }
+
+    public function hotelFacility()
+    {
+        return $this->hasMany('App\Models\HotelFacility', 'facility_id', 'Id');
+    }
+
+    public static function hotelFacilityList($hotel_id)
+    {
+        return static::whereHas('hotelFacility', function ($query) use ($hotel_id) {
+            $query->where('hotel_id', $hotel_id);
+        })->where("active", "=", "1")->with("textContent")->orderBy("Id", "desc")->get();
+    }
 }

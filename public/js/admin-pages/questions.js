@@ -42,9 +42,7 @@ $(document).ready(function () {
             {
                 dataField: "Id",
                 caption: "ID",
-                minWidth:30,
-                sortIndex: 0,
-                sortOrder: "asc"
+                minWidth:30
             },
 
             {
@@ -72,13 +70,13 @@ $(document).ready(function () {
                 }
             },
             // {
-            //     dataField: "slug",
-            //     caption: "Url",
+            //     dataField: "package_name",
+            //     caption: "Paket Adı",
             //     minWidth:70,
             // },
             {
-                dataField: "package_name",
-                caption: "Paket Adı",
+                dataField: "sort_order",
+                caption: "Sıra",
                 minWidth:70,
             },
 
@@ -130,6 +128,7 @@ $(document).ready(function () {
         },
 
     });
+
 
     $.ajaxSetup({
         headers: {
@@ -228,63 +227,75 @@ $(document).ready(function () {
 
 
             var frm = $("#frmEditMenu").dxForm("instance");
+            var frmEn = $("#frmLanguageMenuen").dxForm("instance");
 
             var validate = frm.validate();
-            if (validate.isValid) {
+
+            var validateEn = frmEn.validate();
+            if (validate.isValid && validateEn.isValid) {
 
                 const frmLang = [];
 
                 var json = frm.option("formData");
                 $.each(languages, function (index, value) {
 
-                    if (value.symbol == 'en') {
-                        let enFrmData = $("#frmLanguageMenu" + value.symbol).dxForm("instance").option("formData");
-                        let flag = 0, message;
-
-                        if (enFrmData.translation_question == undefined)
-                        {
-                            flag = 1;
-                            message = "Lütfen İngilizce Soru Giriniz!";
-                        }
-                        else if (enFrmData.translation_question == '' || enFrmData.translation_question.trim() == '') {
-                            flag = 1;
-                            message = "Lütfen İngilizce Soru Giriniz!";
-                        }
-                        else if (enFrmData.translation_question.length <= 5) {
-                            flag = 1;
-                            message = "Soru için en az 5 karakter giriniz!";
-
-                        }
-
-                        if (flag == 1)
-                        {
-                            msg(message, "error");
-                            // return;
-                        }
-
-                        if (enFrmData.translation_answer == undefined)
-                        {
-                            flag = 1;
-                            message = "Lütfen İngilizce Cevap Giriniz!";
-                        }
-                        else if ( enFrmData.translation_answer == '' || enFrmData.translation_answer.trim() == '') {
-                            flag = 1;
-                            message = "Lütfen İngilizce Cevap Giriniz!";
-                        } else if (enFrmData.translation_answer.length <= 5) {
-                            flag = 1;
-                            message = "Cevap için en az 5 karakter giriniz!";
-                        }
-
-                        if (flag == 1)
-                        {
-                            msg(message, "error");
-                            // return;
-                        }
-
-                    }
                     frmLang.push($("#frmLanguageMenu" + value.symbol).dxForm("instance").option("formData"));
+                    json['frmLang'] = frmLang;
+
+
+                    // if (value.symbol == 'en') {
+                    //     let enFrmData = $("#frmLanguageMenu" + value.symbol).dxForm("instance").option("formData");
+                    //     let flag = 0, message;
+                    //
+                    //     if (enFrmData.translation_question == undefined)
+                    //     {
+                    //         flag = 1;
+                    //         message = "Lütfen İngilizce Soru Giriniz!";
+                    //     }
+                    //     else if (enFrmData.translation_question == '' || enFrmData.translation_question.trim() == '') {
+                    //         flag = 1;
+                    //         message = "Lütfen İngilizce Soru Giriniz!";
+                    //     }
+                    //     else if (enFrmData.translation_question.trim().length <= 5) {
+                    //         flag = 1;
+                    //         message = "Soru için en az 5 karakter giriniz!";
+                    //
+                    //     }
+                    //
+                    //     if (flag == 1)
+                    //     {
+                    //         msg(message, "error");
+                    //         return;
+                    //     }
+                    //
+                    //     if (enFrmData.translation_answer == undefined)
+                    //     {
+                    //         console.log("answer undefined");
+                    //         flag = 1;
+                    //         message = "Lütfen İngilizce Cevap Giriniz!";
+                    //     }
+                    //     else if ( enFrmData.translation_answer == '' || enFrmData.translation_answer.trim() == '') {
+                    //         console.log("answer boş");
+                    //         flag = 1;
+                    //         message = "Lütfen İngilizce Cevap Giriniz!";
+                    //     }
+                    //     else if (enFrmData.translation_answer.trim().length <= 5) {
+                    //         console.log("answer 5");
+                    //         flag = 1;
+                    //         message = "Cevap için en az 5 karakter giriniz!";
+                    //     }
+                    //
+                    //     if (flag == 1)
+                    //     {
+                    //         msg(message, "error");
+                    //         return;
+                    //     }
+                    //     else{
+                    //
+                    //     }
+
                 });
-                json['frmLang'] = frmLang;
+
                 console.log("json" + JSON.stringify(json));
                 saveMenu(json);
             }
@@ -319,7 +330,7 @@ $(document).ready(function () {
                   {
                     dataField: "package_id",
                     label: {
-                        text: 'Package'
+                        text: 'Paket'
                     },
                     editorType: "dxSelectBox",
                     editorOptions: {
@@ -337,6 +348,17 @@ $(document).ready(function () {
 
                 },
 
+                {
+                    dataField: "sort_order",
+                    label: {
+                        text: 'Sıra'
+                    },
+                    validationRules: [{
+                        type: "required",
+                        message: "Sıra boş geçilemez"
+                    }]
+
+                },
                 {
                     dataField: "active",
                     label: {
@@ -421,7 +443,6 @@ $(document).ready(function () {
         }
 
         var combined = $.extend({}, resultQue, resultAnswer);
-
         let formJson = await languageInsertUpdateForm(combined);
         $("#frmLanguageMenu" + symbol).dxForm(formJson);
 
@@ -436,6 +457,8 @@ $(document).ready(function () {
             colCount: 1,
             labelLocation: 'top',
             formData: data,
+            showColonAfterLabel: true,
+            // showValidationSummary: true,
             items: [
                 {
                     dataField: "translation_question",
@@ -443,7 +466,19 @@ $(document).ready(function () {
                         text: 'Soru (' + data.symbol + ')',
 
                     },
-
+                    validationRules: data.symbol == 'en' ? [
+                        {
+                            type: "required",
+                            message: "Lütfen İngilizce soru giriniz!"
+                        },
+                        {
+                            type: "custom",
+                            message: "Lütfen en az 5 karakter giriniz!",
+                            validationCallback(params) {
+                                return params.value.trim().length >= 5
+                            },
+                        }
+                    ] : null,
                 },
                 {
                     dataField: "translation_answer",
@@ -453,8 +488,20 @@ $(document).ready(function () {
                     editorType: "dxTextArea",
                     editorOptions: {
                         height: 100
-                    }
-
+                    },
+                    validationRules: data.symbol == 'en' ? [
+                        {
+                            type: "required",
+                            message: "Lütfen İngilizce cevap giriniz!"
+                        },
+                        {
+                            type: "custom",
+                            message: "Lütfen en az 5 karakter giriniz!",
+                            validationCallback(params) {
+                                return params.value.trim().length >= 5
+                            },
+                        }
+                    ] : null,
                 },
 
             ]
@@ -486,6 +533,4 @@ $(document).ready(function () {
 
     }
 
-
 });
-

@@ -16,8 +16,10 @@
                 <div class="cat_form">
                     <form id="cta_form_wrappper">
                         <div class="input-group"><input type="text" class="form-control"
-                                                        placeholder="{{ __('Enter your mail address') }}"><button class="btn btn_theme btn_md"
-                                                                                                      type="button">{{ __('Subscribe') }}</button></div>
+                                                        placeholder="{{ __('Enter your mail address') }}">
+                            <button class="btn btn_theme btn_md"
+                                    type="button">{{ __('Subscribe') }}</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -36,17 +38,19 @@
                 <div class="footer_first_area">
                     <div class="footer_inquery_area">
                         <h5 class="mb-2">{{ __('Call 24/7 for any help') }}</h5>
-                        <h5> <a href="tel:0232 462 11 11">0232 462 11 11</a></h5>
+                        <h5><a href="tel:0232 462 11 11">0232 462 11 11</a></h5>
                     </div>
                     <div class="footer_inquery_area">
                         <h5 class="mb-2">{{ __('Mail to our support team') }}</h5>
-                        <h5> <a href="mailto:info@elixetour.com">info@elixetour.com</a></h5>
+                        <h5><a href="mailto:info@elixetour.com">info@elixetour.com</a></h5>
                     </div>
                     <div class="footer_inquery_area">
                         <h5>{{ __('Follow us on') }}</h5>
                         <ul class="soical_icon_footer">
-                            <li><a href="https://www.facebook.com/profile.php?id=100088960760419"><i class="fab fa-facebook"></i></a></li>
-                            <li><a href="https://www.instagram.com/elixetour/?next=%2F"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="https://www.facebook.com/profile.php?id=100088960760419"><i
+                                        class="fab fa-facebook"></i></a></li>
+                            <li><a href="https://www.instagram.com/elixetour/?next=%2F"><i class="fab fa-instagram"></i></a>
+                            </li>
                             <!--  <li><a href="#!"><i class="fab fa-twitter-square"></i></a></li>
                               <li><a href="#!"><i class="fab fa-linkedin"></i></a></li> -->
                         </ul>
@@ -86,8 +90,12 @@
                 </div>
                 <div class="footer_link_area">
                     <ul>
-                        <li><a href="izmir-kaya.php">Kaya Thermal Hotel</a></li>
-                        <li><a href="bursa-kervansaray.php">Kervansaray Hotel</a></li>
+                        @foreach($hotel_highlighted as $item)
+
+                            @if($item->highlighted == 1)
+                                <li><a href="/hotel/{{$item->slug}}">{{$item->name}}</a></li>
+                            @endif
+                        @endforeach
                     </ul>
                 </div>
             </div>

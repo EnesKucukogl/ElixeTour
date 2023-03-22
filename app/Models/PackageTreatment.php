@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PackageTreatment extends Model
 {
+    use HasFactory;
+
     protected $table = 'elx_package_treatment';
+
 }

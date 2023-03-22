@@ -49,7 +49,7 @@
                                 <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
                                     <div id="frmEdit"></div>
                                     <div class="language row md-form "></div>
-{{--                                    <button id="btnSaveMenu" type="button" class="btn btn-save btn-primary mt-3">Kaydet</button>--}}
+                                    <button id="btnSave" type="button" class="btn btn-save btn-primary mt-3">Kaydet</button>
                                 </div>
                                 <div class="tab-pane fade show " id="navs-top-image" role="tabpanel">
                                     <div id="frmResimMenu"></div>
@@ -58,10 +58,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
 
-                    <button id="btnSave" type="button" class="btn btn-save btn-primary">Kaydet</button>
-                </div>
             </div>
         </div>
     </div>

@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Cviebrock\EloquentSluggable\Sluggable;
+//use Cviebrock\EloquentSluggable\Sluggable;
 
 class Questions extends Model
 {
-    use HasFactory, Sluggable;
+    use HasFactory;
 
     protected $table = 'vew_questions';
 
@@ -17,14 +17,14 @@ class Questions extends Model
      *
      * @return array
      */
-    public function sluggable(): array
-    {
-        return [
-            'slug' => [
-                'source' => 'title'
-            ]
-        ];
-    }
+//    public function sluggable(): array
+//    {
+//        return [
+//            'slug' => [
+//                'source' => 'title'
+//            ]
+//        ];
+//    }
 
     public  function questionTextContent()
     {
@@ -44,7 +44,17 @@ class Questions extends Model
 
     public static function questionsListActive()
     {
-        return static::with("questionTextContent")->with("answerTextContent")->where("active","=","1")->orderBy("Id","desc")->get();
+        return static::with("questionTextContent")->with("answerTextContent")->where("active","=","1")->orderBy("sort_order","asc")->get();
     }
+
+    public static function questionsListSlug($slug)
+    {
+        return static::with("questionTextContent")->with("answerTextContent")->where("active","=","1")->where("slug","=",$slug)->orderBy("sort_order","asc")->get();
+    }
+
+//    public static function packageName()
+//    {
+//        return static::hasMany('App\Models\Package','package_id','Id');
+//    }
 
 }
