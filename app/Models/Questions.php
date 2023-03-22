@@ -44,7 +44,12 @@ class Questions extends Model
 
     public static function questionsListActive()
     {
-        return static::with("questionTextContent")->with("answerTextContent")->where("active","=","1")->orderBy("Id","desc")->get();
+        return static::with("questionTextContent")->with("answerTextContent")->where("active","=","1")->orderBy("sort_order","asc")->get();
+    }
+
+    public static function questionsListSlug($slug)
+    {
+        return static::with("questionTextContent")->with("answerTextContent")->where("active","=","1")->where("slug","=",$slug)->orderBy("sort_order","asc")->get();
     }
 
 }

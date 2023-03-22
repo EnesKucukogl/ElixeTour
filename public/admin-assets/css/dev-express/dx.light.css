@@ -1548,7 +1548,7 @@
 }
 .dx-widget input,
 .dx-widget textarea {
-  height: 45px;
+  /*height: 45px;*/
   font-family: "Helvetica Neue","Segoe UI",helvetica,verdana,sans-serif;
 
 }

@@ -8,7 +8,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 
 class Package extends Model
 {
-    use HasFactory,Sluggable;
+    use HasFactory, Sluggable;
 
 
     protected $table = 'vew_package';
@@ -27,12 +27,12 @@ class Package extends Model
         ];
     }
 
-    public  function packageTextContent()
+    public function packageTextContent()
     {
         return $this->hasMany('App\Models\TranslationView', 'text_content_id', 'package_name_content_id');
     }
 
-    public  function descriptionTextContent()
+    public function descriptionTextContent()
     {
         return $this->hasMany('App\Models\TranslationView', 'text_content_id', 'description_content_id');
     }
@@ -40,12 +40,17 @@ class Package extends Model
 
     public static function packageList()
     {
-        return static::with("packageTextContent")->with("descriptionTextContent")->orderBy("Id","desc")->get();
+        return static::with("packageTextContent")->with("descriptionTextContent")->orderBy("Id", "desc")->get();
+    }
+
+    public static function packageSingleSlug($slug)
+    {
+        return static::with("packageTextContent")->with("descriptionTextContent")->where("slug", "=", $slug)->first();
     }
 
     public static function packageListActive()
     {
-        return static::with("packageTextContent")->with("descriptionTextContent")->where("active","=","1")->orderBy("Id","desc")->get();
+        return static::with("packageTextContent")->with("descriptionTextContent")->where("active", "=", "1")->orderBy("Id", "desc")->get();
     }
 
 

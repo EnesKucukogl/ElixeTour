@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Package;
 use App\Models\File;
+use App\Models\Questions;
+use App\Models\Treatment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -30,13 +32,21 @@ class PackageController extends Controller
         return view('packages', ['package' => $package,'packageFile'=>$file]);
     }
 
+    public function frontSidePackagesDetail($slug)
+    {
+        $package = Package::packageSingleSlug($slug);
+        $questions = Questions::questionsListSlug($slug);
+        $package_Id = $package->Id;
+        $package_treatment = Treatment::packageTreatmentList($package_Id);
+        $package_file = File::where("file_type_id","1")->where("cover_image","1")->get();
+        return view('package-detail', ['package' => $package,'package_treatment'=>$package_treatment,'questions'=>$questions,'packageFile'=>$package_file]);
+    }
+
     public function datagrid()
     {
         $package = Package::packageList();
         return response()->json($package);
     }
-
-
 
     public function edit($id)
     {

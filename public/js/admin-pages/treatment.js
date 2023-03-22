@@ -68,6 +68,10 @@ $(document).ready(function () {
                 }
             },
             {
+                dataField: "slug",
+                caption: "Slug"
+            },
+            {
                 dataField: "active",
                 caption: "Aktif",
                 lookup: {
@@ -85,6 +89,7 @@ $(document).ready(function () {
                     displayExpr: "name" // provides display values
                 }
             },
+
             {
                 dataField: "highlighted",
                 caption: "Anasayfada Göster",
@@ -315,7 +320,7 @@ $(document).ready(function () {
             $.ajax({
                 type: "POST",
                 url: 'get-file-list',
-                data: {id: data.Id, file_type_id: 1},
+                data: {id: data.Id, file_type_id: 2},
                 datatype: "json",
                 async: false,
                 success: function (data) {
@@ -415,7 +420,7 @@ $(document).ready(function () {
                                     $.ajax({
                                         type: "POST",
                                         url: 'check-cover-file',
-                                        data: {id: data.Id, file_type_id: 1},
+                                        data: {id: data.Id, file_type_id: 2},
                                         datatype: "json",
                                         async: false,
                                         success: function (data) {
@@ -556,7 +561,7 @@ $(document).ready(function () {
         //var jsonParse = JSON.parse();
 
         let postData = {
-            file_type_id: 1,
+            file_type_id: 2,
             tmp_name: json.Dosya[0].guid.tmp,
             name: json.Dosya[0].guid.name,
             general_id: json.Id,

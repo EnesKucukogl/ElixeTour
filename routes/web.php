@@ -61,12 +61,6 @@ Route::get('/health-in-turkey', function () {
     return view('health-in-turkey');
 });
 
-Route::get('/packages', [PackageController::class, 'frontSidePackages'])->name('packages');
-
-Route::get('/hotel', [HotelController::class, 'frontSideHotel'])->name('hotel');
-
-Route::get('/treatment', [TreatmentController::class, 'frontSideTreatment'])->name('treatment');
-
 
 //Admin Side Login Routes
 Route::get('rudder/', [AdminAuthController::class, 'index'])->name('admin.home')->middleware('auth:webadmin');
@@ -128,6 +122,8 @@ Route::resource('rudder/package', PackageController::class, [
 
 Route::get('/rudder/package-list', [PackageController::class, 'datagrid']);
 Route::post('/rudder/package-file-upload', [PackageController::class, 'uploadFile'])->middleware('auth:webadmin');
+Route::get('/packages', [PackageController::class, 'frontSidePackages'])->name('packages');
+Route::get('/package/{slug}', [PackageController::class, 'frontSidePackagesDetail']);
 
 
 //Admin Contact
@@ -149,7 +145,7 @@ Route::resource('rudder/hotel', HotelController::class, [
 Route::get('/rudder/hotel-list', [HotelController::class, 'datagrid']);
 Route::get('/rudder/hotel-list-active', [HotelController::class, 'datagridActive']);
 Route::post('/rudder/hotel-file-upload', [HotelController::class, 'uploadFile'])->middleware('auth:webadmin');
-
+Route::get('/hotel/{slug}', [HotelController::class, 'frontSideHotelDetail']);
 
 //language
 Route::resource('rudder/language', LanguageController::class, [
@@ -228,6 +224,7 @@ Route::resource('rudder/treatment', TreatmentController::class, [
 
 Route::get('/rudder/treatment-list', [TreatmentController::class, 'datagrid']);
 Route::post('/rudder/treatment-file-upload', [TreatmentController::class, 'uploadFile'])->middleware('auth:webadmin');
+Route::get('/treatment/{slug}', [TreatmentController::class, 'frontSideTreatmentsDetail']);
 
 //Questions
 Route::resource('rudder/questions', QuestionsController::class, [
@@ -236,7 +233,6 @@ Route::resource('rudder/questions', QuestionsController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/questions-list', [QuestionsController::class, 'datagrid']);
-
 
 //file upload
 Route::post('/rudder/file-upload', [FileController::class, 'uploadFile'])->name('uploadFile');
@@ -251,3 +247,11 @@ Route::resource('rudder/blog', BlogController::class, [
     ]])->middleware('auth:webadmin');
 Route::get('/rudder/blog-list', [BlogController::class, 'datagrid']);
 Route::post('/rudder/blog-file-upload', [BlogController::class, 'uploadFile'])->middleware('auth:webadmin');
+
+//Offices
+Route::resource('rudder/offices', QuestionsController::class, [
+    'names' => [
+        'index' => 'admin.offices',
+    ]])->middleware('auth:webadmin');
+
+Route::get('/rudder/offices-list', [QuestionsController::class, 'datagrid']);

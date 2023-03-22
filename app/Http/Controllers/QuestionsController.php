@@ -20,11 +20,6 @@ class QuestionsController extends Controller
         return view('admin.questions');
     }
 
-    public function questionsListActive()
-    {
-        $questions = Questions::questionsListActive();
-        return view('questions', ['questions' => $questions]);
-    }
 
     public function datagrid()
     {
@@ -116,6 +111,7 @@ class QuestionsController extends Controller
                     ->update(array(
                         'slug' => $slug,
                         'package_id' => $request['package_id'],
+                        'sort_order' => $request['sort_order'],
                         'active' => $request['active'],
                         'updated_user_id' => Auth::user()->Id,
                         'updated_date' => date("Y-m-d H:i:s"),
@@ -150,6 +146,7 @@ class QuestionsController extends Controller
                                 'question_content_id' => $textContentLastQueInsertId,
                                 'answer_content_id' => $textContentLastAnswerInsertId,
                                 'package_id' => $request['package_id'],
+                                'sort_order' => $request['sort_order'],
                                 'active' => $request['active'],
                                 'created_user_id' => Auth::user()->Id);
                             $resultMenu = DB::table('elx_questions')->insert($values);

@@ -38,11 +38,11 @@
              <div class="col-lg-3">
                 <div class="theme_common_box_two img_hover">
                     <div class="theme_two_box_img">
-                        <a href="{{$item->slug}}"><img src="{{$file_path}}" alt="img"></a>
+                        <a href="package/{{$item->slug}}"><img src="{{$file_path}}" alt="img"></a>
                         <p><i class="fas fa-map-marker-alt"></i>{{ __('Package') }}</p>
                     </div>
                     <div class="theme_two_box_content">
-                        <h4><a href="{{$item->slug}}">{{$package_name}}</a></h4>
+                        <h4><a href="package/{{$item->slug}}">{{$package_name}}</a></h4>
                         <p><span class="review_rating">{{$item->duration}} {{ __('Days') }}</span></p>
                         <h3>{{$item->price_currency_code."".$item->price}}<span class="price-starts">{{ __('Price starts from') }}</span></h3>
                     </div>

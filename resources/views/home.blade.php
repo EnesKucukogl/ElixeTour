@@ -198,88 +198,24 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="promotional_tour_slider owl-theme owl-carousel dot_style">
-                        <div class="top_destinations_box img_hover">
-                            <div class="heart_destinations">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                            <a href="prp.php"><img src="assets/img/ftr/kok-min.webp"
-                                                   alt="img"></a>
-                            <div class="top_destinations_box_content">
-                                <h4><a href="prp.php">Prp (stem cell therapy)</a></h4>
-
-                            </div>
-                        </div>
-                        <div class="top_destinations_box img_hover">
-                            <div class="heart_destinations">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                            <a href="hacamat.php"><img src="assets/img/ftr/hacamat-min.webp"
-                                                       alt="img"></a>
-                            <div class="top_destinations_box_content">
-                                <h4><a href="hacamat.php">Cupping (hijama treatment)</a></h4>
-                            </div>
-                        </div>
-                        <div class="top_destinations_box img_hover">
-                            <div class="heart_destinations">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                            <a href="ozon.php"><img src="assets/img/ftr/ozon-min.webp"
-                                                    alt="img"></a>
-                            <div class="top_destinations_box_content">
-                                <h4><a href="ozon.php">Ozone Therapy</a></h4>
-                            </div>
-                        </div>
-                        <div class="top_destinations_box img_hover">
-                            <div class="heart_destinations">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                            <a href="hydrotherapy.php"><img src="assets/img/ftr/hydrotherapy-min.webp"
-                                                            alt="img"></a>
-                            <div class="top_destinations_box_content">
-                                <h4><a href="hydrotherapy.php">What is Hydrotherapy?</a></h4>
-                            </div>
-                        </div>
-                        <div class="top_destinations_box img_hover">
-                            <div class="heart_destinations">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                            <a href="breath.php"><img src="assets/img/ftr/breath-min.webp"
-                                                      alt="img"></a>
-                            <div class="top_destinations_box_content">
-                                <h4><a href="breath.php">What is Breathing Exercise?</a></h4>
-                            </div>
-                        </div>
-                        <div class="top_destinations_box img_hover">
-                            <div class="heart_destinations">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                            <a href="bioenergy.php"><img src="assets/img/ftr/bioenergy-min.webp"
-                                                         alt="img"></a>
-                            <div class="top_destinations_box_content">
-                                <h4><a href="bioenergy.php">What is Bioenergy?</a></h4>
-                            </div>
-                        </div>
-                        <div class="top_destinations_box img_hover">
-                            <div class="heart_destinations">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                            <a href="acupuncture.php"><img src="assets/img/ftr/acupuncture-min.webp"
+                        @foreach ($treatment as $item)
+                            @if($item->highlighted == 1)
+                                @php
+                                    $file_path = getImage($treatmentFile,$item->Id);
+                                    $treatment_name = viewLanguageSupport($item->treatmentTextContent);
+                                @endphp
+                                <div class="top_destinations_box img_hover">
+                                    <div class="heart_destinations">
+                                        <i class="fas fa-heart"></i>
+                                    </div>
+                                    <a href="treatment/{{$item->slug}}"><img src="{{$file_path}}"
                                                            alt="img"></a>
-                            <div class="top_destinations_box_content">
-                                <h4><a href="acupuncture.php">What is Acapuntur?</a></h4>
-                            </div>
-                        </div>
-                        <div class="top_destinations_box img_hover">
-                            <div class="heart_destinations">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                            <a href="thermal-water.php"><img src="assets/img/ftr/thermal-min.webp"
-                                                             alt="img"></a>
-                            <div class="top_destinations_box_content">
-                                <h4><a href="thermal-water.php">Benefits of Thermal Water?</a></h4>
-                            </div>
-                        </div>
-
+                                    <div class="top_destinations_box_content">
+                                        <h4><a href="treatment/{{$item->slug}}">{{$treatment_name}}</a></h4>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -299,26 +235,37 @@
                     </div>
 
                 </div>
+                @php
+
+                    @endphp
                 <div class="col-lg-8 col-md-8 col-sm-6 col-12">
                     <div class="row" style="justify-content: center;">
 
+                        @foreach ($hotel as $item)
+                            @if($item->highlighted == 1)
 
-                        <div class="col-lg-5 col-md-6 col-sm-6 col-12">
-                            <div class="theme_common_box_two img_hover">
-                                <div class="theme_two_box_img">
-                                    <a href="'#'">
-                                        <img src="'#'" alt="img">
-                                    </a>
-                                    <p><i class="fas fa-map-marker-alt"></i>Deneme</p>
-                                </div>
-                                <div class="theme_two_box_content">
-                                    <h4><a href="izmir-kaya.php">Deneme</a></h4>
-                                    <p><span class="review_rating">Excellent</span></p>
-                                    <h3>Deneme<span> Price starts from</span></h3>
-                                </div>
-                            </div>
-                        </div>
+                                @php
 
+                                    $file_path = getImage($hotelFile,$item->Id);
+
+                                @endphp
+                                <div class="col-lg-5 col-md-6 col-sm-6 col-12">
+                                    <div class="theme_common_box_two img_hover">
+                                        <div class="theme_two_box_img">
+                                            <a href="hotel/{{$item->slug}}">
+                                                <img src="{{$file_path}}" alt="img">
+                                            </a>
+                                            <p><i class="fas fa-map-marker-alt"></i>{{$item->city_name}}</p>
+                                        </div>
+                                        <div class="theme_two_box_content">
+                                            <h4><a href="hotel/{{$item->slug}}">{{$item->name}}</a></h4>
+                                            <p><span class="review_rating">Excellent</span></p>
+                                            {{-- <h3>Deneme<span> Price starts from</span></h3>--}}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
 
                     </div>
 
@@ -328,15 +275,6 @@
             </div>
         </div>
     </section>
-
-
-
-
-
-
-
-
-
 
 
     <!--Promotional Tours Area -->
@@ -357,26 +295,25 @@
                 <div class="col-lg-12">
                     <div class="promotional_tour_slider owl-theme owl-carousel dot_style">
                         @foreach ($package as $item)
-                            @if($item->highlighted == 1)
 
-                                @php
+                            @php
+                                $file_path = getImage($packageFile,$item->Id);
+                                $package_name = viewLanguageSupport($item->packageTextContent);
+                            @endphp
 
-                                    $file_path = getImage($packageFile,$item->Id);
-                                    $package_name = viewLanguageSupport($item->packageTextContent);
-                                @endphp
-
-                                <div class="theme_common_box_two img_hover">
-                                    <div class="theme_two_box_img">
-                                        <a href="{{$item->slug}}"><img src="{{$file_path}}" alt="img"></a>
-                                        <p><i class="fas fa-map-marker-alt"></i>Package</p>
-                                    </div>
-                                    <div class="theme_two_box_content">
-                                        <h4><a href="{{$item->slug}}">{{$package_name}}</a></h4>
-                                        <p><span class="review_rating">{{$item->duration}} Days+</span></p>
-                                        <h3>{{$item->price_currency_code."".$item->price}}<span>Price starts from</span></h3>
-                                    </div>
+                            <div class="theme_common_box_two img_hover">
+                                <div class="theme_two_box_img">
+                                    <a href="package/{{$item->slug}}"><img src="{{$file_path}}" alt="img"></a>
+                                    <p><i class="fas fa-map-marker-alt"></i>Package</p>
                                 </div>
-                            @endif
+                                <div class="theme_two_box_content">
+                                    <h4><a href="package/{{$item->slug}}">{{$package_name}}</a></h4>
+                                    <p><span class="review_rating">{{$item->duration}} Days+</span></p>
+                                    <h3>{{$item->price_currency_code."".$item->price}}<span>Price starts from</span>
+                                    </h3>
+                                </div>
+                            </div>
+
                         @endforeach
                     </div>
                 </div>
@@ -1310,27 +1247,28 @@
                     <div class="home_news_left_wrapper">
                         <div class="home_news_item">
                             <div class="home_news_img">
-                                <a href="health-in-turkey.php"><img src="assets/img/banner/slider5-min.webp" alt="img"></a>
+                                <a href="health-in-turkey"><img src="{{URL::asset('img/banner/slider5-min.webp')}}"
+                                                                alt="img"></a>
                             </div>
                             <div class="home_news_content">
-                                <h3><a href="health-in-turkey.php">Türkiye’de Kaplıca Kaynakları ve Uygulamalar</a></h3>
-                                <p><a href="health-in-turkey.php">11 Ocak 2023</a></p>
+                                <h3><a href="health-in-turkey">Türkiye’de Kaplıca Kaynakları ve Uygulamalar</a></h3>
+                                {{-- <p><a href="{{route("health-in-turkey")}}">11 Ocak 2023</a></p>--}}
                             </div>
                         </div>
                         <div class="home_news_item">
                             <div class="home_news_img">
-                                <a href="mest-club-card.php"><img src="assets/img/mestcard-elixe-mockup-min.webp"
-                                                                  alt="img"></a>
+                                <a href="mest-club-card"><img src="{{URL::asset('img/mestcard-elixe-mockup-min.webp')}}"
+                                                              alt="img"></a>
                             </div>
                             <div class="home_news_content">
-                                <h3><a href="mest-club-card.php">Mest Club Card</a></h3>
-                                <p><a href="news.php">11 Ocak 2023</a></p>
+                                <h3><a href="mest-club-card">Mest Club Card</a></h3>
+                                {{--<p><a href="{{route("mest-club-card")}}">11 Ocak 2023</a></p>--}}
                             </div>
                         </div>
 
                         <div class="home_news_item">
                             <div class="seeall_link">
-                                <a href="health-in-turkey.php">See health in Turkey <i
+                                <a href="health-in-turkey">See health in Turkey <i
                                         class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>

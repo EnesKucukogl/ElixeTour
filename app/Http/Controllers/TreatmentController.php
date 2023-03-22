@@ -7,6 +7,7 @@ use App\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 
 class TreatmentController extends Controller
@@ -20,12 +21,8 @@ class TreatmentController extends Controller
     {
         return view('admin.treatment');
     }
-    public function frontSideTreatment()
-    {
-        $treatment = Treatment::treatmentListActive();
-        $file = File::where("file_type_id","1")->where("cover_image","1")->get();
-        return view('treatment', ['treatment' => $treatment,'treatmentFile'=>$file]);
-    }
+
+
     public function datagrid()
     {
         $menu = Treatment::treatmentList();
@@ -39,6 +36,13 @@ class TreatmentController extends Controller
         return response()->json($treatmentDetail);
     }
 
+    public function frontSideTreatmentsDetail($slug)
+    {
+        $treatment = Treatment::treatmentSingleSlug($slug);
+        $treatmentRandom = Treatment::treatmentRandomListActive();
+        $treatment_file = File::where("file_type_id", "2")->where("cover_image", "1")->get();
+        return view('treatment-detail', ['treatment' => $treatment, 'treatment_file' => $treatment_file, 'treatmentRandom' => $treatmentRandom]);
+    }
 
     public function store(Request $request)
     {
@@ -49,12 +53,6 @@ class TreatmentController extends Controller
         if ($treatment !== null) {
             try {
 
-                $resultMenu = DB::table('elx_treatment')->where('Id', $request->Id)->update(array(
-                    'active' => $request->active,
-                    'highlighted' => $request['highlighted'],
-                    'updated_user_id' => Auth::user()->Id,
-                    'updated_date' => date("Y-m-d H:i:s"),
-                ));
 
                 foreach ($request->frmLang as $item) {
                     $dataName = DB::Table('vew_language_translation')
@@ -67,7 +65,11 @@ class TreatmentController extends Controller
                         ->where('language_id', $item['language_id'])
                         ->first();
                     if ($item['language_id'] == $this->default_lang) {
-
+                        if ($request['highlighted'] == 1) {
+                            $slug = SlugService::createSlug(Treatment::class, 'slug', $item['translation_treatment']);
+                        } elseif ($request['highlighted'] == 0) {
+                            $slug = "";
+                        }
                         DB::Table('elx_text_content')->where('Id', $item['text_content_id_treatment'])->update(array(
                             'original_text' => $item['translation_treatment'],
                             'updated_user_id' => Auth::user()->Id,
@@ -81,19 +83,16 @@ class TreatmentController extends Controller
                         ));
 
                     } elseif ($item['language_id'] !== $this->default_lang) {
-                        if ($dataName)
-                        {
+                        if ($dataName) {
                             DB::Table('elx_translation')
                                 ->where('text_content_id', $item['text_content_id_treatment'])
                                 ->where('language_id', $item['language_id'])
                                 ->update(array(
-                                'translation' => $item['translation_treatment'],
-                                'updated_user_id' => Auth::user()->Id,
-                                'updated_date' => date("Y-m-d H:i:s"),
-                            ));
-                        }
-                        else
-                        {
+                                    'translation' => $item['translation_treatment'],
+                                    'updated_user_id' => Auth::user()->Id,
+                                    'updated_date' => date("Y-m-d H:i:s"),
+                                ));
+                        } else {
                             DB::Table('elx_translation')->insert([
                                 'text_content_id' => $item['text_content_id_treatment'],
                                 'language_id' => $item['language_id'],
@@ -102,19 +101,16 @@ class TreatmentController extends Controller
                             ]);
                         }
 
-                        if ($dataDesc)
-                        {
+                        if ($dataDesc) {
                             DB::Table('elx_translation')
                                 ->where('text_content_id', $item['text_content_id_description'])
                                 ->where('language_id', $item['language_id'])
                                 ->update(array(
-                                'translation' => $item['translation_description'],
-                                'updated_user_id' => Auth::user()->Id,
-                                'updated_date' => date("Y-m-d H:i:s"),
-                            ));
-                        }
-                        else
-                        {
+                                    'translation' => $item['translation_description'],
+                                    'updated_user_id' => Auth::user()->Id,
+                                    'updated_date' => date("Y-m-d H:i:s"),
+                                ));
+                        } else {
                             DB::Table('elx_translation')->insert([
                                 'text_content_id' => $item['text_content_id_description'],
                                 'language_id' => $item['language_id'],
@@ -124,6 +120,14 @@ class TreatmentController extends Controller
                         }
                     }
                 }
+
+                $resultMenu = DB::table('elx_treatment')->where('Id', $request->Id)->update(array(
+                    'active' => $request->active,
+                    'highlighted' => $request['highlighted'],
+                    'slug' => $slug,
+                    'updated_user_id' => Auth::user()->Id,
+                    'updated_date' => date("Y-m-d H:i:s"),
+                ));
                 return $resultMenu ? response()->json(['message' => 'Tedavi başarıyla güncellenmiştir.', 'type' => 'success']) : response()->json(['message' => 'Tedavi güncellenirken bir hata oluşmuştur.', 'type' => 'error']);
 
             } catch (\Exception $e) {
@@ -147,6 +151,12 @@ class TreatmentController extends Controller
                       }*/
 
                     if ($item['id'] == $this->default_lang && isset($item['translation_treatment']) && isset($item['translation_description'])) {
+                        if($request['highlighted'] == 1) {
+                            $slug = SlugService::createSlug(Treatment::class, 'slug', $item['translation_treatment']);
+                        } elseif ($request['highlighted'] == 0) {
+                            $slug = "";
+                        }
+
                         $values = array('original_text' => $item['translation_treatment'], 'language_id' => $this->default_lang, 'created_user_id' => Auth::user()->Id);
                         $resultTextContentTreatment = DB::table('elx_text_content')->insert($values);
                         $textContentLastTreatmentInsertId = DB::getPdo()->lastInsertId();
@@ -156,7 +166,7 @@ class TreatmentController extends Controller
                         if ($resultTextContentTreatment == 1 && $resultTextContentDesc == 1) {
 
 
-                            $values = array('highlighted' => $request['highlighted'],'treatment_name_content_id' => $textContentLastTreatmentInsertId, 'description_content_id' => $textContentLastDescInsertId,  'active' => $request->active, 'created_user_id' => Auth::user()->Id);
+                            $values = array('highlighted' => $request['highlighted'], 'slug' => $slug, 'treatment_name_content_id' => $textContentLastTreatmentInsertId, 'description_content_id' => $textContentLastDescInsertId, 'active' => $request->active, 'created_user_id' => Auth::user()->Id);
                             $resultMenu = DB::table('elx_treatment')->insert($values);
                             if (!$resultMenu) {
                                 DB::delete('delete from elx_text_content where Id = ?', [$textContentLastTreatmentInsertId]);
@@ -172,15 +182,14 @@ class TreatmentController extends Controller
                         if (isset($item['translation_treatment'])) {
                             $values = array('text_content_id' => $textContentLastTreatmentInsertId, 'language_id' => $item['id'], 'translation' => $item['translation_treatment'], 'created_user_id' => Auth::user()->Id);
                             DB::table('elx_translation')->insert($values);
-                        }
-                        elseif (!isset($item['translation_treatment'])) {
+                        } elseif (!isset($item['translation_treatment'])) {
                             $values = array('text_content_id' => $textContentLastTreatmentInsertId, 'language_id' => $item['id'], 'translation' => '', 'created_user_id' => Auth::user()->Id);
                             DB::table('elx_translation')->insert($values);
                         }
                         if (isset($item['translation_description'])) {
                             $values = array('text_content_id' => $textContentLastDescInsertId, 'language_id' => $item['id'], 'translation' => $item['translation_description'], 'created_user_id' => Auth::user()->Id);
                             DB::table('elx_translation')->insert($values);
-                        }  elseif (!isset($item['translation_description'])) {
+                        } elseif (!isset($item['translation_description'])) {
                             $values = array('text_content_id' => $textContentLastDescInsertId, 'language_id' => $item['id'], 'translation' => '', 'created_user_id' => Auth::user()->Id);
                             DB::table('elx_translation')->insert($values);
 
@@ -213,15 +222,16 @@ class TreatmentController extends Controller
         return $visible ? response()->json(['message' => 'Kayıt başarıyla güncellenmiştir.']) : response()->json(['message' => 'Kayıt güncellenirken bir hata oluşmuştur.']);
 
     }
+
     public function uploadFile(Request $request)
     {
 
         $request = $request->json()->all();
 
-        $values = array('general_id' => $request['general_id'], 'file_type_id' => $request['file_type_id'], 'cover_image' => $request['cover_image'], 'file_path' => $this->file_path."/".$request['name'], 'tmp_name' => $request['tmp_name'], 'name' => $request['name'], 'created_user_id' => Auth::user()->Id);
+        $values = array('general_id' => $request['general_id'], 'file_type_id' => $request['file_type_id'], 'cover_image' => $request['cover_image'], 'file_path' => $this->file_path . "/" . $request['name'], 'tmp_name' => $request['tmp_name'], 'name' => $request['name'], 'created_user_id' => Auth::user()->Id);
         $fileUpload = DB::table('elx_file')->insert($values);
 
-        return $fileUpload ? response()->json(['message' => 'Resim başarıyla eklenmiştir.','type' => 'success']) : response()->json(['message' => 'Resim eklenirken bir hata oluşmuştur.','type' => 'error']);
+        return $fileUpload ? response()->json(['message' => 'Resim başarıyla eklenmiştir.', 'type' => 'success']) : response()->json(['message' => 'Resim eklenirken bir hata oluşmuştur.', 'type' => 'error']);
 
     }
 }

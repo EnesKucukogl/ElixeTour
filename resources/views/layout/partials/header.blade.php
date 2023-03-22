@@ -143,7 +143,19 @@
                     </a>
                     <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                         <ul class="navbar-nav">
+                            <li class="nav-item"><a href="index.php#hotels-two" class="nav-link">Hotels<i class="fas fa-angle-down"></i></a>
+                                <ul class="dropdown-menu">
+                                    @foreach($hotel_highlighted as $item)
 
+                                        @if($item->highlighted == 1)
+                                    <li class="nav-item">
+                                        <a href="/hotel/{{$item->slug}}" class="nav-link">{{$item->name}}</a>
+                                    </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+
+                            </li>
                             @foreach ($menuItems as $menu)
                                 @php
                                     $menu_name = viewLanguageSupport($menu->textContent);

@@ -77,8 +77,8 @@ $(document).ready(function () {
             //     minWidth:70,
             // },
             {
-                dataField: "package_name",
-                caption: "Paket Adı",
+                dataField: "sort_order",
+                caption: "Sıra",
                 minWidth:70,
             },
 
@@ -319,7 +319,7 @@ $(document).ready(function () {
                   {
                     dataField: "package_id",
                     label: {
-                        text: 'Package'
+                        text: 'Paket'
                     },
                     editorType: "dxSelectBox",
                     editorOptions: {
@@ -337,6 +337,17 @@ $(document).ready(function () {
 
                 },
 
+                {
+                    dataField: "sort_order",
+                    label: {
+                        text: 'Sıra'
+                    },
+                    validationRules: [{
+                        type: "required",
+                        message: "Sıra boş geçilemez"
+                    }]
+
+                },
                 {
                     dataField: "active",
                     label: {
