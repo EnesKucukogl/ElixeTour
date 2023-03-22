@@ -6,7 +6,6 @@ use App\Models\Questions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class QuestionsController extends Controller
 {
@@ -46,7 +45,7 @@ class QuestionsController extends Controller
             try {
                 foreach ($request['frmLang'] as $item) {
                     if ($item['language_id'] == $this->default_lang) {
-                        $slug = SlugService::createSlug(Questions::class, 'slug', $item['translation_question']);
+//                        $slug = SlugService::createSlug(Questions::class, 'slug', $item['translation_question']);
                         DB::table('elx_text_content')
                             ->where('Id', $item['text_content_id_question'])
                             ->update(array(
@@ -109,7 +108,7 @@ class QuestionsController extends Controller
                 $resultQuestions = DB::table('elx_questions')
                     ->where('Id', $request['Id'])
                     ->update(array(
-                        'slug' => $slug,
+//                        'slug' => $slug,
                         'package_id' => $request['package_id'],
                         'sort_order' => $request['sort_order'],
                         'active' => $request['active'],
@@ -128,7 +127,7 @@ class QuestionsController extends Controller
 
                     if ($item['id'] == $this->default_lang && isset($item['translation_question']) && isset($item['translation_answer'])) {
 
-                        $slug = SlugService::createSlug(Questions::class, 'slug', $item['translation_question']);
+//                        $slug = SlugService::createSlug(Questions::class, 'slug', $item['translation_question']);
 
                         $values = array('original_text' => $item['translation_question'], 'language_id' => $this->default_lang, 'created_user_id' => Auth::user()->Id);
                         $resultTextContentQue = DB::table('elx_text_content')->insert($values);
@@ -142,7 +141,7 @@ class QuestionsController extends Controller
 
 
                             $values = array(
-                                'slug'=> $slug,
+//                                'slug'=> $slug,
                                 'question_content_id' => $textContentLastQueInsertId,
                                 'answer_content_id' => $textContentLastAnswerInsertId,
                                 'package_id' => $request['package_id'],
