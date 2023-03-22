@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Contact;
+use App\Models\Office;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,6 +19,13 @@ class ContactController extends Controller
         return view('admin.contact',);
 
     }
+
+    public function frontSideContact()
+    {
+        $officeList = Office::officeListActive();
+        return view('contact', ['officeList' => $officeList]);
+    }
+
     public function datagrid()
     {
         $contact = Contact::all();

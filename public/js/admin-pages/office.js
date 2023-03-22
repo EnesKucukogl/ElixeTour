@@ -8,7 +8,7 @@ let sehirId = 0;
 $( document ).ready(function() {
     getHotelListe();
 
-    $('#addHotel').on('click', function () {
+    $('#addOffice').on('click', function () {
         getFormById(-1);
     });
 
@@ -89,9 +89,9 @@ const getSehirler = async (ulkeId) => {
 
 const getHotelListe = () => {
 
-    dataGrids["hotels"] = $('#gridContainer').dxDataGrid({
+    dataGrids["office"] = $('#gridContainer').dxDataGrid({
         keyExpr: "Id",
-        dataSource: '/rudder/hotel-list' ,
+        dataSource: '/rudder/offices-list' ,
         columns: [
             {
                 type: "buttons",
@@ -129,38 +129,43 @@ const getHotelListe = () => {
             },
             {
                 dataField: "name",
-                caption: "Name",
+                caption: "Ofis Adı",
                 // minwidth: 100
             },
             {
                 dataField: "city_name",
-                caption: "City Name",
+                caption: "Şehir",
                 // minwidth: 100
             },
             {
                 dataField: "country_name",
-                caption: "Country Name",
+                caption: "Ülke",
                 // minwidth: 100
             },
             {
                 dataField: "address",
-                caption: "Address",
+                caption: "Adres",
                 // minwidth: 100
             },
             {
-                dataField: "slug",
-                caption: "Slug",
+                dataField: "telephone",
+                caption: "Telefon",
                 // minwidth: 100
             },
             {
-                dataField: "location",
-                caption: "Lokasyon",
+                dataField: "google_maps",
+                caption: "Google Maps Linki",
                 // minwidth: 100
             },
             {
-                hidingPriority: 1,
+                dataField: "address",
+                caption: "Adres",
+                // minwidth: 100
+            },
+            {
+
                 dataField: "active",
-                caption: "Active",
+                caption: "Aktif",
                 lookup: {
                     dataSource: {
                         store: {
@@ -176,25 +181,7 @@ const getHotelListe = () => {
                     displayExpr: "name" // provides display values
                 }
             },
-            {
-                dataField: "highlighted",
-                caption: "Anasayfada Göster",
-                minWidth:50,
-                lookup: {
-                    dataSource: {
-                        store: {
-                            type: "array",
-                            data: [
-                                {id: 0, name: "Hayır"},
-                                {id: 1, name: "Evet"},
-                            ],
-                            key: "id"
-                        }
-                    },
-                    valueExpr: "id", // contains the same values as the "statusId" field provides
-                    displayExpr: "name" // provides display values
-                }
-            },
+
         ],
         editing: {
             mode: "row",
@@ -223,17 +210,16 @@ const getHotelListe = () => {
 const getFormById = async (formId) => {
 
     if (formId == "-1") {
-        $("#modalHeading").html("Otel Ekle");
-        let formJson = await hotelInsertUpdateForm();
-        let formJsonResim = await resimInsertUpdateForm(null);
-        $("#frmEdit").dxForm(formJson);
-        $("#frmResimMenu").dxForm(formJsonResim);
+        $("#modalHeading").html("Ofis Ekle");
+        let formJson = await officeInsertUpdateForm();
+        $("#frmEditOffice").dxForm(formJson);
+
     }
     else {
         var result;
         $.ajax({
             type: "GET",
-            url: 'hotel' +'/'+formId+'/edit',
+            url: 'offices' +'/'+formId+'/edit',
             datatype: "json",
             async: false,
             success: function(data){
@@ -241,19 +227,17 @@ const getFormById = async (formId) => {
             }
         });
 
-        $('#modalHeading').html("Otel Düzenle");
-        let formJson = await hotelInsertUpdateForm(result);
-        let formJsonResim = await resimInsertUpdateForm(result);
-        $("#frmEdit").dxForm(formJson);
-        $("#frmResimMenu").dxForm(formJsonResim);
+        $('#modalHeading').html("Ofis Düzenle");
+        let formJson = await officeInsertUpdateForm(result);
+        $("#frmEditOffice").dxForm(formJson);
 
     }
 
 
-    $('#updateOtel').modal('show');
+    $('#updateOffice').modal('show');
     $("#btnSave").unbind();
     $("#btnSave").on("click", function () {
-        var frm = $("#frmEdit").dxForm("instance");
+        var frm = $("#frmEditOffice").dxForm("instance");
         var validate = frm.validate();
         if (validate.isValid) {
 
@@ -267,7 +251,7 @@ const getFormById = async (formId) => {
 }
 
 
-const hotelInsertUpdateForm = async (data = {}) => {
+const officeInsertUpdateForm = async (data = {}) => {
 
     // console.log("data", data);
 
@@ -281,7 +265,6 @@ const hotelInsertUpdateForm = async (data = {}) => {
     sehirler = sehirId != null ? await getSehirler(sehirData.country_id) : null;
     // console.log(sehirler);
 
-    let highlighted = [{Id: 0, status: "Hayır"}, {Id: 1, status: "Evet"}];
     return {
         colCount: 2,
         labelLocation: 'top',
@@ -291,15 +274,23 @@ const hotelInsertUpdateForm = async (data = {}) => {
             {
                 dataField: "name",
                 label: {
-                    text: 'Name'
+                    text: 'Adı'
                 },
+                validationRules: [{
+                    type: "required",
+                    message: "Adı boş geçilemez !"
+                }]
             },
             {
                 dataField: "countryId",
                 label: {
-                    text: 'Country'
+                    text: 'Ülke'
                 },
                 editorType: "dxSelectBox",
+                validationRules: [{
+                    type: "required",
+                    message: "Ülke boş geçilemez !"
+                }],
                 editorOptions: {
                     dataSource: '/rudder/getCountryList',
                     showClearButton: true,
@@ -310,7 +301,7 @@ const hotelInsertUpdateForm = async (data = {}) => {
                     onValueChanged: async function (e) {
                         ulkeId = e.value;
                         // console.log(ulkeId);
-                        var formElement = $('#frmEdit').dxForm("instance");
+                        var formElement = $('#frmEditOffice').dxForm("instance");
                         if (data.countryId == 0 || data.countryId == null) {
                             formElement.getEditor('cityId').option('disabled', true);
                         } else {
@@ -324,21 +315,29 @@ const hotelInsertUpdateForm = async (data = {}) => {
                     },
                 }
             },
+
             {
                 dataField: "address",
                 label: {
-                    text: 'Address'
+                    text: 'Adres'
                 },
                 editorType: "dxTextArea",
+                validationRules: [{
+                    type: "required",
+                    message: "Adres boş geçilemez !"
+                }],
 
             },
-
             {
                 dataField: "cityId",
                 label: {
-                    text: 'City'
+                    text: 'Şehir'
                 },
                 editorType: "dxSelectBox",
+                validationRules: [{
+                    type: "required",
+                    message: "Şehir boş geçilemez !"
+                }],
                 editorOptions: {
                     // dataSource: '/rudder/getCityList?ulkeId=243',
                     items: sehirler,
@@ -351,35 +350,29 @@ const hotelInsertUpdateForm = async (data = {}) => {
                 }
             },
             {
-                dataField: "location",
+                dataField: "telephone",
                 label: {
-                    text: 'Lokasyon'
-                },
-                editorType: "dxTextArea",
-                editorOptions: {
-                    height: 100
-                }
-            },
-            {
-                dataField: "highlighted",
-                label: {
-                    text: 'Anasayfada göster'
-                },
-                editorType: "dxSelectBox",
-                editorOptions: {
-                    items: highlighted,
-                    displayExpr: "status",
-                    valueExpr: "Id",
-                    //value: data.BirimId ? 0 : data.BirimId,
-                    showClearButton: true,
-                    searchEnabled: true,
+                    text: 'Telefon'
                 },
                 validationRules: [{
                     type: "required",
-                    message: "Boş geçilemez !"
-                }]
+                    message: "Telefon boş geçilemez !"
+                }],
 
             },
+            {
+                dataField: "google_maps",
+                label: {
+                    text: 'Google Maps Linki'
+                },
+                validationRules: [{
+                    type: "required",
+                    message: "Google Maps linki boş geçilemez !"
+                }],
+
+            },
+
+
         ]
     }
 };
@@ -388,306 +381,32 @@ const save = async (json) => {
 
     $.ajax({
         data: json ,
-        url: "hotel",
-        type: "POST",
-        dataType: 'json',
-        success: function (data) {
-            //console.log("result"+JSON.stringify(data));
-            $("#gridContainer").dxDataGrid("instance").refresh();
-            $('#updateOtel').modal('toggle').fadeOut('slow');
-        },
-        error: function (data) {
-            console.log('Error:', data);
-        }
-    });
-
-}
-const resimInsertUpdateForm = async (data = {}) => {
-    console.log("ddsdsds" + data);
-    if(data !== null){
-        var file;
-        $.ajax({
-            type: "POST",
-            url: 'get-file-list',
-            data: {id: data.Id, file_type_id: 3},
-            datatype: "json",
-            async: false,
-            success: function (data) {
-                file = data;
-
-            }
-        });
-    }
-    let cover_image = [{Id: 0, status: "Hayır"}, {Id: 1, status: "Evet"}];
-
-    return {
-        colCount: 2,
-        labelLocation: 'top',
-        formData: data,
-        items: [
-            {
-                dataField: "cover_image",
-                label: {
-                    text: 'Ana Resim'
-                },
-                editorType: "dxSelectBox",
-                editorOptions: {
-                    items: cover_image,
-                    displayExpr: "status",
-                    valueExpr: "Id",
-                    //value: data.BirimId ? 0 : data.BirimId,
-                    showClearButton: true,
-                    searchEnabled: true,
-                },
-                validationRules: [{
-                    type: "required",
-                    message: "Ana Resim boş geçilemez !"
-                }]
-
-            },
-            {
-                dataField: "Dosya",
-                colSpan: 2,
-                editorType: "dxFileUploader",
-                //visible: data.Id == undefined || data.Id < 0,
-                label: {
-                    text: "Dosya"
-                },
-                editorOptions: {
-                    uploadHeaders: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-
-                    },
-                    multiple: false,
-                    //accept: "*",
-                    allowedFileExtensions: [".jpg", ".png", ".jpeg",".webp"],
-                    value: [],
-                    uploadMode: "useButtons",
-                    uploadUrl: 'file-upload',
-                    activeStateEnabled: true,
-                    onValueChanged: function (e) {
-                        var values = e.component.option("values");
-                        $.each(values, function (index, value) {
-                            e.element.find(".dx-fileuploader-upload-button").hide();
-                        });
-                        e.element.find(".dx-fileuploader-upload-button").hide();
-                    },
-                    onUploaded: function (e) {
-
-                        e.file["guid"] = e.request.responseText;
-
-                        const obj = JSON.parse(e.file["guid"]);
-
-                        e.file['guid'] = obj;
-                        saveUploadFile();
-                    }
-                },
-
-            },
-            {
-                itemType: "button",
-                colSpan: 2,
-                horizontalAlignment: "right",
-                cssClass: "add-contact-button",
-                buttonOptions: {
-                    icon: "add",
-                    text: "Resim Ekle",
-                    onClick: async function () {
-                        //debugger;
-                        var formElement = $('#frmEdit').dxForm("instance");
-
-                        var dataa = formElement.option("formData");
-                        var formElementResim = $('#frmResimMenu').dxForm("instance");
-                        var dataaResim = formElementResim.option("formData");
-
-                        if (!dataa.Id) {
-                            msg("Önce hoteli kaydediniz,sonra dosya yükleyiniz!", "error");
-                        } else {
-                            var checkFiles = formElementResim.getEditor("Dosya");
-
-                            if (checkFiles._files.length > 0) {
-                                var coverFileCheck;
-                                $.ajax({
-                                    type: "POST",
-                                    url: 'check-cover-file',
-                                    data: {id: data.Id, file_type_id: 3},
-                                    datatype: "json",
-                                    async: false,
-                                    success: function (data) {
-                                        coverFileCheck = data;
-
-                                    }
-                                });
-
-                                console.log("dsdsds"+coverFileCheck);
-                                console.log("dsdsds"+dataaResim.cover_image);
-                                if(coverFileCheck !== '' && dataaResim.cover_image == 1 ){
-                                    msg("Ana resim zaten mevcuttur", "error");
-                                }
-                                else
-                                {
-                                    await saveImage();
-
-                                }
-                            } else msg("Lütfen dosya yükleyiniz!", "error");
-                        }
-                    }
-                }
-            },
-            {
-                editorType: "dxDataGrid",
-                name: "documents",
-                colSpan: 2,
-                editorOptions: {
-                    dataSource: file,
-                    rowAlternationEnabled: true,
-                    filterRow: {visible: true},
-                    showBorders: true,
-                    keyExpr: "Id",
-                    columns: [
-                        {
-                            type: "buttons",
-                            //width: 40,
-                            buttons: [{
-                                hint: "Sil",
-                                icon: "fa fa-remove fa-lg text-danger",
-                                onClick: function (e) {
-                                    var result = DevExpress.ui.dialog.confirm("<i>" + "Kayıdı silmek istediğinize emin misiniz?" + "</i>", "Kayıt silme işlemi");
-                                    result.done(function (dialogResult) {
-                                        if (dialogResult) {
-                                            removeDokuman(e.row.key);
-                                        }
-                                    });
-                                    e.event.preventDefault();
-                                }
-                            }]
-                        },
-                        {
-                            dataField: "name",
-                            caption: "Adı",
-                            wordWrapEnabled: true,
-                            cellTemplate: function (container, options) {
-                                //console.log("options" + options.data.name);
-                                container.append($("<a>", {
-                                    "href": "/"+options.data.file_path,
-                                    "text": options.data.name,
-                                    "target": "blank"
-                                }));
-                            }
-                        },
-                        {
-                            dataField: "cover_image",
-                            caption: "Ana Resim",
-                            lookup: {
-                                dataSource: {
-                                    store: {
-                                        type: "array",
-                                        data: [
-                                            {id: 0, name: "Hayır"},
-                                            {id: 1, name: "Evet"},
-                                        ],
-                                        key: "id"
-                                    }
-                                },
-                                valueExpr: "id", // contains the same values as the "statusId" field provides
-                                displayExpr: "name" // provides display values
-                            }
-                        },
-
-
-                    ],
-                    columnAutoWidth: true
-                },
-            },
-        ]
-    }
-};
-
-function refreshDokuman() {
-    let grid = $("#frmResimMenu").dxForm("instance").getEditor("documents");
-    grid.refresh();
-}
-
-const removeDokuman = async (id) => {
-    $.ajax({
-        data: {Id: id, active: 0},
-        url: 'delete-file',
+        url: "offices",
         type: "POST",
         dataType: 'json',
         success: function (data) {
             //console.log(data.message);
-            msg(data.message, 'success');
-            refreshDokuman();
-
-        },
-        error: function (data) {
-            console.log('Error:', data);
-
-        }
-    });
-}
-
-
-
-
-const saveImage = async () => {
-
-    var form = $("#frmResimMenu").dxForm("instance");
-    var validate = form.validate();
-    if (validate.isValid) {
-        var uploader = form.getEditor("Dosya");
-        uploader._uploadFiles();
-    }
-}
-
-const saveUploadFile = async (file) => {
-
-    //debugger;
-    var form = $("#frmResimMenu").dxForm("instance");
-    var json = form.option("formData");
-
-
-    //console.log("tmpp"+json.Dosya[0].guid.tmp);
-    //var jsonParse = JSON.parse();
-
-    let postData = {
-        file_type_id: 3,
-        tmp_name: json.Dosya[0].guid.tmp,
-        name: json.Dosya[0].guid.name,
-        general_id: json.Id,
-        cover_image: json.cover_image,
-    };
-
-    form.getEditor("Dosya").reset();
-    console.log(postData);
-
-    $.ajax({
-        data: JSON.stringify(postData),
-        url: "hotel-file-upload",
-        type: "POST",
-        dataType: 'json',
-        success: function (data) {
-            //console.log("result"+JSON.stringify(data));
             msg(data.message, data.type);
-            refreshDokuman();
-
+            $("#gridContainer").dxDataGrid("instance").refresh();
+            $('#updateOffice').modal('toggle').fadeOut('slow');
         },
         error: function (data) {
-
             console.log('Error:', data);
         }
     });
 
 }
+
 const changeStatus = async (Id) => {
 
     $.ajax({
         data: {Id:Id},
-        url: 'hotel/'+Id,
+        url: 'offices/'+Id,
         type: "PUT",
         dataType: 'json',
         success: function (data) {
-            dataGrids["hotels"].refresh();
+            msg(data.message, data.type);
+            dataGrids["office"].refresh();
         },
         error: function (data) {
             console.log('Error:', data);

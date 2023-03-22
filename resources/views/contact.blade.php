@@ -70,21 +70,18 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="phone_tuch_area">
-                        <h3 style="margin-right:30px;">Stay in touch</h3>
-                        <h3><a href="tel:0232 462 11 13">0232 462 11 13</a></h3>
-                    </div>
-                </div>
+                @foreach($officeList as $item)
                 <div class="col-lg-3 col-md-6 col-sm-12 col-12">
                     <div class="contact_boxed">
-                        <h6>Head office</h6>
-                        <h3>Izmir / Turkey</h3>
-                        <p>Adalet mah, Şht. Polis Fethi Sekin Cd No:1, 35530 Bayraklı/İzmir</p>
-                        <a href="https://goo.gl/maps/v1JwLVsvCEqQqdxC7" data-bs-toggle="modal" data-bs-target="#staticBackdrop">View on map</a>
+                        <h6>{{$item->name}}</h6>
+                        <h3>{{$item->city_name}} / {{$item->country_name}}</h3>
+                        <a href="tel:{{$item->telephone}}">{{$item->telephone}}</a>
+                        <p>{{$item->address}}</p>
+                        <!--<a href="{{$item->google_maps}}" data-bs-toggle="modal" data-bs-target="#staticBackdrop">View on map</a> -->
+                        <a target="_blank" href="{{$item->google_maps}}">View on map</a>
                     </div>
                 </div>
-
+                @endforeach
             </div>
             <div class="contact_main_form_area">
                 <div class="row">
