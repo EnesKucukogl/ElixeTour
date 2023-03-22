@@ -80,6 +80,28 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal pencere -->
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Tedavi Seçim Ekranı</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- dxDataGrid bileşenini göstermek için <div> öğesi -->
+                    <div class="nav-align-top mb-4">
+                        <div id="frmEditTreatment"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSaveTreatment" type="button" class="btn btn-save btn-primary">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript" src="{{URL::asset('/js/admin-pages/package.js')}}"></script>
 @endsection
 

@@ -9,6 +9,6 @@ class HotelFacility extends Model
 {
     use HasFactory;
 
-    protected $table = 'vew_hotel_facility';
+    protected $table = 'elx_hotel_facility';
 
 }
