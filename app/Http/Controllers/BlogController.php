@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Blog;
+use App\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -12,6 +13,20 @@ class BlogController extends Controller
     public function index()
     {
         return view('admin.blog',);
+    }
+
+    public function frontSideBlog()
+    {
+        $blog = Blog::BlogListActive();
+        $file = File::where("file_type_id","4")->where("cover_image","1")->get();
+        return view('blog', ['blog' => $blog,'blogFile'=>$file]);
+    }
+
+    public function frontSideBlogDetail($slug)
+    {
+        $blog = Blog::BlogSingleSlug($slug);
+        $package_file = File::where("file_type_id","4")->where("cover_image","1")->get();
+        return view('package-detail', ['blog' => $blog,'blogFile'=>$blog_file]);
     }
 
     public function datagrid()
