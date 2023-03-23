@@ -11,8 +11,14 @@
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
+                    <i class="menu-icon fa-solid fa-circle-question mr-3"></i>
                     <h4 class="modal-title" id="modelHeading"></h4>
-
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                    ></button>
                 </div>
                 <div class="modal-body">
                     <div class="nav-align-top mb-4">
@@ -20,13 +26,9 @@
 
                         <div class="language row md-form "></div>
                     </div>
-
-                </div>
-                <div class="modal-footer">
                     <button id="btnSaveMenu" type="button" class="btn btn-save btn-primary mt-3">Kaydet</button>
-
-
                 </div>
+
             </div>
         </div>
     </div>
