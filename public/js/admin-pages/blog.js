@@ -60,29 +60,6 @@ $(document).ready(function () {
                 },
             },
             {
-                dataField: "short_description_text_content",
-                caption: "Kısa Metin",
-                calculateCellValue: function (data) {
-                    var text = "";
-                    // console.log(data);
-                    data.short_description_text_content.forEach(function (item) {
-                        text += item.translation + " (" + item.symbol.toUpperCase() + ") ";
-                    });
-                    return text.trim();
-                },
-            },
-            {
-                dataField: "description_text_content",
-                caption: "Asıl Metin",
-                calculateCellValue: function (data) {
-                    var text = "";
-                    data.description_text_content.forEach(function (item) {
-                        text += item.translation + " (" + item.symbol.toUpperCase() + ") ";
-                    });
-                    return text.trim();
-                },
-            },
-            {
                 dataField: "slug",
                 caption: "Url",
                 minWidth:70,
@@ -241,7 +218,7 @@ $(document).ready(function () {
 
             $('#modelHeading').html("Blog Düzenle");
             let formJson = await blogInsertUpdateForm(result);
-            let formJsonResim = await resimInsertUpdateForm(null);
+            let formJsonResim = await resimInsertUpdateForm(result);
             $("#frmEditBlog").dxForm(formJson);
             $("#frmResimBlog").dxForm(formJsonResim);
 
@@ -735,8 +712,7 @@ $(document).ready(function () {
                     },
                     editorType: "dxHtmlEditor",
                     editorOptions: {
-                        height: 1000,
-                        weight: 500,
+                        height: 500,
                         toolbar: {
                             items: [
                                 'undo', 'redo', 'separator',

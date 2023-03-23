@@ -74,6 +74,14 @@
                         <section id="home_two_banner">
                             <div class="home_two_banner_slider_wrapper owl-carousel owl-theme">
                                 @foreach($otelFile as $item)
+                                    @php
+
+                                        if($item->file_path === null || $item->file_path === '')
+                                        {
+                                            $item->file_path = 'img/no-image.png';
+                                        }
+                                    @endphp
+
                                     <div class="banner_two_slider_item fadeInUp" data-wow-duration="2s">
                                         <img src="/{{$item->file_path}}" alt="">
                                     </div>
@@ -478,6 +486,7 @@
 
                                 <div class="banner_two_slider_item fadeInUp" data-wow-duration="2s">
                                     <img src="/{{$item->file_path}}" alt="">
+
                                 </div>
                             @endforeach
                         </div>

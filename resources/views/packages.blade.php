@@ -34,6 +34,11 @@
                     @php
                         $file_path = getImage($packageFile,$item->Id);
                         $package_name = viewLanguageSupport($item->packageTextContent);
+
+                        if($file_path === null || $file_path === '')
+                        {
+                            $file_path = 'img/no-image.png';
+                        }
                     @endphp
              <div class="col-lg-3">
                 <div class="theme_common_box_two img_hover">

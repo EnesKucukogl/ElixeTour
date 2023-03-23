@@ -3,6 +3,10 @@
     @php
         $package_name = viewLanguageSupport($package->packageTextContent);
         $file_path = getImage($packageFile,$package->Id);
+        if($file_path === null || $file_path === '')
+                        {
+                            $file_path = 'img/no-image.png';
+                        }
     @endphp
     <section id="common_banner">
         <div class="container">

@@ -108,6 +108,16 @@
                 <div data-i18n="Contact">Accomodation Types</div>
             </a>
         </li>
+
+        {{--blog--}}
+
+        <li class="menu-item">
+            <a href="{{route('admin.blog')}}" class="menu-link">
+                <i class="fa-solid fa-file-lines"></i>
+                <div data-i18n="Blog">Blog</div>
+            </a>
+        </li>
+
         <li class="menu-item">
             <a href="{{route('admin.questions')}}" class="menu-link">
                 <i class="menu-icon fa-solid fa-circle-question"></i>
