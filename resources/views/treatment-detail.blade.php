@@ -4,6 +4,10 @@
         $treatment_name = viewLanguageSupport($treatment->treatmentTextContent);
         $treatment_desc = viewLanguageSupport($treatment->descriptionTextContent);
           $file_path = getImage($treatment_file,$treatment->Id);
+          if($file_path === null || $file_path === '')
+                        {
+                            $file_path = 'img/no-image.png';
+                        }
 
     @endphp
     <section id="common_banner">
@@ -46,6 +50,10 @@
                                     @php
                                         $file_path = getImage($treatment_file,$item->Id);
                                         $treatment_name = viewLanguageSupport($item->treatmentTextContent);
+                                        if($file_path === null || $file_path === '')
+                                        {
+                                             $file_path = 'img/no-image.png';
+                                        }
                                     @endphp
                                     <div class="recent_news_item">
                                         <div class="recent_news_img">
