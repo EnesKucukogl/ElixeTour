@@ -51,7 +51,6 @@ $(document).ready(function () {
                 caption: "ID",
                 minWidth: 30
             },
-
             {
                 dataField: "package_text_content",
                 caption: "Paket Adı",

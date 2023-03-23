@@ -19,32 +19,13 @@ $(document).ready(function () {
                             hint: "Güncelle",
                             icon: "fa fa-edit",
                             disabled: function (e) {
-                                return !e.row.key.active;
+                                return e.row.key.status !== 1;
                                 },
                             onClick: function (e) {
                                 getFormById(e.row.key.Id);
                             }
                         },
-                        {
-                            hint: "Sil",
-                            icon: "fa fa-trash",
-                            disabled: function (e){
-                                return !e.row.key.active;
-                            },
-                            onClick: function (e) {
-                                var result = DevExpress.ui.dialog.confirm("<i>Kaydı silmek istediğinizden emin misiniz?</i>", "Kayıt silme işlemi");
-                                result.done(function (dialogResult) {
-                                    if (dialogResult) {
 
-                                        if(e.row.key.active == 1){
-                                            active = 0;
-                                        }
-                                        changeStatus(e.row.key.Id,active);
-
-                                    }
-                                });
-                            }
-                        }
 
 
                     ]
@@ -57,12 +38,12 @@ $(document).ready(function () {
                 },
                 {
                     dataField: "name",
-                    caption: "Name",
+                    caption: "Adı",
                     minwidth: 100
                 },
                 {
                     dataField: "surname",
-                    caption: "Surname",
+                    caption: "Soyadı",
                     minwidth: 100
                 },
                 {
@@ -72,17 +53,17 @@ $(document).ready(function () {
                 },
                 {
                     dataField: "phone_number",
-                    caption: "Phone Number",
+                    caption: "Telefon",
                     minwidth: 100
                 },
                 {
                     dataField: "message_content",
-                    caption: "Message Content",
+                    caption: "Mesaj",
                     width: 200
                 },
                 {
                     dataField: "send_date",
-                    caption: "Send Date",
+                    caption: "Gönderim Tarihi",
                     dataType: "date",
                     displayFormat: "dd.MM.yyyy",
                     dateSerializationFormat: "yyyy-MM-dd",
@@ -92,7 +73,7 @@ $(document).ready(function () {
                 },
                 {
                     dataField: "status",
-                    caption: "Status",
+                    caption: "Durum",
                     width: 100,
 
                     lookup: {
@@ -111,27 +92,7 @@ $(document).ready(function () {
                         displayExpr: "name" // provides display values
                     },
                 },
-                {
-                    dataField: "active",
-                    caption: "Active",
-                    width: 100,
 
-                    lookup: {
-                        dataSource: {
-                            store: {
-                                type: "array",
-                                data: [
-                                    { id: 0, name: "Hayır" },
-                                    { id: 1, name: "Evet" },
-
-                                ],
-                                key: 'Id'
-                            }
-                        },
-                        valueExpr: "id", // contains the same values as the "statusId" field provides
-                        displayExpr: "name" // provides display values
-                    },
-                },
 
             ],
 
@@ -235,12 +196,13 @@ $(document).ready(function () {
         // console.log("data", data);
         return {
             colCount: 2,
+            labelLocation: 'top',
             formData: data,
             items: [
                 {
                     dataField: "name",
                     label: {
-                        text: 'Name '
+                        text: 'Adı'
 
                     },
                     editorOptions: {
@@ -252,7 +214,7 @@ $(document).ready(function () {
                 {
                     dataField: "surname",
                     label: {
-                        text: 'Surname '
+                        text: 'Soyadı'
                     },
                     editorOptions: {
                         readOnly: true
@@ -270,7 +232,7 @@ $(document).ready(function () {
                 {
                     dataField: "phone_number",
                     label: {
-                        text: 'Phone Number '
+                        text: 'Telefon'
 
                     },
                     editorOptions: {
@@ -281,7 +243,7 @@ $(document).ready(function () {
                     dataField: "message_content",
                     editorType: 'dxTextArea',
                     label: {
-                        text: 'Message Content '
+                        text: 'Mesaj'
                     },
                     editorOptions: {
                         height : 200,
@@ -291,7 +253,7 @@ $(document).ready(function () {
                 {
                     dataField: "send_date",
                     label: {
-                        text: 'Send Date ',
+                        text: 'Gönderim Tarihi',
                     },
                     editorType: "dxDateBox",
                     editorOptions: {
@@ -305,7 +267,7 @@ $(document).ready(function () {
                     dataField: "status",
                     editorType: 'dxSelectBox',
                     label: {
-                        text: 'Status '
+                        text: 'Durum'
                     },
                     editorOptions: {
                         items: statuses,

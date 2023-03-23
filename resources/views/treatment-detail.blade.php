@@ -31,7 +31,7 @@
                             <img src="/{{$file_path}}" style="border-radius: 10px;" alt="img">
                             <h2>{{$treatment_name}}</h2>
                             <p>
-                                {{$treatment_desc}}
+                                {!! $treatment_desc !!}
                             </p>
                         </div>
 
