@@ -12,6 +12,7 @@
     </div>
 
     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+        <h5 class="mt-3">Elixe Tour</h5>
         <ul class="navbar-nav flex-row align-items-center ms-auto">
             <!-- User -->
             <li class="nav-item navbar-dropdown dropdown-user dropdown">

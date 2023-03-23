@@ -1512,6 +1512,7 @@
   font-family: "#";
 }
 .dx-widget {
+  font-family: 'Poppins', sans-serif;
   display: block;
   -ms-content-zooming: none;
   -webkit-tap-highlight-color: transparent;
@@ -1548,9 +1549,15 @@
 }
 .dx-widget input,
 .dx-widget textarea {
-  /*height: 45px;*/
-  font-family: "Helvetica Neue","Segoe UI",helvetica,verdana,sans-serif;
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
+    /*height: 45px;*/
 
+
+}
+
+.dx-widget input{
+    height: 45px!important;
 }
 .dx-state-disabled .dx-widget,
 .dx-state-disabled.dx-widget {
@@ -7050,11 +7057,11 @@
 }
 .dx-textarea .dx-texteditor-input {
   resize: none;
-  font-family: inherit;
   display: block;
   overflow: auto;
   white-space: pre-wrap;
   margin: 0;
+  font-family: 'Poppins', sans-serif;
 }
 .dx-textarea .dx-texteditor-input-auto-resize {
   overflow-y: hidden;
@@ -11934,6 +11941,8 @@
   -ms-flex: auto;
   flex: auto;
   height: auto;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13.5px;
 }
 .dx-gridbase-container > .dx-datagrid-rowsview.dx-scrollable {
   display: -webkit-box;
@@ -12318,6 +12327,7 @@
 .dx-datagrid .dx-datagrid-headers .dx-header-filter,
 .dx-datagrid .dx-datagrid-headers .dx-header-row > td {
   outline: 0;
+  font-family: 'Poppins', sans-serif;
 }
 .dx-datagrid .dx-datagrid-headers.dx-state-focused .dx-header-row td .dx-header-filter:focus,
 .dx-datagrid .dx-datagrid-headers.dx-state-focused .dx-header-row td:focus {
@@ -19425,8 +19435,9 @@ input.dx-hidden {
 }
 .dx-field-item-help-text,
 .dx-field-item-label-text {
-    color: #000;
-    font-size: 14px;
+    color: #566a7f;
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
 }
 .dx-field-item-optional .dx-label > span::after,
 .dx-field-item-optional-mark {
