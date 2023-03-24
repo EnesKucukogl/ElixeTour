@@ -142,8 +142,8 @@ Route::resource('rudder/contact', ContactController::class, [
 Route::get('/rudder/contact-list', [ContactController::class, 'datagrid']);
 Route::get('/contact', [ContactController::class, 'frontSideContact']);
 Route::post('/sendContact', [ContactController::class, 'sendContact']);
-Route::post('/sendContact', [ContactController::class, 'sendContact']);
-Route::get('/rudder/contact-response-list', [ContactResponseController::class, 'datagrid'])->middleware('auth:webadmin');
+Route::post('/sendMail', [ContactController::class, 'sendMail'])->middleware('auth:webadmin');
+Route::get('/rudder/contact-response-list/{contact_id}', [ContactResponseController::class, 'datagrid'])->middleware('auth:webadmin');
 
 //Hotel
 Route::resource('rudder/hotel', HotelController::class, [

@@ -123,50 +123,65 @@ $(document).ready(function () {
 
         });
 
+    function getContactResponse(contact_id) {
+        $('#gridContainerSendMail').dxDataGrid(
+            {
+                keyExpr: "Id",
+                dataSource: '/rudder/contact-response-list/' + contact_id,
+                columns: [
 
-    $('#gridContainerSendMail').dxDataGrid(
-        {
-            keyExpr: "Id",
-            dataSource: '/rudder/contact-response-list',
-            columns: [
+                    {
+                        dataField: "subject",
+                        caption: "Konu",
+                        minwidth: 100
+                    },
+                    {
+                        dataField: "body",
+                        caption: "İçerik",
+                        minwidth: 100
+                    },
+                    {
+                        dataField: "bond_with_contact",
+                        caption: "Gönderilen Mail",
+                        minWidth: 100,
+                        calculateCellValue: function (data) {
+                            return data.bond_with_contact.e_mail;
+                        }
+                    },
+                    {
+                        dataField: "created_date",
+                        caption: "Gönderim Tarihi",
+                        dataType: "date",
+                        displayFormat: "dd.MM.yyyy",
+                        dateSerializationFormat: "yyyy-MM-dd",
+                        minWidth: 200,
+                    },
 
-                {
-                    dataField: "subject",
-                    caption: "Konu",
-                    minwidth: 100
+                ],
+
+                remoteOperations: false,
+                showBorders: true,
+                paging: {
+                    pageSize: 10,
                 },
-                {
-                    dataField: "body",
-                    caption: "İçerik",
-                    minwidth: 200
+
+                columnAutoWidth: true,
+
+                pager: {
+                    showPageSizeSelector: true,
+                    allowedPageSizes: [10, 25, 50, 100],
+                    showInfo: true
+                },
+                allowColumnReordering: true,
+                rowAlternationEnabled: true,
+                wordWrapEnabled: true,
+                filterRow: {
+                    visible: true,
+                    applyFilter: 'auto',
                 },
 
-
-
-            ],
-
-            remoteOperations: false,
-            showBorders: true,
-            paging: {
-                pageSize: 10,
-            },
-
-            columnAutoWidth: true,
-
-            pager: {
-                showPageSizeSelector: true,
-                allowedPageSizes: [10, 25, 50, 100],
-                showInfo: true
-            },
-            allowColumnReordering: true,
-            rowAlternationEnabled: true,
-            wordWrapEnabled: true,
-            filterRow: {
-                visible: true,
-                applyFilter: 'auto',
-            },
-
-        });
+            });
+    }
 
     $.ajaxSetup({
         headers: {
@@ -198,24 +213,23 @@ $(document).ready(function () {
     const getFormById = async (formId) => {
 
 
-            var result;
-            $.ajax({
-                type: "GET",
-                url: 'contact' + '/' + formId + '/edit',
-                datatype: "json",
-                async: false,
-                success: function (data) {
-                    result = data;
-                }
-            });
+        var result;
+        $.ajax({
+            type: "GET",
+            url: 'contact' + '/' + formId + '/edit',
+            datatype: "json",
+            async: false,
+            success: function (data) {
+                result = data;
+            }
+        });
 
-            $('#modelHeading').html("Contact Düzenle");
-            let formJson = await contactInsertUpdateForm(result);
-            $("#frmEditContact").dxForm(formJson);
-            let formJsonMail = await mailSendForm(result);
-            $("#frmSendMail").dxForm(formJsonMail);
-
-
+        $('#modelHeading').html("Contact Düzenle");
+        let formJson = await contactInsertUpdateForm(result);
+        $("#frmEditContact").dxForm(formJson);
+        let formJsonMail = await mailSendForm(result);
+        $("#frmSendMail").dxForm(formJsonMail);
+        getContactResponse(formId);
 
 
         $('#updateContact').modal('show');
@@ -405,8 +419,9 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 msg(data.message, data.type);
-                //console.log("result"+JSON.stringify(data));
-                //$("#gridContainer").dxDataGrid("instance").refresh();
+                $("#gridContainerSendMail").dxDataGrid("instance").refresh();
+                var formInstance = $("#frmSendMail").dxForm("instance");
+                formInstance.resetValues();
             },
             error: function (data) {
                 console.log('Error:', data);

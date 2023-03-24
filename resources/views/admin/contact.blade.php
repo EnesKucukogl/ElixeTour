@@ -21,7 +21,7 @@
                     <button id="btnSaveContact" type="button" class="btn btn-save btn-primary mt-3 mb-3">Kaydet</button>
                     <div class="mt-3" id="frmSendMail"></div>
                     <button id="btnSendMail" type="button" class="btn btn-save btn-primary mt-3 mb-3">Gönder</button>
-                    <div id="gridContainerSendMail"></div>
+                    <div class="mt-3" id="gridContainerSendMail"></div>
                 </div>
 
             </div>
