@@ -326,11 +326,12 @@ $(document).ready(function () {
     const GetTreatment = async (packageId) => {
 
         $('#myModalLabel').html("Tedavi Seç");
-        let formJson = await TreatmentSelectForm();
+        $('#myModal').modal('show');
+        let formJson = await TreatmentSelectForm(packageId);
         $("#frmEditTreatment").dxForm(formJson);
 
 
-        $('#myModal').modal('show');
+
         $("#btnSaveTreatment").unbind();
         $("#btnSaveTreatment").on("click", function () {
             var formSelectedRows = $('#frmEditTreatment').dxForm("instance").getEditor('treatment').getSelectedRowKeys();
@@ -345,28 +346,66 @@ $(document).ready(function () {
         });
     }
 
-    const TreatmentSelectForm = async () => {
 
+    const TreatmentSelectForm = async (packageId) => {
+        var treatmentListActive;
+        $.ajax({
+            type: "GET",
+            url: 'treatment-list-active',
+            datatype: "json",
+            async: false,
+            success: function (data) {
+                treatmentListActive = data;
+            }
+        });
         return {
 
             items: [{
                 itemType: "group",
-
                 items: [{
                     editorType: "dxDataGrid",
                     name: "treatment",
-
                     editorOptions: {
-                        dataSource: 'treatment-list-active',
+                        dataSource: treatmentListActive,
+                        filterRow: {visible: true},
+                        showBorders: true,
+                        columnAutoWidth: true,
+                        allowColumnReordering: true,
+                        rowAlternationEnabled: true,
+                        wordWrapEnabled: true,
+                        selection: {
+                            mode: 'multiple',
+                        },
                         keyExpr: "Id",
+                        onContentReady: function (e) {
+
+                            var packageTreatment;
+                            $.ajax({
+                                type: "GET",
+                                url: 'package-treatment',
+                                datatype: "json",
+                                async: false,
+                                data: {packageId: packageId},
+                                success: function (data) {
+                                    packageTreatment = data;
+                                }
+                            });
+                            const treatmentIds = packageTreatment.map(obj => obj.treatment_id);
+
+                            $('#frmEditTreatment').dxForm("instance").getEditor("treatment").selectRows(treatmentIds);
+                        },
+
                         columns: [
                             {
                                 dataField: "Id",
-                                caption: "No",
+                                caption: "Id",
+                                minWidth:50,
                             },
+
                             {
-                                // dataField: "treatment_text_content",
+                                dataField: "treatment_text_content",
                                 caption: "Tedavi Adı",
+                                maxWidth:50,
                                 calculateCellValue: function (data) {
                                     console.log(data);
                                     var text = "";
@@ -377,33 +416,9 @@ $(document).ready(function () {
                                 }
                             },
 
-                            {
-                                // dataField: "description_text_content",
-                                caption: "Tedavi Açıklama",
-                                calculateCellValue: function (data) {
-                                    var text = "";
-                                    data.description_text_content.forEach(function (item) {
-                                        text += item.translation + " (" + item.symbol.toUpperCase() + ") ";
-                                    });
-                                    return text.trim();
-                                }
-                            },
                         ],
-                        paging: {
-                            pageSize: 10
-                        },
-                        filterRow: {
-                            visible: true
-                        },
-                        headerFilter: {
-                            visible: false
-                        },
-                        groupPanel: {
-                            visible: false
-                        },
-                        selection: {
-                            mode: "multiple"
-                        },
+
+
                     }
                 }]
             }]

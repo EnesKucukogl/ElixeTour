@@ -6,8 +6,6 @@
         <i class="fa fa-plus"></i> Yeni Paket Ekle
     </button>
     <div id="gridContainer"></div>
-
-
     <div class="modal fade" id="updateMenu" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
