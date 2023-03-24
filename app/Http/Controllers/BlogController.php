@@ -25,8 +25,9 @@ class BlogController extends Controller
     public function frontSideBlogDetail($slug)
     {
         $blog = Blog::BlogSingleSlug($slug);
+        $blogRandom = Blog::blogRandomListActive();
         $blog_file = File::where("file_type_id","4")->where("cover_image","1")->get();
-        return view('blogText', ['blog' => $blog,'blogFile'=>$blog_file]);
+        return view('blogText', ['blog' => $blog,'blogFile'=>$blog_file, 'blogRandom'=>$blogRandom]);
     }
 
     public function datagrid()

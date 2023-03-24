@@ -29,96 +29,55 @@
 
 
     <!--Destination details Areas -->
-    <section id="top_destination_main" class="section_padding">
+
+
+
+    <!-- News Area -->
+    <section id="news_details_main_arae" class="section_padding">
         <div class="container">
-
-                <div class="row">
-                    <div class="col-md-8 offset-md-2">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $blog_text }}</h5>
-                                <img src="{{ $file_path }}" class="card-img-top" alt="...">
-                            </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="news_detail_wrapper">
+                        <div class="news_details_content_area">
+                            <img src="/{{$file_path}}" style="border-radius: 10px;" alt="img">
+                            <h2>{{$blog_title}}</h2>
+                            <p>
+                                {!! $blog_text !!}
+                            </p>
                         </div>
+
                     </div>
                 </div>
+                <div class="col-lg-4">
+                    <div class="news_details_rightbar">
+                        <div class="news_details_right_item">
+                            <h3>Recent news</h3>
+                            @foreach ($blogRandom as $item)
 
-
-        </div>
-
-    </section>
-
-
-    <!--Related tour packages Area x-->
-    {{--    <section id="related_tour_packages" class="section_padding_bottom">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="section_heading_center">
-                            <h2><span style="font-weight:bold; color: #4c8c40;">Hotels</span> with this treatment package</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="justify-content: center;">
-                    <?php
-
-                    $package_hotel_ids = array();
-                    foreach($selected_package->hotels as $hotel)
-                    {
-                        array_push($package_hotel_ids, $hotel->id);
-                    }
-
-                    foreach ($hotelsJson as $hotel) {
-                        if (in_array($hotel->id, $package_hotel_ids)) {
-
-                            $name = $hotel->name;
-                            $address = $hotel->address;
-                            $image = $hotel->images[0]->path;
-                            $url;
-                            $price;
-                            $startPrice = $hotel->startPrice;
-                            foreach($packagesJson as $package)
-                            {
-                                foreach($package->hotels as $package_hotel)
-                                {
-                                    if($package_hotel->id == $hotel->id)
+                                @php
+                                    $file_path = getImage($blogFile,$item->Id);
+                                    $blog_title = viewLanguageSupport($item->TitleTextContent);
+                                    if($file_path === null || $file_path === '')
                                     {
-                                        $price = $package->prices[0]->price;
+                                         $file_path = 'img/no-image.png';
                                     }
-                                }
-                            }
+                                @endphp
+                                <div class="recent_news_item">
+                                    <div class="recent_news_img">
+                                        <img src="/{{$file_path}}" style="width:100px;border-radius: 10px;"
+                                             alt="img">
+                                    </div>
+                                    <div class="recent_news_text">
+                                        <h5><a href="treatment/{{$item->slug}}">{{$blog_title}}</a></h5>
 
-                            if($hotel->id == 0)
-                            {
-                                $url = "izmir-kaya.php";
-                            }
-                            else if($hotel->id == 1)
-                            {
-                                $url = "bursa-kervansaray.php";
-                            }
+                                    </div>
+                                </div>
 
-                            echo '
-                    <div class="col-lg-3">
-                    <div class="theme_common_box_two img_hover">
-                        <div class="theme_two_box_img">
-                            <a href="'.$url.'">
-                                <img src="'.$image.'" alt="img">
-                            </a>
-                            <p><i class="fas fa-map-marker-alt"></i>'.$address.'</p>
-                        </div>
-                        <div class="theme_two_box_content">
-                            <h4><a href="izmir-kaya.php">'.$name.'</a></h4>
-                            <p><span class="review_rating">Excellent</span></p>
-                            <h3>$'.$startPrice.'<span> Price starts from</span></h3>
+                            @endforeach
                         </div>
                     </div>
-                </div>
-                    ';
-                        }
-                    }
-
-                    ?>
                 </div>
             </div>
-        </section>--}}
+        </div>
+    </section>
 @endsection
