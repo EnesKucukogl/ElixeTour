@@ -5,7 +5,7 @@ let sehirler = [];
 let ulkeId = 0;
 let sehirId = 0;
 
-$( document ).ready(function() {
+$(document).ready(function () {
     getHotelListe();
 
     $('#addHotel').on('click', function () {
@@ -27,10 +27,10 @@ const getUlke = async (ulkeId) => {
 
     $.ajax({
         type: "GET",
-        url: '/rudder/getCountry?id='+ulkeId,
+        url: '/rudder/getCountry?id=' + ulkeId,
         datatype: "json",
         async: false,
-        success: function(data){
+        success: function (data) {
             result = data == null ? [] : data;
         }
     });
@@ -50,10 +50,10 @@ const getSehir = async (id) => {
 
     $.ajax({
         type: "GET",
-        url: '/rudder/getCity?id='+id,
+        url: '/rudder/getCity?id=' + id,
         datatype: "json",
         async: false,
-        success: function(data){
+        success: function (data) {
             result = data == null ? [] : data;
         }
     });
@@ -72,10 +72,10 @@ const getSehirler = async (ulkeId) => {
     let result;
     $.ajax({
         type: "GET",
-        url: 'getCityList?ulkeId='+ulkeId,
+        url: 'getCityList?ulkeId=' + ulkeId,
         datatype: "json",
         async: false,
-        success: function(data){
+        success: function (data) {
             result = data;
         }
     });
@@ -91,7 +91,7 @@ const getHotelListe = () => {
 
     dataGrids["hotels"] = $('#gridContainer').dxDataGrid({
         keyExpr: "Id",
-        dataSource: '/rudder/hotel-list' ,
+        dataSource: '/rudder/hotel-list',
         columns: [
             {
                 type: "buttons",
@@ -125,49 +125,49 @@ const getHotelListe = () => {
             {
                 dataField: "Id",
                 caption: "Id",
-                // minwidth: 100
+                minwidth: 20
             },
             {
                 dataField: "name",
                 caption: "Name",
-                // minwidth: 100
+                minwidth: 100
             },
             {
                 dataField: "city_name",
                 caption: "City Name",
-                // minwidth: 100
+                minwidth: 80
             },
             {
                 dataField: "country_name",
                 caption: "Country Name",
-                // minwidth: 100
+                minwidth: 80
             },
             {
                 dataField: "address",
                 caption: "Address",
-                // minwidth: 100
+                minwidth: 120
             },
             {
                 dataField: "slug",
                 caption: "Slug",
-                // minwidth: 100
+                minwidth: 100
             },
             {
                 dataField: "location",
                 caption: "Lokasyon",
-                // minwidth: 100
+                minwidth: 100
             },
             {
-                hidingPriority: 1,
                 dataField: "active",
-                caption: "Active",
+                caption: "Aktif",
+                minwidth: 30,
                 lookup: {
                     dataSource: {
                         store: {
                             type: "array",
                             data: [
-                                { id: 0, name: "Hayır" },
-                                { id: 1, name: "Evet" },
+                                {id: 0, name: "Hayır"},
+                                {id: 1, name: "Evet"},
                             ],
                             key: "id"
                         }
@@ -179,7 +179,7 @@ const getHotelListe = () => {
             {
                 dataField: "highlighted",
                 caption: "Anasayfada Göster",
-                minWidth:50,
+                minWidth: 30,
                 lookup: {
                     dataSource: {
                         store: {
@@ -205,6 +205,7 @@ const getHotelListe = () => {
         paging: {
             pageSize: 10,
         },
+        wordWrapEnabled: true,
         columnAutoWidth: true,
         pager: {
             showPageSizeSelector: true,
@@ -228,15 +229,14 @@ const getFormById = async (formId) => {
         let formJsonResim = await resimInsertUpdateForm(null);
         $("#frmEdit").dxForm(formJson);
         $("#frmResimMenu").dxForm(formJsonResim);
-    }
-    else {
+    } else {
         var result;
         $.ajax({
             type: "GET",
-            url: 'hotel' +'/'+formId+'/edit',
+            url: 'hotel' + '/' + formId + '/edit',
             datatype: "json",
             async: false,
-            success: function(data){
+            success: function (data) {
                 result = data;
             }
         });
@@ -293,6 +293,7 @@ const hotelInsertUpdateForm = async (data = {}) => {
                 label: {
                     text: 'Name'
                 },
+
             },
             {
                 dataField: "countryId",
@@ -306,7 +307,7 @@ const hotelInsertUpdateForm = async (data = {}) => {
                     searchEnabled: true,
                     displayExpr: "name",
                     valueExpr: "Id",
-                    value:  ulkeData ? ulkeData.Id : "",//{ "Id": ulkeData.Id, "name": ulkeData.name } : '',
+                    value: ulkeData ? ulkeData.Id : "",//{ "Id": ulkeData.Id, "name": ulkeData.name } : '',
                     onValueChanged: async function (e) {
                         ulkeId = e.value;
                         // console.log(ulkeId);
@@ -328,6 +329,9 @@ const hotelInsertUpdateForm = async (data = {}) => {
                 dataField: "address",
                 label: {
                     text: 'Address'
+                },
+                editorOptions: {
+                    height: 100
                 },
                 editorType: "dxTextArea",
 
@@ -387,7 +391,7 @@ const hotelInsertUpdateForm = async (data = {}) => {
 const save = async (json) => {
 
     $.ajax({
-        data: json ,
+        data: json,
         url: "hotel",
         type: "POST",
         dataType: 'json',
@@ -404,7 +408,7 @@ const save = async (json) => {
 }
 const resimInsertUpdateForm = async (data = {}) => {
     console.log("ddsdsds" + data);
-    if(data !== null){
+    if (data !== null) {
         var file;
         $.ajax({
             type: "POST",
@@ -460,7 +464,7 @@ const resimInsertUpdateForm = async (data = {}) => {
                     },
                     multiple: false,
                     //accept: "*",
-                    allowedFileExtensions: [".jpg", ".png", ".jpeg",".webp"],
+                    allowedFileExtensions: [".jpg", ".png", ".jpeg", ".webp"],
                     value: [],
                     uploadMode: "useButtons",
                     uploadUrl: 'file-upload',
@@ -519,13 +523,11 @@ const resimInsertUpdateForm = async (data = {}) => {
                                     }
                                 });
 
-                                console.log("dsdsds"+coverFileCheck);
-                                console.log("dsdsds"+dataaResim.cover_image);
-                                if(coverFileCheck !== '' && dataaResim.cover_image == 1 ){
+                                console.log("dsdsds" + coverFileCheck);
+                                console.log("dsdsds" + dataaResim.cover_image);
+                                if (coverFileCheck !== '' && dataaResim.cover_image == 1) {
                                     msg("Ana resim zaten mevcuttur", "error");
-                                }
-                                else
-                                {
+                                } else {
                                     await saveImage();
 
                                 }
@@ -569,7 +571,7 @@ const resimInsertUpdateForm = async (data = {}) => {
                             cellTemplate: function (container, options) {
                                 //console.log("options" + options.data.name);
                                 container.append($("<a>", {
-                                    "href": "/"+options.data.file_path,
+                                    "href": "/" + options.data.file_path,
                                     "text": options.data.name,
                                     "target": "blank"
                                 }));
@@ -628,8 +630,6 @@ const removeDokuman = async (id) => {
 }
 
 
-
-
 const saveImage = async () => {
 
     var form = $("#frmResimMenu").dxForm("instance");
@@ -682,8 +682,8 @@ const saveUploadFile = async (file) => {
 const changeStatus = async (Id) => {
 
     $.ajax({
-        data: {Id:Id},
-        url: 'hotel/'+Id,
+        data: {Id: Id},
+        url: 'hotel/' + Id,
         type: "PUT",
         dataType: 'json',
         success: function (data) {

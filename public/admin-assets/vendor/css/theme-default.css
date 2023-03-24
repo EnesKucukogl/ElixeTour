@@ -206,6 +206,8 @@ button.list-group-item-primary.active {
 }
 
 .btn-primary {
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
   color: #fff;
   background-color: #696cff;
   border-color: #696cff;

@@ -1,5 +1,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <!-- Title -->
 <title>Elixe Tour</title>
 <!-- Bootstrap css -->
@@ -22,6 +23,8 @@
 
 <!-- owl.theme.default css -->
 <link rel="stylesheet" href="{{ URL::asset('/css/owl.theme.default.min.css') }}">
+<!-- owl.theme.default css -->
+<link rel="stylesheet" href="{{ URL::asset('/css/sweetalert.css') }}">
 
 <!-- navber css -->
 <link rel="stylesheet" href="{{ URL::asset('/css/navber.css') }}">

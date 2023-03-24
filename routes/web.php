@@ -62,6 +62,9 @@ Route::get('/mest-club-card', function () {
 Route::get('/health-in-turkey', function () {
     return view('health-in-turkey');
 });
+Route::get('/mail-content', function () {
+    return view('mail-content');
+});
 
 
 //Admin Side Login Routes
@@ -137,6 +140,7 @@ Route::resource('rudder/contact', ContactController::class, [
 
 Route::get('/rudder/contact-list', [ContactController::class, 'datagrid']);
 Route::get('/contact', [ContactController::class, 'frontSideContact']);
+Route::post('/sendContact', [ContactController::class, 'sendContact']);
 
 //Hotel
 Route::resource('rudder/hotel', HotelController::class, [
@@ -263,3 +267,4 @@ Route::resource('rudder/offices', OfficesController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/offices-list', [OfficesController::class, 'datagrid']);
+
