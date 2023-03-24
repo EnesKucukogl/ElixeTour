@@ -28,16 +28,20 @@
             <div class="row">
 
 
-                        @foreach($blog as $item)
-                        @php
-                            $file_path = getImage($blogFile,$item->Id);
-                        $blog_title = viewLanguageSupport($item->TitleTextContent);
-                        $blog_text=viewLanguageSupport($item->ShortDescriptionTextContent);
-                        @endphp
+                @foreach($blog as $item)
+                    @php
+                        $file_path = getImage($blogFile,$item->Id);
+                        if($file_path === null || $file_path === '')
+                                {
+                                    $file_path = 'img/no-image.png';
+                                }
+                    $blog_title = viewLanguageSupport($item->TitleTextContent);
+                    $blog_text=viewLanguageSupport($item->ShortDescriptionTextContent);
+                    @endphp
                     <div class="col-lg-3">
-                        <div class="theme_common_box_two img_hover" >
+                        <div class="theme_common_box_two img_hover">
                             <div class="theme_two_box_img">
-                                <a href="blog/{{$item->slug}}"><img src="{{$file_path}}" alt="img"></a>
+                                <a href="blog/{{$item->slug}}"><img style="height:15em;object-fit: cover;" src="/{{$file_path}}" alt="img"></a>
                                 <p><i class="fas fa-map-marker-alt"></i>{{ __('Blog') }}</p>
                             </div>
                             <div class="theme_two_box_content" style="height: 250px;">

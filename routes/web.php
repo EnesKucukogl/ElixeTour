@@ -7,6 +7,7 @@ use \App\Http\Controllers\LanguageController;
 use \App\Http\Controllers\CurrencyController;
 use \App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ContactResponseController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\LookupController;
 use App\Http\Controllers\FacilityController;
@@ -141,6 +142,8 @@ Route::resource('rudder/contact', ContactController::class, [
 Route::get('/rudder/contact-list', [ContactController::class, 'datagrid']);
 Route::get('/contact', [ContactController::class, 'frontSideContact']);
 Route::post('/sendContact', [ContactController::class, 'sendContact']);
+Route::post('/sendContact', [ContactController::class, 'sendContact']);
+Route::get('/rudder/contact-response-list', [ContactResponseController::class, 'datagrid'])->middleware('auth:webadmin');
 
 //Hotel
 Route::resource('rudder/hotel', HotelController::class, [

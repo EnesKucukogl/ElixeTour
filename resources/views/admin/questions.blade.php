@@ -1,10 +1,10 @@
 @extends('admin.layout.mainlayout')
 @section('content')
-    <h4 class="fw-bold py-3 mb-4"><a href="{{route('admin.home')}}"><span class="text-muted fw-light">Anasayfa /</span></a> Sık Sorulan Sorular</h4>
+    <h4 class="fw-bold py-3 mb-4"><a href="{{route('admin.home')}}">  <span class="text-muted fw-light">Anasayfa /</span></a> Sık Sorulan Sorular</h4>
     <button type='button' class='btn btn-primary  mb-3' id="addMenu">
         <i class="fa fa-plus"></i> Yeni Soru Ekle
     </button>
-    <div id="gridContainer"></div>
+    <div class="mb-3" id="gridContainer"></div>
 
 
     <div class="modal fade" id="updateMenu" aria-hidden="true">
