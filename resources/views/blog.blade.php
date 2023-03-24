@@ -35,12 +35,12 @@
                         $blog_text=viewLanguageSupport($item->ShortDescriptionTextContent);
                         @endphp
                     <div class="col-lg-3">
-                        <div class="theme_common_box_two img_hover">
+                        <div class="theme_common_box_two img_hover" >
                             <div class="theme_two_box_img">
                                 <a href="blog/{{$item->slug}}"><img src="{{$file_path}}" alt="img"></a>
                                 <p><i class="fas fa-map-marker-alt"></i>{{ __('Blog') }}</p>
                             </div>
-                            <div class="theme_two_box_content">
+                            <div class="theme_two_box_content" style="height: 250px;">
                                 <h4><a href="blog/{{$item->slug}}">{{$blog_title}}</a></h4>
                                 <p><span class="review_rating">{{ substr($blog_text, 0, 200) }}...</span></p>
                             </div>

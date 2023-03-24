@@ -1,80 +1,124 @@
 @extends('layout.mainlayout')
 @section('content')
     @php
-        $blog_title = viewLanguageSupport($treatment->TitleTextContent);
-        $blog_text = viewLanguageSupport($treatment->DescriptionTextContent);
-        $file_path = getImage($blog_file,$blog->Id);
-
+        $blog_title = viewLanguageSupport($blog->TitleTextContent);
+        $blog_text = viewLanguageSupport($blog->DescriptionTextContent);
+        $file_path = getImage($blogFile,$blog->Id);
+        if($file_path === null || $file_path === '')
+                        {
+                            $file_path = 'img/no-image.png';
+                        }
     @endphp
     <section id="common_banner">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="common_bannner_text">
-                        <h2>{{$treatment_name}}</h2>
+                        <h2>{{$blog_title}}</h2>
                         <ul>
                             <li><a href="index.php">Home</a></li>
-                            <li><span><i class="fas fa-circle"></i></span>{{$treatment_name}}</li>
+                            <li><span><i class="fas fa-circle"></i></span><a href="blog.php">Blog</a>
+                            </li>
+                            <li><span><i class="fas fa-circle"></i></span>{{$blog_title}}</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- News Area -->
-    <section id="news_details_main_arae" class="section_padding">
+
+
+    <!--Destination details Areas -->
+    <section id="top_destination_main" class="section_padding">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="news_detail_wrapper">
-                        <div class="news_details_content_area">
-                            <img src="/{{$file_path}}" style="border-radius: 10px;" alt="img">
-                            <h2>{{$treatment_name}}</h2>
-                            <p>
-                                {{$treatment_desc}}
-                            </p>
-                        </div>
 
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="news_details_rightbar">
-                        <div class="news_details_right_item">
-                            <h3>Recent news</h3>
-                            @foreach ($treatmentRandom as $item)
-
-                                @php
-                                    $file_path = getImage($treatment_file,$item->Id);
-                                    $treatment_name = viewLanguageSupport($item->treatmentTextContent);
-                                @endphp
-                                <div class="recent_news_item">
-                                    <div class="recent_news_img">
-                                        <img src="/{{$file_path}}" style="width:100px;border-radius: 10px;"
-                                             alt="img">
-                                    </div>
-                                    <div class="recent_news_text">
-                                        <h5><a href="treatment/{{$item->slug}}">{{$treatment_name}}</a></h5>
-
-                                    </div>
-                                </div>
-
-                            @endforeach
-                        </div>
-
-                        <div class="news_details_right_item">
-                            <h3>Share causes</h3>
-                            <div class="share_icon_area">
-                                <ul>
-                                    <li><a href="!#"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="!#"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="!#"><i class="fab fa-instagram"></i></a></li>
-                                    <li><a href="!#"><i class="fab fa-linkedin-in"></i></a></li>
-                                </ul>
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $blog_text }}</h5>
+                                <img src="{{ $file_path }}" class="card-img-top" alt="...">
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+
+
         </div>
+
     </section>
+
+
+    <!--Related tour packages Area x-->
+    {{--    <section id="related_tour_packages" class="section_padding_bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="section_heading_center">
+                            <h2><span style="font-weight:bold; color: #4c8c40;">Hotels</span> with this treatment package</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="justify-content: center;">
+                    <?php
+
+                    $package_hotel_ids = array();
+                    foreach($selected_package->hotels as $hotel)
+                    {
+                        array_push($package_hotel_ids, $hotel->id);
+                    }
+
+                    foreach ($hotelsJson as $hotel) {
+                        if (in_array($hotel->id, $package_hotel_ids)) {
+
+                            $name = $hotel->name;
+                            $address = $hotel->address;
+                            $image = $hotel->images[0]->path;
+                            $url;
+                            $price;
+                            $startPrice = $hotel->startPrice;
+                            foreach($packagesJson as $package)
+                            {
+                                foreach($package->hotels as $package_hotel)
+                                {
+                                    if($package_hotel->id == $hotel->id)
+                                    {
+                                        $price = $package->prices[0]->price;
+                                    }
+                                }
+                            }
+
+                            if($hotel->id == 0)
+                            {
+                                $url = "izmir-kaya.php";
+                            }
+                            else if($hotel->id == 1)
+                            {
+                                $url = "bursa-kervansaray.php";
+                            }
+
+                            echo '
+                    <div class="col-lg-3">
+                    <div class="theme_common_box_two img_hover">
+                        <div class="theme_two_box_img">
+                            <a href="'.$url.'">
+                                <img src="'.$image.'" alt="img">
+                            </a>
+                            <p><i class="fas fa-map-marker-alt"></i>'.$address.'</p>
+                        </div>
+                        <div class="theme_two_box_content">
+                            <h4><a href="izmir-kaya.php">'.$name.'</a></h4>
+                            <p><span class="review_rating">Excellent</span></p>
+                            <h3>$'.$startPrice.'<span> Price starts from</span></h3>
+                        </div>
+                    </div>
+                </div>
+                    ';
+                        }
+                    }
+
+                    ?>
+                </div>
+            </div>
+        </section>--}}
 @endsection

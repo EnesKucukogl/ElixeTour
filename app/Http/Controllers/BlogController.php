@@ -25,8 +25,8 @@ class BlogController extends Controller
     public function frontSideBlogDetail($slug)
     {
         $blog = Blog::BlogSingleSlug($slug);
-        $package_file = File::where("file_type_id","4")->where("cover_image","1")->get();
-        return view('package-detail', ['blog' => $blog,'blogFile'=>$blog_file]);
+        $blog_file = File::where("file_type_id","4")->where("cover_image","1")->get();
+        return view('blogText', ['blog' => $blog,'blogFile'=>$blog_file]);
     }
 
     public function datagrid()
