@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ContactResponse;
-
+use http\Env\Request;
 
 
 class ContactResponseController extends Controller
@@ -15,9 +15,9 @@ class ContactResponseController extends Controller
      */
 
 
-    public function datagrid()
+    public function datagrid($contact_id)
     {
-        $contactResponse = ContactResponse::all();
+        $contactResponse = ContactResponse::listAll($contact_id);
         return response()->json($contactResponse);
     }
 
