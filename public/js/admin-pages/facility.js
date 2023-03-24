@@ -48,6 +48,10 @@ $(document).ready(function () {
                 ]
             },
             {
+                dataField: "Id",
+                caption: "Id",
+            },
+            {
                 dataField: "text_content",
                 caption: "Hizmet Adı",
                 calculateCellValue: function (data) {
@@ -237,11 +241,12 @@ $(document).ready(function () {
     const GetHotel = async (facilityId) => {
 
         $('#myModalLabel').html("Otel Seç");
-        let formJson = await HotelSelectForm();
+        $('#myModal').modal('show');
+        let formJson = await HotelSelectForm(facilityId);
         $("#frmEditHotel").dxForm(formJson);
 
 
-        $('#myModal').modal('show');
+
         $("#btnSaveHotel").unbind();
         $("#btnSaveHotel").on("click", function () {
             var formSelectedRows = $('#frmEditHotel').dxForm("instance").getEditor('hotel').getSelectedRowKeys();
@@ -258,8 +263,17 @@ $(document).ready(function () {
         });
     }
 
-    const HotelSelectForm = async () => {
-
+    const HotelSelectForm = async (facilityId) => {
+        var hotelListActive;
+        $.ajax({
+            type: "GET",
+            url: 'hotel-list-active',
+            datatype: "json",
+            async: false,
+            success: function (data) {
+                hotelListActive = data;
+            }
+        });
     return {
 
         items: [{
@@ -271,8 +285,34 @@ $(document).ready(function () {
 
                 editorOptions: {
 
-                        dataSource: 'hotel-list-active',
-                        keyExpr: "Id",
+                    dataSource: hotelListActive,
+                    filterRow: {visible: true},
+                    showBorders: true,
+                    columnAutoWidth: true,
+                    allowColumnReordering: true,
+                    rowAlternationEnabled: true,
+                    wordWrapEnabled: true,
+                    selection: {
+                        mode: 'multiple',
+                    },
+                    keyExpr: "Id",
+                    onContentReady: function (e) {
+
+                        var hotelFacility;
+                        $.ajax({
+                            type: "GET",
+                            url: 'hotel-facility',
+                            datatype: "json",
+                            async: false,
+                            data: {facilityId: facilityId},
+                            success: function (data) {
+                                hotelFacility = data;
+                            }
+                        });
+                        const hotelIds = hotelFacility.map(obj => obj.hotel_id);
+
+                        $('#frmEditHotel').dxForm("instance").getEditor("hotel").selectRows(hotelIds);
+                    },
                         columns: [
                             {
                                 dataField: "Id",
@@ -291,22 +331,6 @@ $(document).ready(function () {
                             },
                         ],
 
-
-                    paging: {
-                        pageSize: 10
-                    },
-                    filterRow: {
-                        visible: true
-                    },
-                    headerFilter: {
-                        visible: false
-                    },
-                    groupPanel: {
-                        visible: false
-                    },
-                    selection: {
-                        mode: "multiple"
-                    },
                 }
             }]
         }]

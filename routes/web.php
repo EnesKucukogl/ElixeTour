@@ -131,7 +131,7 @@ Route::post('/rudder/package-file-upload', [PackageController::class, 'uploadFil
 Route::post('/rudder/get-package-list-active', [PackageController::class, 'packageListActive'])->middleware('auth:webadmin');
 Route::get('/packages', [PackageController::class, 'frontSidePackages'])->name('packages');
 Route::get('/package/{slug}', [PackageController::class, 'frontSidePackagesDetail']);
-
+Route::get('/rudder/hotel-facility', [HotelFacilityController::class, 'datagrid']);
 
 //Contact
 
@@ -230,7 +230,7 @@ Route::get('/rudder/getExchangeRates', [ExchangeRateController::class, 'getExcha
 
 //Package Treatment
 Route::post('/rudder/get-treatment-package', [PackageTreatmentController::class, 'TreatmentInsertFacility'])->middleware('auth:webadmin');
-
+Route::get('/rudder/package-treatment', [PackageTreatmentController::class, 'datagrid']);
 //Treatment
 Route::resource('rudder/treatment', TreatmentController::class, [
     'names' => [

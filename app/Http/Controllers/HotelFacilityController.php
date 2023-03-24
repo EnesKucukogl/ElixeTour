@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\DB;
 
 class HotelFacilityController extends Controller
 {
+    public function datagrid(Request $request)
+    {
+        $query = DB::Table("elx_hotel_facility")
+            ->where("facility_id", "=", $request['facilityId'])->get();
+        return response()->json($query);
+
+    }
 
     public function HotelInsertFacility(Request $request)
     {
@@ -23,7 +30,7 @@ class HotelFacilityController extends Controller
                 ->delete();
 
             foreach ($request['SelectedRows'] as $item) {
-                $values = array('facility_id' => $request['facilityId'], 'hotel_id' => $item['Id'], 'created_user_id' => Auth::user()->Id);
+                $values = array('facility_id' => $request['facilityId'], 'hotel_id' => $item, 'created_user_id' => Auth::user()->Id);
                 DB::Table("elx_hotel_facility")->insert($values);
             }
 
