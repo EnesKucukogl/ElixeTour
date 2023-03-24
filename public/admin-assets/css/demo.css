@@ -16,7 +16,9 @@
     background: rgba(0, 0, 0, 0.75) url(../img/loading.gif) no-repeat center center;
     z-index: 10000;
 }
-
+.my-edit-button{
+    font-weight: lighter;
+}
 .menu .app-brand.demo {
   height: 64px;
   margin-top: 12px;

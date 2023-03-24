@@ -14,7 +14,8 @@ $(document).ready(function () {
                         icon: "fa fa-edit",
                         onClick: function (e) {
                             getFormById(e.row.key.Id);
-                        }
+                        },
+                        cssClass: "my-edit-button"
                     },
                     {
                         name: "active",
@@ -327,6 +328,11 @@ $(document).ready(function () {
             labelLocation: 'top',
             formData: data,
             items: [
+                {
+                    itemType: "group",
+                    caption: "Genel",
+                    colSpan: 2,
+                },
                   {
                     dataField: "package_id",
                     label: {
@@ -461,9 +467,14 @@ $(document).ready(function () {
             // showValidationSummary: true,
             items: [
                 {
+                    itemType: "group",
+                    caption: 'Çeviri (' + data.symbol.toUpperCase() + ')',
+                    colSpan: 2,
+                },
+                {
                     dataField: "translation_question",
                     label: {
-                        text: 'Soru (' + data.symbol + ')',
+                        text: 'Soru ',
 
                     },
                     validationRules: data.symbol == 'en' ? [
@@ -483,7 +494,7 @@ $(document).ready(function () {
                 {
                     dataField: "translation_answer",
                     label: {
-                        text: 'Cevap (' + data.symbol + ')'
+                        text: 'Cevap '
                     },
                     editorType: "dxTextArea",
                     editorOptions: {

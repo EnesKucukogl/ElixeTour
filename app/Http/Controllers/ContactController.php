@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\DB;
 
 
 class ContactController extends Controller
@@ -103,6 +104,45 @@ class ContactController extends Controller
                     $mail = Mail::send([], [], function ($message) use ($content, $nameSurname, $email) {
                         $message->to($email, $nameSurname)
                             ->subject("Thank you for your interest!")
+                            ->html($content, 'text/html');
+                    });
+
+                    return $mail ? response()->json(['message' => 'Mesaj başarıyla gönderilmiştir.', 'type' => 'success']) : response()->json(['message' => 'Mesaj gönderilirken bir hata oluşmuştur.', 'type' => 'error']);
+                } catch (\Exception $e) {
+                    return response()->json(['message' => $e->getMessage(), 'type' => 'error']);
+                }
+            } else {
+                return response()->json(['message' => 'Mesaj gönderilirken bir hata oluşmuştur.', 'type' => 'error']);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage(), 'type' => 'error']);
+        }
+    }
+
+    public function sendMail(Request $request)
+    {
+
+        try {
+
+            $Id = $request->Id;
+            $name = $request->name;
+            $surname = $request->surname;
+            $email = $request->e_mail;
+            $nameSurname = $name . " " . $surname;
+            $subject = $request->subject;
+            $body = $request->body;
+            $values = array('contact_id' => $Id, 'subject' => $subject, 'body' => $body, 'created_user_id' => Auth::user()->Id);
+            $resultResponse = DB::table('elx_contact_response')->insert($values);
+            if($resultResponse) {
+                try {
+                    $data = [
+                        'nameSurname' => $nameSurname,
+                        'body' => $body,
+                    ];
+                    $content = View::make('send-mail', $data)->render();
+                    $mail = Mail::send([], [], function ($message) use ($content, $nameSurname, $email, $subject) {
+                        $message->to($email, $nameSurname)
+                            ->subject($subject)
                             ->html($content, 'text/html');
                     });
 

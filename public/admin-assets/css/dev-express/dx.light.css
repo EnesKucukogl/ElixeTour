@@ -12714,7 +12714,7 @@
   text-align: center;
   line-height: 18px;
   margin: 0 3px;
-  color:#000;
+  color:#566a7f;
 }
 .dx-datagrid .dx-datagrid-content .dx-datagrid-table .dx-row .dx-command-edit-with-icons .dx-link:not(.dx-link-icon) {
   width: auto;
@@ -19376,9 +19376,10 @@ input.dx-hidden {
 }
 .dx-form-group-with-caption > .dx-form-group-content {
   padding-top: 19px;
-  margin-top: 6px;
-  border-top: 1px solid #ddd;
-  padding-bottom: 20px;
+
+/*  margin-top: 6px;
+ border-top: 1px solid #ddd;
+  padding-bottom: 20px;*/
 }
 .dx-form-group-with-caption .dx-form-group.dx-form-group-with-caption {
   padding-left: 20px;
@@ -19431,7 +19432,10 @@ input.dx-hidden {
   padding-right: 20px;
 }
 .dx-form-group-caption {
-  font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 19px;
+    font-weight: 600;
+    color:#566a7f;
 }
 .dx-field-item-help-text,
 .dx-field-item-label-text {
