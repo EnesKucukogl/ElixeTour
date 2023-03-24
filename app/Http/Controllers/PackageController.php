@@ -32,6 +32,11 @@ class PackageController extends Controller
         return view('packages', ['package' => $package,'packageFile'=>$file]);
     }
 
+    public function GetPackageListActive(){
+        $package = Package::packageListActive();
+        return response()->json($package);
+    }
+
     public function frontSidePackagesDetail($slug)
     {
         $package = Package::packageSingleSlug($slug);
