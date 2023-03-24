@@ -59,9 +59,6 @@
         </div>
     </div>
 
-
-
-
     <script type="text/javascript" src="{{URL::asset('/js/admin-pages/facility.js')}}"></script>
 @endsection
 

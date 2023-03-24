@@ -119,7 +119,15 @@ const getHotelListe = () => {
                                 }
                             });
                         }
-                    }
+                    },
+                    {
+                        name: " SelectPackage ",
+                        hint: "Paket Seç",
+                        icon: "fa-solid fa-plus",
+                        onClick: function (e) {
+                            GetPackage(e.row.key.Id);
+                        }
+                    },
                 ]
             },
             {
@@ -679,6 +687,85 @@ const saveUploadFile = async (file) => {
     });
 
 }
+
+const GetPackage = async (facilityId) => {
+
+    $('#myModalLabel').html("Otel Seç");
+    let formJson = await PackageSelectForm();
+    $("#frmEditHotel").dxForm(formJson);
+
+
+    $('#myModal').modal('show');
+    $("#btnSaveHotel").unbind();
+    $("#btnSaveHotel").on("click", function () {
+        var formSelectedRows = $('#frmEditHotel').dxForm("instance").getEditor('hotel').getSelectedRowKeys();
+
+
+        var combined = $.extend({}, {SelectedRows: formSelectedRows}, {facilityId: facilityId});
+
+
+        console.log("keys" + JSON.stringify(combined));
+        console.log("facId" + facilityId);
+        savePackage(combined);
+
+
+    });
+}
+
+const PackageSelectForm = async () => {
+
+    return {
+
+        items: [{
+            itemType: "group",
+
+            items: [{
+                editorType: "dxDataGrid",
+                name: "hotel",
+
+                editorOptions: {
+
+                    dataSource: 'hotel-list-active',
+                    keyExpr: "Id",
+                    columns: [
+                        {
+                            dataField: "Id",
+                            caption: "No",
+                            visible: 'false'
+                        },
+                        {
+                            dataField: "name",
+                            caption: "Otel Adı",
+                            minwidth: 100
+                        },
+                        {
+                            dataField: "description",
+                            caption: "Açıklama",
+                            minwidth: 100
+                        },
+                    ],
+                    paging: {
+                        pageSize: 10
+                    },
+                    filterRow: {
+                        visible: true
+                    },
+                    headerFilter: {
+                        visible: false
+                    },
+                    groupPanel: {
+                        visible: false
+                    },
+                    selection: {
+                        mode: "multiple"
+                    },
+                }
+            }]
+        }]
+    }
+
+}
+
 const changeStatus = async (Id) => {
 
     $.ajax({
@@ -693,4 +780,28 @@ const changeStatus = async (Id) => {
             console.log('Error:', data);
         }
     });
+}
+
+const savePackage = async (json) => {
+    //console.log(JSON.stringify(json));
+    $.ajax({
+        data: JSON.stringify(json),
+        url: "get-package-hotel",
+        type: "POST",
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (data) {
+
+            //console.log("result"+JSON.stringify(data));
+            msg(data.message, data.type);
+            $('#myModal').modal('hide').fadeOut('slow');
+
+        },
+        error: function (data) {
+
+            console.log('Error:', data);
+        }
+    });
+
 }

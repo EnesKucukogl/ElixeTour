@@ -39,10 +39,6 @@ class Facility extends Model
         return static::with("textContent")->with("descriptionTextContent")->get();
     }
 
-    public function hotelFacility()
-    {
-        return $this->hasMany('App\Models\HotelFacility', 'facility_id', 'Id');
-    }
 
     public static function hotelFacilityList($hotel_id)
     {
