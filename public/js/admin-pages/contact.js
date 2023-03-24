@@ -142,7 +142,7 @@ $(document).ready(function () {
                     },
                     {
                         dataField: "bond_with_contact",
-                        caption: "Gönderilen Mail",
+                        caption: "Gönderilen Mail Adresi",
                         minWidth: 100,
                         calculateCellValue: function (data) {
                             return data.bond_with_contact.e_mail;
@@ -372,7 +372,10 @@ $(document).ready(function () {
                         text: 'Konu'
 
                     },
-
+                    validationRules: [{
+                        type: "required",
+                        message: "Konu boş geçilemez !"
+                    }]
 
                 },
 
@@ -385,6 +388,10 @@ $(document).ready(function () {
                     editorOptions: {
                         height: 200,
                     },
+                    validationRules: [{
+                        type: "required",
+                        message: "Mesaj boş geçilemez !"
+                    }]
                 },
 
             ]
