@@ -256,6 +256,9 @@ Route::resource('rudder/blog', BlogController::class, [
     ]])->middleware('auth:webadmin');
 Route::get('/rudder/blog-list', [BlogController::class, 'datagrid']);
 Route::post('/rudder/blog-file-upload', [BlogController::class, 'uploadFile'])->middleware('auth:webadmin');
+Route::get('/blog', [BlogController::class, 'frontSideBlog'])->name('blog');
+Route::get('/blog/{slug}', [BlogController::class, 'frontSideBlogDetail']);
+
 
 //Offices
 Route::resource('rudder/offices', OfficesController::class, [

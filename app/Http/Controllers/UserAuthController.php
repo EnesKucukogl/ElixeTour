@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Package;
@@ -22,7 +23,9 @@ class UserAuthController extends Controller
         $treatment_file = File::where("file_type_id","2")->where("cover_image","1")->get();
         $hotel = Hotel::hotelListActive();
         $hotel_file = File::where("file_type_id","3")->where("cover_image","1")->get();
-        return view('home', ['package' => $package,'packageFile'=>$package_file,'treatment'=>$treatment,'treatmentFile'=>$treatment_file,'hotel'=>$hotel,'hotelFile'=>$hotel_file]);
+        $blog= Blog:: BlogListActive();
+        $blog_file=File::where("file_type_id","4")->where("cover_image","1")->get();
+        return view('home', ['package' => $package,'packageFile'=>$package_file,'treatment'=>$treatment,'treatmentFile'=>$treatment_file,'hotel'=>$hotel,'hotelFile'=>$hotel_file,'blog'=>$blog,'blogFile'=>$blog_file]);
     }
 
 
