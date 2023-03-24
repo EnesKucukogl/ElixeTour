@@ -394,7 +394,6 @@ $(document).ready(function () {
 
                             $('#frmEditTreatment').dxForm("instance").getEditor("treatment").selectRows(treatmentIds);
                         },
-
                         columns: [
                             {
                                 dataField: "Id",

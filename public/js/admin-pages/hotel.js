@@ -95,7 +95,7 @@ const getHotelListe = () => {
         columns: [
             {
                 type: "buttons",
-                width: 75,
+                width: 110,
                 buttons: [
                     {
                         name: "edit",
@@ -103,7 +103,8 @@ const getHotelListe = () => {
                         icon: "fa fa-edit",
                         onClick: function (e) {
                             getFormById(e.row.key.Id);
-                        }
+                        },
+                        cssClass: "my-edit-button"
                     },
                     {
                         hint: "Aktiflik",
@@ -119,7 +120,15 @@ const getHotelListe = () => {
                                 }
                             });
                         }
-                    }
+                    },
+                    {
+                        name: " SelectPackage ",
+                        hint: "Paket Seç",
+                        icon: "fa-solid fa-plus",
+                        onClick: function (e) {
+                            GetPackage(e.row.key.Id);
+                        }
+                    },
                 ]
             },
             {
@@ -679,6 +688,105 @@ const saveUploadFile = async (file) => {
     });
 
 }
+
+const GetPackage = async (hotelId) => {
+
+    $('#myModalLabel').html("Paket Seç");
+    let formJson = await PackageSelectForm(hotelId);
+    $("#frmEditHotel").dxForm(formJson);
+
+
+    $('#myModal').modal('show');
+    $("#btnSaveHotel").unbind();
+    $("#btnSaveHotel").on("click", function () {
+        var formSelectedRows = $('#frmEditHotel').dxForm("instance").getEditor('package').getSelectedRowKeys();
+
+
+        var combined = $.extend({}, {SelectedRows: formSelectedRows}, {hotelId: hotelId});
+
+
+        console.log("keys" + JSON.stringify(combined));
+        console.log("facId" + hotelId);
+        savePackage(combined);
+
+
+    });
+}
+
+const PackageSelectForm = async (hotelId) => {
+    var packageListActive;
+    $.ajax({
+        type: "GET",
+        url: 'get-package-list-active',
+        datatype: "json",
+        async: false,
+        success: function (data) {
+            packageListActive = data;
+        }
+    });
+
+    return {
+
+        items: [{
+            itemType: "group",
+            items: [{
+                editorType: "dxDataGrid",
+                name: "package",
+                editorOptions: {
+                    dataSource: packageListActive,
+                    filterRow: {visible: true},
+                    showBorders: true,
+                    columnAutoWidth: true,
+                    allowColumnReordering: true,
+                    rowAlternationEnabled: true,
+                    wordWrapEnabled: true,
+                    selection: {
+                        mode: 'multiple',
+                    },
+                    keyExpr: "Id",
+                    onContentReady: function (e) {
+
+                        var hotelPackage;
+                        $.ajax({
+                            type: "GET",
+                            url: 'hotel-package?hotelId=' + hotelId,
+                            datatype: "json",
+                            async: false,
+                            // data: {hotelId: hotelId},
+                            success: function (data) {
+                                hotelPackage = data;
+                            }
+                        });
+                        const hotelIds = hotelPackage.map(obj => obj.package_id);
+
+                        $('#frmEditHotel').dxForm("instance").getEditor("package").selectRows(hotelIds);
+                    },
+                    columns: [
+                        {
+                            dataField: "Id",
+                            caption: "No",
+                            visible: 'false',
+                            minWidth: 50,
+                        },
+                        {
+                            dataField: "package_text_content",
+                            caption: "Paket Adı",
+                            calculateCellValue: function (data) {
+                                var text = "";
+                                data.package_text_content.forEach(function (item) {
+                                    text += item.translation + " (" + item.symbol.toUpperCase() + ") ";
+                                });
+                                return text.trim();
+                            }
+                        },
+                    ],
+
+                }
+            }]
+        }]
+    }
+
+}
 const changeStatus = async (Id) => {
 
     $.ajax({
@@ -693,4 +801,28 @@ const changeStatus = async (Id) => {
             console.log('Error:', data);
         }
     });
+}
+
+const savePackage = async (json) => {
+    //console.log(JSON.stringify(json));
+    $.ajax({
+        data: JSON.stringify(json),
+        url: "get-package-hotel",
+        type: "POST",
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (data) {
+
+            //console.log("result"+JSON.stringify(data));
+            msg(data.message, data.type);
+            $('#myModal').modal('hide').fadeOut('slow');
+
+        },
+        error: function (data) {
+
+            console.log('Error:', data);
+        }
+    });
+
 }

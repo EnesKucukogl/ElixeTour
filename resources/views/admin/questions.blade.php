@@ -1,6 +1,7 @@
 @extends('admin.layout.mainlayout')
 @section('content')
-    <h4 class="fw-bold py-3 mb-4"><a href="{{route('admin.home')}}">  <span class="text-muted fw-light">Anasayfa /</span></a> Sık Sorulan Sorular</h4>
+    <h4 class="fw-bold py-3 mb-4"><a href="{{route('admin.home')}}"> <span class="text-muted fw-light">Anasayfa /</span></a>
+        Sık Sorulan Sorular</h4>
     <button type='button' class='btn btn-primary  mb-3' id="addMenu">
         <i class="fa fa-plus"></i> Yeni Soru Ekle
     </button>
@@ -22,7 +23,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="nav-align-top mb-4">
-                                    <div id="frmEditMenu"></div>
+
+                        <div id="frmEditMenu"></div>
 
                         <div class="language row md-form "></div>
                     </div>

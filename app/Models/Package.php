@@ -43,6 +43,7 @@ class Package extends Model
         return static::with("packageTextContent")->with("descriptionTextContent")->orderBy("Id", "desc")->get();
     }
 
+
     public static function packageSingleSlug($slug)
     {
         return static::with("packageTextContent")->with("descriptionTextContent")->where("slug", "=", $slug)->first();
