@@ -7,6 +7,7 @@ use \App\Http\Controllers\LanguageController;
 use \App\Http\Controllers\CurrencyController;
 use \App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ContactResponseController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\LookupController;
 use App\Http\Controllers\FacilityController;
@@ -23,6 +24,7 @@ use App\Http\Controllers\AccomodationTypeController;
 use App\Http\Controllers\ExchangeRateController;
 use App\Http\Controllers\OfficesController;
 use App\Http\Controllers\PackageTreatmentController;
+use App\Http\Controllers\HotelPackageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +63,9 @@ Route::get('/mest-club-card', function () {
 
 Route::get('/health-in-turkey', function () {
     return view('health-in-turkey');
+});
+Route::get('/mail-content', function () {
+    return view('mail-content');
 });
 
 
@@ -124,9 +129,10 @@ Route::resource('rudder/package', PackageController::class, [
 
 Route::get('/rudder/package-list', [PackageController::class, 'datagrid']);
 Route::post('/rudder/package-file-upload', [PackageController::class, 'uploadFile'])->middleware('auth:webadmin');
+Route::get('/rudder/get-package-list-active', [PackageController::class, 'GetPackageListActive'])->middleware('auth:webadmin');
 Route::get('/packages', [PackageController::class, 'frontSidePackages'])->name('packages');
 Route::get('/package/{slug}', [PackageController::class, 'frontSidePackagesDetail']);
-
+Route::get('/rudder/hotel-facility', [HotelFacilityController::class, 'datagrid']);
 
 //Contact
 
@@ -137,6 +143,14 @@ Route::resource('rudder/contact', ContactController::class, [
 
 Route::get('/rudder/contact-list', [ContactController::class, 'datagrid']);
 Route::get('/contact', [ContactController::class, 'frontSideContact']);
+Route::post('/sendContact', [ContactController::class, 'sendContact']);
+Route::post('/sendMail', [ContactController::class, 'sendMail'])->middleware('auth:webadmin');
+Route::get('/rudder/contact-response-list/{contact_id}', [ContactResponseController::class, 'datagrid'])->middleware('auth:webadmin');
+
+// Hotel Package
+Route::post('/rudder/get-package-hotel', [HotelPackageController::class, 'HotelInsertPackage'])->middleware('auth:webadmin');
+Route::get('/rudder/hotel-package', [HotelPackageController::class, 'datagrid']);
+
 
 //Hotel
 Route::resource('rudder/hotel', HotelController::class, [
@@ -220,7 +234,7 @@ Route::get('/rudder/getExchangeRates', [ExchangeRateController::class, 'getExcha
 
 //Package Treatment
 Route::post('/rudder/get-treatment-package', [PackageTreatmentController::class, 'TreatmentInsertFacility'])->middleware('auth:webadmin');
-
+Route::get('/rudder/package-treatment', [PackageTreatmentController::class, 'datagrid']);
 //Treatment
 Route::resource('rudder/treatment', TreatmentController::class, [
     'names' => [
@@ -252,6 +266,9 @@ Route::resource('rudder/blog', BlogController::class, [
     ]])->middleware('auth:webadmin');
 Route::get('/rudder/blog-list', [BlogController::class, 'datagrid']);
 Route::post('/rudder/blog-file-upload', [BlogController::class, 'uploadFile'])->middleware('auth:webadmin');
+Route::get('/blog', [BlogController::class, 'frontSideBlog'])->name('blog');
+Route::get('/blog/{slug}', [BlogController::class, 'frontSideBlogDetail']);
+
 
 //Offices
 Route::resource('rudder/offices', OfficesController::class, [
@@ -260,3 +277,4 @@ Route::resource('rudder/offices', OfficesController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/offices-list', [OfficesController::class, 'datagrid']);
+

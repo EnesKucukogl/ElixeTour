@@ -12,7 +12,12 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="modelHeading"></h4>
-
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                    ></button>
                 </div>
                 <div class="modal-body">
                     <div class="nav-align-top mb-4">

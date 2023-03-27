@@ -7,16 +7,23 @@
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
+                    <i class="menu-icon fa-solid fa-comments mr-3"></i>
                     <h4 class="modal-title" id="modelHeading"></h4>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                    ></button>
                 </div>
                 <div class="modal-body">
                     <div id="frmEditContact"></div>
-
+                    <button id="btnSaveContact" type="button" class="btn btn-save btn-primary mt-3 mb-3">Kaydet</button>
+                    <div class="mt-3" id="frmSendMail"></div>
+                    <button id="btnSendMail" type="button" class="btn btn-save btn-primary mt-3 mb-3">Gönder</button>
+                    <div class="mt-3" id="gridContainerSendMail"></div>
                 </div>
-                <div class="modal-footer">
 
-                    <button id="btnSaveContact" type="button" class="btn btn-save btn-primary">Kaydet</button>
-                </div>
             </div>
         </div>
     </div>

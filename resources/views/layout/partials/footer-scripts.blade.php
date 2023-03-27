@@ -1,10 +1,11 @@
+
 <script type="text/javascript" src="{{URL::asset('/js/jquery-3.6.0.min.js')}}"></script>
 <!-- Bootstrap js -->
 <script type="text/javascript" src="{{URL::asset('/js/bootstrap.bundle.js')}}"></script>
-
 <!-- Meanu js -->
 <script type="text/javascript" src="{{URL::asset('/js/jquery.meanmenu.js')}}"></script>
-
+<!-- Sweetalert -->
+<script type="text/javascript" src="{{URL::asset('/js/sweetalert.min.js')}}"></script>
 <!-- Range js -->
 <script type="text/javascript" src="{{URL::asset('/js/nouislider.min.js')}}"></script>
 <script type="text/javascript" src="{{URL::asset('/js/wNumb.js')}}"></script>
@@ -24,4 +25,5 @@
 <script type="text/javascript" src="{{URL::asset('/js/form-dropdown.js')}}"></script>
 <script type="text/javascript" src="{{URL::asset('/js/otel.js')}}"></script>
 <script type="text/javascript" src="{{URL::asset('/js/bs-stepper.min.js')}}"></script>
+
 

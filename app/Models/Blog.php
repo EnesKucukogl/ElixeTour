@@ -47,10 +47,24 @@ class Blog extends Model
         return $this->hasMany('App\Models\TranslationView', 'text_content_id', 'description_content_id');
     }
 
+    public static function blogRandomListActive()
+    {
+        return static::with("TitleTextContent")->with("ShortDescriptionTextContent")->with("DescriptionTextContent")->where("active", "=", "1")->where("highlighted","=","1")->inRandomOrder()->take(4)->get();
+    }
 
     public static function BlogList()
     {
         return static::with("TitleTextContent")->with("ShortDescriptionTextContent")->with("DescriptionTextContent")->get();
+    }
+
+    public static function BlogSingleSlug($slug)
+    {
+        return static::with("TitleTextContent")->with("ShortDescriptionTextContent")->with("DescriptionTextContent")->where("slug", "=", $slug)->first();
+    }
+
+    public static function BlogListActive()
+    {
+        return static::with("TitleTextContent")->with("ShortDescriptionTextContent")->with("DescriptionTextContent")->where("active", "=", "1")->orderBy("Id", "desc")->get();
     }
 
 }

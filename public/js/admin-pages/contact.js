@@ -1,11 +1,10 @@
- const statuses = [
+const statuses = [
     {"Id": 1, "Name": "Beklemede"},
     {"Id": 2, "Name": "Cevaplandı"}];
 
 $(document).ready(function () {
 
     $('#gridContainer').dxDataGrid(
-
         {
             keyExpr: "Id",
             dataSource: '/rudder/contact-list',
@@ -18,33 +17,14 @@ $(document).ready(function () {
                             name: "edit",
                             hint: "Güncelle",
                             icon: "fa fa-edit",
+                            cssClass: "my-edit-button",
                             disabled: function (e) {
-                                return !e.row.key.active;
-                                },
+                                return e.row.key.status !== 1;
+                            },
                             onClick: function (e) {
                                 getFormById(e.row.key.Id);
                             }
                         },
-                        {
-                            hint: "Sil",
-                            icon: "fa fa-trash",
-                            disabled: function (e){
-                                return !e.row.key.active;
-                            },
-                            onClick: function (e) {
-                                var result = DevExpress.ui.dialog.confirm("<i>Kaydı silmek istediğinizden emin misiniz?</i>", "Kayıt silme işlemi");
-                                result.done(function (dialogResult) {
-                                    if (dialogResult) {
-
-                                        if(e.row.key.active == 1){
-                                            active = 0;
-                                        }
-                                        changeStatus(e.row.key.Id,active);
-
-                                    }
-                                });
-                            }
-                        }
 
 
                     ]
@@ -57,12 +37,12 @@ $(document).ready(function () {
                 },
                 {
                     dataField: "name",
-                    caption: "Name",
+                    caption: "Adı",
                     minwidth: 100
                 },
                 {
                     dataField: "surname",
-                    caption: "Surname",
+                    caption: "Soyadı",
                     minwidth: 100
                 },
                 {
@@ -72,36 +52,36 @@ $(document).ready(function () {
                 },
                 {
                     dataField: "phone_number",
-                    caption: "Phone Number",
+                    caption: "Telefon",
                     minwidth: 100
                 },
                 {
                     dataField: "message_content",
-                    caption: "Message Content",
-                    width: 200
+                    caption: "Mesaj",
+                    minWidth: 200
                 },
                 {
                     dataField: "send_date",
-                    caption: "Send Date",
+                    caption: "Gönderim Tarihi",
                     dataType: "date",
                     displayFormat: "dd.MM.yyyy",
                     dateSerializationFormat: "yyyy-MM-dd",
-                    width: 100,
+                    width: 150,
                     sortIndex: 0,
                     sortOrder: "desc"
                 },
                 {
                     dataField: "status",
-                    caption: "Status",
-                    width: 100,
+                    caption: "Durum",
+                    minWidth: 100,
 
                     lookup: {
                         dataSource: {
                             store: {
                                 type: "array",
                                 data: [
-                                    { id: 1, name: "Beklemede" },
-                                    { id: 2, name: "Cevaplandı" },
+                                    {id: 1, name: "Beklemede"},
+                                    {id: 2, name: "Cevaplandı"},
 
                                 ],
                                 key: 'Id'
@@ -111,27 +91,7 @@ $(document).ready(function () {
                         displayExpr: "name" // provides display values
                     },
                 },
-                {
-                    dataField: "active",
-                    caption: "Active",
-                    width: 100,
 
-                    lookup: {
-                        dataSource: {
-                            store: {
-                                type: "array",
-                                data: [
-                                    { id: 0, name: "Hayır" },
-                                    { id: 1, name: "Evet" },
-
-                                ],
-                                key: 'Id'
-                            }
-                        },
-                        valueExpr: "id", // contains the same values as the "statusId" field provides
-                        displayExpr: "name" // provides display values
-                    },
-                },
 
             ],
 
@@ -155,13 +115,73 @@ $(document).ready(function () {
             },
             allowColumnReordering: true,
             rowAlternationEnabled: true,
-
+            wordWrapEnabled: true,
             filterRow: {
                 visible: true,
                 applyFilter: 'auto',
             },
 
         });
+
+    function getContactResponse(contact_id) {
+        $('#gridContainerSendMail').dxDataGrid(
+            {
+                keyExpr: "Id",
+                dataSource: '/rudder/contact-response-list/' + contact_id,
+                columns: [
+
+                    {
+                        dataField: "subject",
+                        caption: "Konu",
+                        minwidth: 100
+                    },
+                    {
+                        dataField: "body",
+                        caption: "İçerik",
+                        minwidth: 100
+                    },
+                    {
+                        dataField: "bond_with_contact",
+                        caption: "Gönderilen Mail",
+                        minWidth: 100,
+                        calculateCellValue: function (data) {
+                            return data.bond_with_contact.e_mail;
+                        }
+                    },
+                    {
+                        dataField: "created_date",
+                        caption: "Gönderim Tarihi",
+                        dataType: "date",
+                        displayFormat: "dd.MM.yyyy",
+                        dateSerializationFormat: "yyyy-MM-dd",
+                        minWidth: 200,
+                    },
+
+                ],
+
+                remoteOperations: false,
+                showBorders: true,
+                paging: {
+                    pageSize: 10,
+                },
+
+                columnAutoWidth: true,
+
+                pager: {
+                    showPageSizeSelector: true,
+                    allowedPageSizes: [10, 25, 50, 100],
+                    showInfo: true
+                },
+                allowColumnReordering: true,
+                rowAlternationEnabled: true,
+                wordWrapEnabled: true,
+                filterRow: {
+                    visible: true,
+                    applyFilter: 'auto',
+                },
+
+            });
+    }
 
     $.ajaxSetup({
         headers: {
@@ -174,11 +194,11 @@ $(document).ready(function () {
     });
 
 
-    const changeStatus = async (formId,active) => {
+    const changeStatus = async (formId, active) => {
 
         $.ajax({
-            data: {Id:formId,active:active},
-            url: 'contact/'+formId,
+            data: {Id: formId, active: active},
+            url: 'contact/' + formId,
             type: "PUT",
             dataType: 'json',
             success: function (data) {
@@ -192,28 +212,24 @@ $(document).ready(function () {
 
     const getFormById = async (formId) => {
 
-        if (formId == "-1") {
-            $("#modelHeading").html("Contact Ekle");
-            let formJson = await contactInsertUpdateForm(null);
-            $("#frmEditContact").dxForm(formJson);
-        }
-        else {
-            var result;
-            $.ajax({
-                type: "GET",
-                url: 'contact' +'/'+formId+'/edit',
-                datatype: "json",
-                async: false,
-                success: function(data){
-                    result = data;
-                }
-            });
 
-            $('#modelHeading').html("Contact Düzenle");
-            let formJson = await contactInsertUpdateForm(result);
-            $("#frmEditContact").dxForm(formJson);
+        var result;
+        $.ajax({
+            type: "GET",
+            url: 'contact' + '/' + formId + '/edit',
+            datatype: "json",
+            async: false,
+            success: function (data) {
+                result = data;
+            }
+        });
 
-        }
+        $('#modelHeading').html("Contact Düzenle");
+        let formJson = await contactInsertUpdateForm(result);
+        $("#frmEditContact").dxForm(formJson);
+        let formJsonMail = await mailSendForm(result);
+        $("#frmSendMail").dxForm(formJsonMail);
+        getContactResponse(formId);
 
 
         $('#updateContact').modal('show');
@@ -229,18 +245,37 @@ $(document).ready(function () {
                 saveContact(json);
             }
         });
+        $("#btnSendMail").unbind();
+        $("#btnSendMail").on("click", function () {
+            var frm = $("#frmSendMail").dxForm("instance");
+            var validate = frm.validate();
+            if (validate.isValid) {
+
+                var json = frm.option("formData");
+
+                console.log(json);
+                sendMail(json);
+            }
+        });
+
     }
     const contactInsertUpdateForm = async (data = {}) => {
 
         // console.log("data", data);
         return {
+            labelLocation: 'top',
             colCount: 2,
             formData: data,
-            items: [
+            items: [{
+                itemType: "group",
+                caption: "Form Bilgileri",
+                colSpan: 2,
+            },
                 {
+
                     dataField: "name",
                     label: {
-                        text: 'Name '
+                        text: 'Adı'
 
                     },
                     editorOptions: {
@@ -252,7 +287,7 @@ $(document).ready(function () {
                 {
                     dataField: "surname",
                     label: {
-                        text: 'Surname '
+                        text: 'Soyadı'
                     },
                     editorOptions: {
                         readOnly: true
@@ -270,7 +305,7 @@ $(document).ready(function () {
                 {
                     dataField: "phone_number",
                     label: {
-                        text: 'Phone Number '
+                        text: 'Telefon'
 
                     },
                     editorOptions: {
@@ -281,17 +316,17 @@ $(document).ready(function () {
                     dataField: "message_content",
                     editorType: 'dxTextArea',
                     label: {
-                        text: 'Message Content '
+                        text: 'Mesaj'
                     },
                     editorOptions: {
-                        height : 200,
+                        height: 200,
                         readOnly: true
                     },
                 },
                 {
                     dataField: "send_date",
                     label: {
-                        text: 'Send Date ',
+                        text: 'Gönderim Tarihi',
                     },
                     editorType: "dxDateBox",
                     editorOptions: {
@@ -305,7 +340,7 @@ $(document).ready(function () {
                     dataField: "status",
                     editorType: 'dxSelectBox',
                     label: {
-                        text: 'Status '
+                        text: 'Durum'
                     },
                     editorOptions: {
                         items: statuses,
@@ -318,18 +353,75 @@ $(document).ready(function () {
         }
     };
 
+    const mailSendForm = async (data = {}) => {
+
+        // console.log("data", data);
+        return {
+            labelLocation: 'top',
+            colCount: 2,
+            formData: data,
+            items: [{
+                itemType: "group",
+                caption: "Mail",
+                colSpan: 2,
+            },
+                {
+
+                    dataField: "subject",
+                    label: {
+                        text: 'Konu'
+
+                    },
+
+
+                },
+
+                {
+                    dataField: "body",
+                    editorType: 'dxTextArea',
+                    label: {
+                        text: 'Mesaj'
+                    },
+                    editorOptions: {
+                        height: 200,
+                    },
+                },
+
+            ]
+        }
+    };
+
     const saveContact = async (json) => {
 
         $.ajax({
-            data: json ,
+            data: json,
             url: "contact",
             type: "POST",
             dataType: 'json',
             success: function (data) {
-                msg('Düzenlenme Başarılı',"success");
+                msg('Düzenlenme Başarılı', "success");
                 //console.log("result"+JSON.stringify(data));
                 $("#gridContainer").dxDataGrid("instance").refresh();
                 $('#updateContact').modal('toggle').fadeOut('slow');
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+
+    }
+    const sendMail = async (json) => {
+
+        $.ajax({
+            data: json,
+            url: "/sendMail",
+            type: "POST",
+            dataType: 'json',
+            success: function (data) {
+                msg(data.message, data.type);
+                $("#gridContainerSendMail").dxDataGrid("instance").refresh();
+                var formInstance = $("#frmSendMail").dxForm("instance");
+                formInstance.resetValues();
             },
             error: function (data) {
                 console.log('Error:', data);

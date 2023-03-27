@@ -2,18 +2,24 @@
 @section('content')
     <h4 class="fw-bold py-3 mb-4"><a href="{{route('admin.home')}}"><span class="text-muted fw-light">Anasayfa /</span></a>
         Paketler</h4>
-    <button type='button' class='btn btn-primary  mb-3' id="addMenu">
+
+    <button type='button' class='btn btn-primary  mb-3 ' id="addMenu">
         <i class="fa fa-plus"></i> Yeni Paket Ekle
     </button>
-    <div id="gridContainer"></div>
 
+    <div class="mb-3" id="gridContainer"></div>
 
     <div class="modal fade" id="updateMenu" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="modelHeading"></h4>
-
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                    ></button>
                 </div>
                 <div class="modal-body">
                     <div class="nav-align-top mb-4">

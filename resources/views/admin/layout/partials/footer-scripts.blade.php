@@ -18,3 +18,4 @@
 <script type="text/javascript">
     DevExpress.localization.locale("tr");
 </script>
+

@@ -12,6 +12,9 @@
     </div>
 
     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+        <img class="w-px-40 h-auto rounded-circle"  width="50%" src="{{URL::asset('admin-assets/img/pages/holiday.png')}}" alt="holiday">
+        <img class="w-px-40 h-auto rounded-circle"  width="50%" src="{{URL::asset('admin-assets/img/pages/summer.png')}}" alt="summer">
+        <img class="w-px-40 h-auto rounded-circle"  width="50%" src="{{URL::asset('admin-assets/img/pages/beach.png')}}" alt="summer">
         <ul class="navbar-nav flex-row align-items-center ms-auto">
             <!-- User -->
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
