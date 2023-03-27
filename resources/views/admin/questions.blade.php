@@ -24,8 +24,6 @@
                 </div>
                 <div class="modal-footer">
                     <button id="btnSaveMenu" type="button" class="btn btn-save btn-primary mt-3">Kaydet</button>
-
-
                 </div>
             </div>
         </div>
