@@ -148,6 +148,11 @@ const getAccomodationTypeListe = () => {
                 // minwidth: 100
             },
             {
+                dataField: "hotel_name",
+                caption: "Hotel",
+                // minwidth: 100
+            },
+            {
                 hidingPriority: 1,
                 dataField: "active",
                 caption: "Active",
@@ -295,6 +300,21 @@ const accomodationTypeInsertUpdateForm = async (data = {}) => {
                     displayExpr: "name",
                     valueExpr: "Id",
                     value:  data.sales_currency_id
+                }
+            },
+            {
+                dataField: "hotel_id",
+                label: {
+                    text: 'Hotel'
+                },
+                editorType: "dxSelectBox",
+                editorOptions: {
+                    dataSource: '/rudder/hotel-list-active',
+                    showClearButton: true,
+                    searchEnabled: true,
+                    displayExpr: "name",
+                    valueExpr: "Id",
+                    value:  data.hotel_id
                 }
             },
         ]

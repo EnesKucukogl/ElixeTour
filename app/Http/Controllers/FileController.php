@@ -79,4 +79,16 @@ class FileController extends Controller
 
     }
 
+    public function saveFile(Request $request)
+    {
+
+        $request = $request->json()->all();
+
+        $values = array('general_id' => $request['general_id'], 'file_type_id' => $request['file_type_id'], 'cover_image' => $request['cover_image'], 'file_path' => $this->file_path . "/" . $request['name'], 'tmp_name' => $request['tmp_name'], 'name' => $request['name'], 'created_user_id' => Auth::user()->Id);
+        $fileUpload = DB::table('elx_file')->insert($values);
+
+        return $fileUpload ? response()->json(['message' => 'Resim başarıyla eklenmiştir.', 'type' => 'success']) : response()->json(['message' => 'Resim eklenirken bir hata oluşmuştur.', 'type' => 'error']);
+
+    }
+
 }

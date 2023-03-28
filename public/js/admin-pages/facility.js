@@ -39,7 +39,7 @@ $(document).ready(function () {
                     {
                         name: " SelectHotel ",
                         hint: "Otel Seç",
-                        icon: "fa-solid fa-square-h",
+                        icon: "fa-solid fa-hotel",
                         onClick: function (e) {
                             GetHotel(e.row.key.Id);
                         }
@@ -290,7 +290,6 @@ $(document).ready(function () {
                     showBorders: true,
                     columnAutoWidth: true,
                     allowColumnReordering: true,
-                    rowAlternationEnabled: true,
                     wordWrapEnabled: true,
                     selection: {
                         mode: 'multiple',

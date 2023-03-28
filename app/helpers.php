@@ -19,6 +19,17 @@ function viewLanguageSupport($arr)
     return $translation;
 }
 
+function getAccomodationType($arr,$accomodationId)
+{
+    $new = array_filter(json_decode($arr), function ($var) use ($accomodationId)  {
+
+        return $var->accomodation_id == $accomodationId;
+
+    });
+
+    return $new;
+}
+
 function getImage($arr, $main_Id)
 {
     $file_path = '';

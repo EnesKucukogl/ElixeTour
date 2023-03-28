@@ -42,4 +42,5 @@ class Hotel extends Model
         return static::where("active","=","1")->where("slug","=",$slug)->first();
     }
 
+
 }

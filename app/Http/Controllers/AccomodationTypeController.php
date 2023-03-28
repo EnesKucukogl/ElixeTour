@@ -25,6 +25,24 @@ class AccomodationTypeController extends Controller
         $accomodationTypeDetail = AccomodationType::find($id);
         return response()->json($accomodationTypeDetail);
     }
+    public function getHotelAccodomotationType(Request $request)
+    {
+        $hotelAccomodationType = AccomodationType::hotelAccomodationTypeSingleList($request->hotel_id,$request->accomodation_id);
+        return $hotelAccomodationType;
+    }
+
+    public function getSingle(Request $request)
+    {
+        $accomodationTypeSingle = DB::Table('vew_accomodation_type')
+            ->where('accomodation_id',  $request->accomodation_id)
+            ->where('hotel_id',  $request->hotel_id)
+            ->where('room_type_detail',  $request->room_type_detail)
+            ->where('room_board',  $request->room_board)
+            ->first();
+        return $accomodationTypeSingle;
+    }
+
+
 
     public function store(Request $request)
     {
@@ -37,18 +55,18 @@ class AccomodationTypeController extends Controller
                 'room_board' => $request->roomBoard,
                 'sales_price' => $request->salesPrice,
                 'sales_currency_id' => $request->salesCurrencyId,
-                'active' => $request->active,
+                'hotel_id' => $request->hotel_id,
                 'updated_user_id' =>  Auth::user()->Id
             ]);
             return response()->json(['success'=>'Record saved successfully.']);
         } else {
-            DB::Table('elx_accomodation_type')->create([
+            DB::Table('elx_accomodation_type')->insert([
                 'accomodation_id' => $request->accomodationId,
                 'room_type_detail' => $request->roomTypeDetail,
                 'room_board' => $request->roomBoard,
                 'sales_price' => $request->salesPrice,
                 'sales_currency_id' => $request->salesCurrencyId,
-                'active' => $request->active,
+                'hotel_id' => $request->hotel_id,
                 'created_user_id' =>  Auth::user()->Id,
             ]);
             return response()->json(['success'=>'Record saved successfully.']);

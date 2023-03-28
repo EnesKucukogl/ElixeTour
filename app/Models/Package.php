@@ -54,5 +54,17 @@ class Package extends Model
         return static::with("packageTextContent")->with("descriptionTextContent")->where("active", "=", "1")->orderBy("Id", "desc")->get();
     }
 
+    public function hotelPackage()
+    {
+        return $this->hasMany('App\Models\HotelPackage', 'package_id', 'Id');
+    }
+
+    public static function hotelPackageList($hotel_Id)
+    {
+        return static::whereHas('hotelPackage', function ($query) use ($hotel_Id) {
+            $query->where('hotel_id', $hotel_Id);
+        })->with("packageTextContent")->with("descriptionTextContent")->where("active", "=", "1")->orderBy("Id", "desc")->get();
+    }
+
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\AdminAuthController;
@@ -25,6 +26,8 @@ use App\Http\Controllers\ExchangeRateController;
 use App\Http\Controllers\OfficesController;
 use App\Http\Controllers\PackageTreatmentController;
 use App\Http\Controllers\HotelPackageController;
+use App\Http\Controllers\ProcessController;
+use App\Http\Controllers\HotelAccomodationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,9 +59,6 @@ Route::get('/about', function () {
 Route::get('/mest-club-card', function () {
     return view('mest-club-card');
 });
-
-
-
 
 
 Route::get('/health-in-turkey', function () {
@@ -100,7 +100,6 @@ Route::resource('rudder/hotel_facility', HotelFacilityController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::post('/rudder/get-hotel-facility', [HotelFacilityController::class, 'HotelInsertFacility'])->middleware('auth:webadmin');
-
 
 
 //Admin Menu
@@ -162,6 +161,7 @@ Route::get('/rudder/hotel-list', [HotelController::class, 'datagrid']);
 Route::get('/rudder/hotel-list-active', [HotelController::class, 'datagridActive']);
 Route::post('/rudder/hotel-file-upload', [HotelController::class, 'uploadFile'])->middleware('auth:webadmin');
 Route::get('/hotel/{slug}', [HotelController::class, 'frontSideHotelDetail']);
+Route::get('/process/{package_id}/{hotel_id}', [ProcessController::class, 'frontSideProcess']);
 
 //language
 Route::resource('rudder/language', LanguageController::class, [
@@ -213,6 +213,8 @@ Route::resource('rudder/accomodation', AccomodationController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/accomodation-list', [AccomodationController::class, 'datagrid']);
+Route::get('/rudder/hotel-accomodation', [HotelAccomodationController::class, 'datagrid']);
+Route::post('/rudder/get-hotel-accomodation', [HotelAccomodationController::class, 'HotelInsertAccomodation'])->middleware('auth:webadmin');
 
 //Accommodation Type
 Route::resource('rudder/accomodationType', AccomodationTypeController::class, [
@@ -221,7 +223,9 @@ Route::resource('rudder/accomodationType', AccomodationTypeController::class, [
     ]])->middleware('auth:webadmin');
 
 Route::get('/rudder/accomodationType-list', [AccomodationTypeController::class, 'datagrid']);
-
+Route::get('/getSinglePrice', [AccomodationTypeController::class, 'getSingle']);
+Route::get('/getHotelAccomodation', [AccomodationController::class, 'getHotelAccomodation']);
+Route::get('/getHotelAccodomotationType', [AccomodationTypeController::class, 'getHotelAccodomotationType']);
 //Exchange Rate
 Route::resource('rudder/exchangeRate', ExchangeRateController::class, [
     'names' => [
@@ -258,6 +262,7 @@ Route::post('/rudder/file-upload', [FileController::class, 'uploadFile'])->name(
 Route::post('/rudder/get-file-list', [FileController::class, 'getFileList']);
 Route::post('/rudder/check-cover-file', [FileController::class, 'coverFileCheck']);
 Route::post('/rudder/delete-file', [FileController::class, 'deleteFile'])->middleware('auth:webadmin');
+Route::post('/rudder/save-file', [FileController::class, 'saveFile'])->middleware('auth:webadmin');
 
 // Blog
 Route::resource('rudder/blog', BlogController::class, [

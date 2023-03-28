@@ -11,5 +11,13 @@ class AccomodationType extends Model
 
     protected $table = 'vew_accomodation_type';
 
-//    protected $fillable = ['id', 'room_type', 'hotel_id', 'active', 'created_user_id','updated_user_id'];
+    public static function hotelAccomodationTypeList($hotel_id)
+    {
+        return static::where("active", "=", "1")->where("hotel_id", "=", $hotel_id)->get();
+    }
+
+    public static function hotelAccomodationTypeSingleList($hotel_id, $accomodation_id)
+    {
+        return static::where("active", "=", "1")->where("hotel_id", "=", $hotel_id)->where("accomodation_id", "=", $accomodation_id)->get();
+    }
 }

@@ -304,7 +304,7 @@
                 <div class="col-lg-12">
                     <div class="promotional_tour_slider owl-theme owl-carousel dot_style">
                         @foreach ($package as $item)
-
+                            @if($item->package_type == 2)
                             @php
                                 $file_path = getImage($packageFile,$item->Id);
                                 $package_name = viewLanguageSupport($item->packageTextContent);
@@ -327,7 +327,7 @@
                                     </h3>
                                 </div>
                             </div>
-
+                                @endif
                         @endforeach
                     </div>
                 </div>
@@ -1291,7 +1291,7 @@
                 <div class="col-lg-6">
                     <div class="home_news_big">
                         <div class="news_home_bigest img_hover">
-                            <a href="health-in-turkey.php"><img src="assets/img/banner/slider2-min.webp" alt="img"></a>
+                            <a href="health-in-turkey.php"><img src="{{URL::asset('img/banner/slider2-min.webp')}}" alt="img"></a>
                         </div>
                         <h3><a href="health-in-turkey.php">Türkiye’de Kaplıca Tatili İçin Gidilecek En Güzel 10
                                 Şehir</a></h3>
