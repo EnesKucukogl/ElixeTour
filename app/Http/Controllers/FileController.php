@@ -25,8 +25,9 @@ class FileController extends Controller
 
             $file->move($location,$filename);
 
-            $data['tmp'] = $tmp;
-            $data['name'] = $filename;
+            //$data['tmp'] = $tmp;
+            //$data['name'] = $filename;
+            $data['url'] = 'http://127.0.0.1:8000/img/elixelogo.png';
 
         }else{
 

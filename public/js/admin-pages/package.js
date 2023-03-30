@@ -13,7 +13,11 @@ $(document).ready(function () {
                         hint: "Güncelle",
                         icon: "fa fa-edit",
                         onClick: function (e) {
-                            getFormById(e.row.key.Id);
+                            $("#loader").show();
+                            setTimeout(() => {
+                                getFormById(e.row.key.Id);
+                            }, 100);
+
                         }
                     },
                     {
@@ -219,8 +223,11 @@ $(document).ready(function () {
     });
 
     $('#addMenu').on('click', function () {
+        $("#loader").show();
+        setTimeout(() => {
+            getFormById(-1);
+        }, 100);
 
-        getFormById(-1);
     });
 
 
@@ -306,6 +313,7 @@ $(document).ready(function () {
         }
 
         $('#updateMenu').modal('show');
+        $("#loader").hide();
         $("#btnSaveMenu").unbind();
         $("#btnSaveMenu").on("click", function () {
 
@@ -334,7 +342,6 @@ $(document).ready(function () {
         $('#myModal').modal('show');
         let formJson = await TreatmentSelectForm(packageId);
         $("#frmEditTreatment").dxForm(formJson);
-
 
 
         $("#btnSaveTreatment").unbind();
@@ -403,13 +410,13 @@ $(document).ready(function () {
                             {
                                 dataField: "Id",
                                 caption: "Id",
-                                minWidth:50,
+                                minWidth: 50,
                             },
 
                             {
                                 dataField: "treatment_text_content",
                                 caption: "Tedavi Adı",
-                                maxWidth:50,
+                                maxWidth: 50,
                                 calculateCellValue: function (data) {
                                     console.log(data);
                                     var text = "";
@@ -1040,7 +1047,7 @@ $(document).ready(function () {
     };
 
     const saveMenu = async (json) => {
-
+        $("#loader").show();
         $.ajax({
             data: JSON.stringify(json),
             url: "package",
@@ -1054,6 +1061,7 @@ $(document).ready(function () {
                 msg(data.message, data.type);
                 $("#gridContainer").dxDataGrid("instance").refresh();
                 $('#updateMenu').modal('hide').fadeOut('slow');
+                $("#loader").hide();
 
             },
             error: function (data) {

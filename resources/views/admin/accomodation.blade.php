@@ -58,6 +58,7 @@
                                 </div>
                                 <div class="tab-pane fade show " id="navs-top-image" role="tabpanel">
                                     <div id="frmResimMenu"></div>
+                                    <div id="gridResimContainer"></div>
                                 </div>
                             </div>
                         </div>

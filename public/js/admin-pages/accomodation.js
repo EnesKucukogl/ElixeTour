@@ -6,6 +6,7 @@ let ulkeId = 0;
 let sehirId = 0;
 
 $( document ).ready(function() {
+
     getAccomodationListe();
 
     $('#addAccomodation').on('click', function () {
@@ -18,6 +19,8 @@ $( document ).ready(function() {
         }
     });
 });
+
+
 
 const getAccomodationListe = () => {
 
@@ -258,21 +261,7 @@ const getFormById = async (formId) => {
     });
 }
 const resimInsertUpdateForm = async (data = {}) => {
-    console.log("ddsdsds" + data);
-    if (data !== null) {
-        var file;
-        $.ajax({
-            type: "POST",
-            url: 'get-file-list',
-            data: {id: data.Id, file_type_id: 6},
-            datatype: "json",
-            async: false,
-            success: function (data) {
-                file = data;
 
-            }
-        });
-    }
     let cover_image = [ {Id: 1, status: "Evet"}];
 
     return {
@@ -392,7 +381,7 @@ const resimInsertUpdateForm = async (data = {}) => {
                 name: "documents",
                 colSpan: 2,
                 editorOptions: {
-                    dataSource: file,
+                    dataSource: 'get-file-list?id='+data.Id+'&file_type_id=6',
                     rowAlternationEnabled: true,
                     filterRow: {visible: true},
                     showBorders: true,

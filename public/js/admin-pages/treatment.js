@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    // Initialize the Summernote editor and add the image upload tool
+
 
     $('#gridContainer').dxDataGrid({
         keyExpr: "Id",
@@ -58,7 +60,7 @@ $(document).ready(function () {
 
             {
                 dataField: "description_text_content",
-                caption: "Tedavi Açıklama",
+                caption: "Tedavi Adı",
                 calculateCellValue: function (data) {
                     var text = "";
                     data.description_text_content.forEach(function (item) {
@@ -67,6 +69,7 @@ $(document).ready(function () {
                     return text.trim();
                 }
             },
+
             {
                 dataField: "slug",
                 caption: "Slug"
@@ -93,7 +96,7 @@ $(document).ready(function () {
             {
                 dataField: "highlighted",
                 caption: "Anasayfada Göster",
-                minWidth:50,
+                minWidth: 50,
                 lookup: {
                     dataSource: {
                         store: {
@@ -109,7 +112,7 @@ $(document).ready(function () {
                     displayExpr: "name" // provides display values
                 }
             },
-              ],
+        ],
 
         editing: {
             mode: "row",
@@ -158,7 +161,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 console.log(data.message);
-                msg(data.message,'success');
+                msg(data.message, 'success');
                 $("#gridContainer").dxDataGrid("instance").refresh();
 
             },
@@ -187,7 +190,7 @@ $(document).ready(function () {
             $(".language").empty();
             $.each(languages, function (index, value) {
                 $(".language").append("<div class='col-md-6 mt-3' id='frmLanguageMenu" + value.symbol + "'></div>");
-                getLanguageFormById(null,null, value.symbol)
+                getLanguageFormById(null, null, value.symbol)
             });
 
             let formJson = await treatmentInsertUpdateForm(null);
@@ -219,7 +222,7 @@ $(document).ready(function () {
             $(".language").empty();
             $.each(languages, function (index, value) {
                 $(".language").append("<div class='col-md-6 mt-3'  id='frmLanguageMenu" + value.symbol + "'></div>");
-                getLanguageFormById(result.treatment_name_content_id,result.description_content_id, value.symbol)
+                getLanguageFormById(result.treatment_name_content_id, result.description_content_id, value.symbol)
             });
 
             $('#modelHeading').html("Tedavi Düzenle");
@@ -245,8 +248,7 @@ $(document).ready(function () {
                 console.log(json);
                 $.each(languages, function (index, value) {
                     var frmData = $("#frmLanguageMenu" + value.symbol).dxForm("instance").option("formData");
-                    if (!frmData.text_content_id_treatment)
-                    {
+                    if (!frmData.text_content_id_treatment) {
                         frmData["text_content_id_treatment"] = json.treatment_name_content_id;
                     }
                     frmLang.push(frmData);
@@ -262,7 +264,7 @@ $(document).ready(function () {
 
         //console.log("data", data);
 
-        let active = [{ Id: 0, status: "Pasif" }, { Id: 1, status: "Aktif" }];
+        let active = [{Id: 0, status: "Pasif"}, {Id: 1, status: "Aktif"}];
         let highlighted = [{Id: 0, status: "Hayır"}, {Id: 1, status: "Evet"}];
         return {
             colCount: 2,
@@ -315,7 +317,7 @@ $(document).ready(function () {
 
     const resimInsertUpdateForm = async (data = {}) => {
         console.log("ddsdsds" + data);
-        if(data !== null){
+        if (data !== null) {
             var file;
             $.ajax({
                 type: "POST",
@@ -370,7 +372,7 @@ $(document).ready(function () {
                         },
                         multiple: false,
                         //accept: "*",
-                        allowedFileExtensions: [".jpg", ".png", ".jpeg",".webp"],
+                        allowedFileExtensions: [".jpg", ".png", ".jpeg", ".webp"],
                         value: [],
                         uploadMode: "useButtons",
                         uploadUrl: 'file-upload',
@@ -429,13 +431,11 @@ $(document).ready(function () {
                                         }
                                     });
 
-                                    console.log("dsdsds"+coverFileCheck);
-                                    console.log("dsdsds"+dataaResim.cover_image);
-                                    if(coverFileCheck !== '' && dataaResim.cover_image == 1 ){
+                                    console.log("dsdsds" + coverFileCheck);
+                                    console.log("dsdsds" + dataaResim.cover_image);
+                                    if (coverFileCheck !== '' && dataaResim.cover_image == 1) {
                                         msg("Ana resim zaten mevcuttur", "error");
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         await saveImage();
 
                                     }
@@ -479,7 +479,7 @@ $(document).ready(function () {
                                 cellTemplate: function (container, options) {
                                     //console.log("options" + options.data.name);
                                     container.append($("<a>", {
-                                        "href": "/"+options.data.file_path,
+                                        "href": "/" + options.data.file_path,
                                         "text": options.data.name,
                                         "target": "blank"
                                     }));
@@ -538,8 +538,6 @@ $(document).ready(function () {
     }
 
 
-
-
     const saveImage = async () => {
 
         var form = $("#frmResimMenu").dxForm("instance");
@@ -590,7 +588,7 @@ $(document).ready(function () {
 
     }
 
-    const getLanguageFormById = async (treatmentTextContentId,descriptionTextContentId, symbol) => {
+    const getLanguageFormById = async (treatmentTextContentId, descriptionTextContentId, symbol) => {
 
         if (descriptionTextContentId == null) {
             var resultDesc;
@@ -605,13 +603,13 @@ $(document).ready(function () {
                 }
             });
 
-        }else{
+        } else {
 
             var resultDesc;
             $.ajax({
                 type: "GET",
                 url: 'get-language',
-                data: {id: descriptionTextContentId, symbol: symbol,name:'description'},
+                data: {id: descriptionTextContentId, symbol: symbol, name: 'description'},
                 datatype: "json",
                 async: false,
                 success: function (data) {
@@ -624,7 +622,7 @@ $(document).ready(function () {
             $.ajax({
                 type: "GET",
                 url: 'get-language-create',
-                data: {symbol: symbol,name:'treatment'},
+                data: {symbol: symbol, name: 'treatment'},
                 datatype: "json",
                 async: false,
                 success: function (data) {
@@ -637,7 +635,7 @@ $(document).ready(function () {
             $.ajax({
                 type: "GET",
                 url: 'get-language',
-                data: {id: treatmentTextContentId, symbol: symbol,name:'treatment'},
+                data: {id: treatmentTextContentId, symbol: symbol, name: 'treatment'},
                 datatype: "json",
                 async: false,
                 success: function (data) {
@@ -653,6 +651,7 @@ $(document).ready(function () {
         $("#frmLanguageMenu" + symbol).dxForm(formJson);
 
     }
+
 
     const languageInsertUpdateForm = async (data = {}) => {
 
@@ -671,45 +670,80 @@ $(document).ready(function () {
 
                 },
                 {
-                    dataField: "translation_description",
-                    label: {
-                        text: 'Tedavi Açıklaması (' + data.symbol + ')'
-                    },
-                    editorType: "dxHtmlEditor",
+                    dataField: 'translation_description',
+                    editorType: 'dxTextArea', // use a textarea as the base editor type
                     editorOptions: {
-                        height: 300,
-                        toolbar: {
-                            items: [
-                                'undo', 'redo', 'separator',
-                                {
-                                    name: 'size',
-                                    acceptedValues: ['8pt', '10pt', '12pt', '14pt', '18pt', '24pt', '36pt'],
-                                },
-                                {
-                                    name: 'font',
-                                    acceptedValues: ['Arial', 'Courier New', 'Georgia', 'Impact', 'Lucida Console', 'Tahoma', 'Times New Roman', 'Verdana'],
-                                },
-                                'separator', 'bold', 'italic', 'strike', 'underline', 'separator',
-                                'alignLeft', 'alignCenter', 'alignRight', 'alignJustify', 'separator',
-                                'orderedList', 'bulletList', 'separator',
-                                {
-                                    name: 'header',
-                                    acceptedValues: [false, 1, 2, 3, 4, 5],
-                                }
-                            ],
+                        height: 150,
+                        onContentReady: function(e) {
+                            var formData = $('#frmLanguageMenuen').dxForm('instance').option('formData');
+                            var valueFromDatabase = formData.translation_description;
+                            $(e.element).summernote('code', valueFromDatabase);
                         },
-                        mediaResizing: {
-                            enabled: true,
-                        }
-                    },
-                    validationRules: [{
-                        type: "required",
-                        message: "Tedavi Açıklaması boş geçilemez !"
-                    }]
-                },
+                        onValueChanged: function(e) {
+                            var value = e.value;
+                            var formData = $('#frmLanguageMenuen').dxForm('instance').option('formData');
+                            formData = { ...formData, translation_description: value }; // Update the formData object with the changed value
+                            $('#frmLanguageMenuen').dxForm('instance').option('formData', formData);
+                        },
+                        toolbar: [
+                            // The Summernote toolbar options
+                        ]
+                    }
+
+                }
+                /*  {
+                      dataField: "translation_description",
+                      editorType: "dxHtmlEditor",
+                      editorOptions: {
+                          height: 300,
+
+                          toolbar: {
+                              items: [
+                                  "undo", "redo",
+                                  "bold", "italic", "underline", "strike",
+                                  "fontColor", "backColor",
+                                  "alignment",
+                                  "formatCode", "blockquote",
+                                  "orderedList", "bulletList", "taskList",
+                                  "image", "link", "unlink",
+                                  "codeBlock", "paragraph", "heading", "preformatted",
+                                  "table", "insertTable", "deleteTable",
+                                  "insertRowAbove", "insertRowBelow", "deleteRow",
+                                  "insertColumnLeft", "insertColumnRight", "deleteColumn",
+                                  "mergeCells", "splitCells",
+                                  "selectAll", "clearFormat", "removeFormat",
+                                  "fullscreen"
+                              ]
+                          },
+                          callbacks: {
+                              onImageUpload: function(files) {
+                                  var editor = $(this);
+                                  uploadImage(files[0], function(url) {
+                                      editor.summernote('insertImage', url);
+                                  });
+                              }
+                          }
+                      }
+                  },*/
+
             ]
         }
     };
+
+    function uploadImage(file, callback) {
+        var formData = new FormData();
+        formData.append('file', file);
+        $.ajax({
+            url: 'upload.php',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                callback(response);
+            }
+        });
+    }
 
     const saveTreatment = async (json) => {
 
@@ -721,7 +755,7 @@ $(document).ready(function () {
             success: function (data) {
 
                 //console.log("result"+JSON.stringify(data));
-                msg(data.message,data.type);
+                msg(data.message, data.type);
                 $("#gridContainer").dxDataGrid("instance").refresh();
                 $('#updateTreatment').modal('hide').fadeOut('slow');
 
