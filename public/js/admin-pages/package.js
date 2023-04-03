@@ -13,9 +13,12 @@ $(document).ready(function () {
                         hint: "Güncelle",
                         icon: "fa fa-edit",
                         onClick: function (e) {
-                            getFormById(e.row.key.Id);
-                        },
-                        cssClass: "my-edit-button"
+                            $("#loader").show();
+                            setTimeout(() => {
+                                getFormById(e.row.key.Id);
+                            }, 100);
+
+                        }
                     },
                     {
                         name: "active",
@@ -126,19 +129,23 @@ $(document).ready(function () {
                 minWidth: 70,
             },
             {
-                dataField: "hotel_name",
-                caption: "Hotel Adı",
-                minWidth: 70,
-            },
-            {
-                dataField: "hotel_address",
-                caption: "Hotel Adress",
-                minWidth: 100,
-            },
-            {
-                dataField: "city_name",
-                caption: "Şehir Adı",
+                dataField: "package_type",
+                caption: "Paket Tipi",
                 minWidth: 50,
+                lookup: {
+                    dataSource: {
+                        store: {
+                            type: "array",
+                            data: [
+                                {id: 1, name: "Konaklama"},
+                                {id: 2, name: "Konaklama + Tedavi"},
+                            ],
+                            key: "id"
+                        }
+                    },
+                    valueExpr: "id", // contains the same values as the "statusId" field provides
+                    displayExpr: "name" // provides display values
+                }
             },
             {
                 dataField: "active",
@@ -215,8 +222,11 @@ $(document).ready(function () {
     });
 
     $('#addMenu').on('click', function () {
+        $("#loader").show();
+        setTimeout(() => {
+            getFormById(-1);
+        }, 100);
 
-        getFormById(-1);
     });
 
 
@@ -302,6 +312,7 @@ $(document).ready(function () {
         }
 
         $('#updateMenu').modal('show');
+        $("#loader").hide();
         $("#btnSaveMenu").unbind();
         $("#btnSaveMenu").on("click", function () {
 
@@ -456,6 +467,7 @@ $(document).ready(function () {
 
 
         let active = [{Id: 0, status: "Pasif"}, {Id: 1, status: "Aktif"}];
+        let package_type = [{Id: 1, name: "Konaklama"}, {Id: 2, name: "Konaklama + Tedavi"}];
         let highlighted = [{Id: 0, status: "Hayır"}, {Id: 1, status: "Evet"}];
         return {
             colCount: 2,
@@ -558,7 +570,7 @@ $(document).ready(function () {
                     },
                     editorType: "dxNumberBox",
                     editorOptions: {
-                        min: 1,
+                        min: 0,
                         max: 300
 
                     },
@@ -630,6 +642,27 @@ $(document).ready(function () {
                     editorOptions: {
                         items: active,
                         displayExpr: "status",
+                        valueExpr: "Id",
+                        //value: data.BirimId ? 0 : data.BirimId,
+                        showClearButton: true,
+                        searchEnabled: true,
+                    },
+                    validationRules: [{
+                        type: "required",
+                        message: "Aktiflik boş geçilemez !"
+                    }],
+
+
+                },
+                {
+                    dataField: "package_type",
+                    label: {
+                        text: 'Paket Tipi'
+                    },
+                    editorType: "dxSelectBox",
+                    editorOptions: {
+                        items: package_type,
+                        displayExpr: "name",
                         valueExpr: "Id",
                         //value: data.BirimId ? 0 : data.BirimId,
                         showClearButton: true,
@@ -1043,7 +1076,7 @@ $(document).ready(function () {
     };
 
     const saveMenu = async (json) => {
-
+        $("#loader").show();
         $.ajax({
             data: JSON.stringify(json),
             url: "package",
@@ -1057,6 +1090,7 @@ $(document).ready(function () {
                 msg(data.message, data.type);
                 $("#gridContainer").dxDataGrid("instance").refresh();
                 $('#updateMenu').modal('hide').fadeOut('slow');
+                $("#loader").hide();
 
             },
             error: function (data) {

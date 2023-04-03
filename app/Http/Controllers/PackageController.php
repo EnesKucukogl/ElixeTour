@@ -141,9 +141,9 @@ class PackageController extends Controller
                     'cost' => $request['cost'],
                     'cost_currency_id' => $request['cost_currency_id'],
                     'price' => $request['price'],
+                    'package_type' => $request['package_type'],
                     'price_currency_id' => $request['price_currency_id'],
                     'discount_rate' => $request['discount_rate'],
-                    'hotel_id' => $request['hotel_id'],
                     'active' => $request['active'],
                     'updated_user_id' => Auth::user()->Id,
                     'updated_date' => date("Y-m-d H:i:s"),
@@ -181,7 +181,7 @@ class PackageController extends Controller
                         if ($resultTextContentPackage == 1 && $resultTextContentDesc == 1) {
 
 
-                            $values = array('highlighted' => $request['highlighted'],'slug'=> $slug,'package_name_content_id' => $textContentLastPackageInsertId, 'description_content_id' => $textContentLastDescInsertId, 'cost' => $request['cost'], 'cost_currency_id' => $request['cost_currency_id'], 'price' => $request['price'], 'price_currency_id' => $request['price_currency_id'], 'hotel_id' => $request['hotel_id'], 'duration' => $request['duration'], 'discount_rate' => $request['discount_rate'], 'package_start_date' => $request['package_start_date'], 'package_expiry_date' => $request['package_expiry_date'], 'active' => $request['active'], 'created_user_id' => Auth::user()->Id);
+                            $values = array('package_type' => $request['package_type'],'highlighted' => $request['highlighted'],'slug'=> $slug,'package_name_content_id' => $textContentLastPackageInsertId, 'description_content_id' => $textContentLastDescInsertId, 'cost' => $request['cost'], 'cost_currency_id' => $request['cost_currency_id'], 'price' => $request['price'], 'price_currency_id' => $request['price_currency_id'], 'duration' => $request['duration'], 'discount_rate' => $request['discount_rate'], 'package_start_date' => $request['package_start_date'], 'package_expiry_date' => $request['package_expiry_date'], 'active' => $request['active'], 'created_user_id' => Auth::user()->Id);
                             $resultMenu = DB::table('elx_package')->insert($values);
                             if (!$resultMenu) {
                                 DB::delete('delete from elx_text_content where Id = ?', [$textContentLastPackageInsertId]);

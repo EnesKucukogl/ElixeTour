@@ -105,45 +105,39 @@
                                          aria-labelledby="home-tab">
                                         <div class="room_booking_area">
                                             <div class="room_book_item">
+                                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                                    @foreach($hotelPackage as $item)
 
-                                                {{--             <div class="col-lg-6 col-md-6 col-sm-12">
+                                                        @if($item->package_type == 1)
+                                                            @php
+                                                                $file_path = getImage($otelPackageFile,$item->Id);
 
-                                                                 <?php
-                                                                 foreach ($all_hotel_packages_ids as $package_id) {
+                                                                $package_name = viewLanguageSupport($item->packageTextContent);
 
-                                                                     foreach ($packagesJson as $package) {
-                                                                         if ($package_id == $package->id) {
-                                                                             if ($package->{'is-just-hotel'} == true) {
-                                                                                 $img = $package->images[0]->path;
-                                                                                 $name = $package->name;
-                                                                                 $package_id = $package->id;
-                                                                                 $price = $package->prices[0]->price;
-                                                                                 $url = "process.php?package_id=" . $package_id . "&hotel_id=" . $hotel_id;
+                                                                if($file_path === null || $file_path === '')
+                                                                {
+                                                                    $file_path = 'img/no-image.png';
+                            }
+                                                            @endphp
+                                                            <div class="theme_common_box_two img_hover">
+                                                                <div class="theme_two_box_img">
+                                                                    <a href="package/{{$item->slug}}"><img src="/{{$file_path}}"
+                                                                                                   alt="img"></a>
+                                                                    <p><i class="fas fa-map-marker-alt"></i>Package</p>
+                                                                </div>
+                                                                <div class="theme_two_box_content">
+                                                                    <h4><a href="package/{{$item->slug}}">{{$package_name}}</a>
+                                                                    </h4>
+                                                                    <p><span class="review_rating"></span></p>
+                                                                    <h3><span>Just Room Price</span></h3>
+                                                                    <a href='/process/{{$item->Id}}/{{$hotel->Id}}' class="custom-btn btn-5 mt-3">Choose
+                                                                        Package</a>
+                                                                </div>
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
+                                                </div>
 
-                                                                                 echo '
-                                                         <div class="theme_common_box_two img_hover">
-                                                         <div class="theme_two_box_img">
-                                                             <a href="sport-therapy.php"><img src="' . $img . '"
-                                                                     alt="img"></a>
-                                                             <p><i class="fas fa-map-marker-alt"></i>Package</p>
-                                                         </div>
-                                                         <div class="theme_two_box_content">
-                                                             <h4><a href="sport-therapy.php">' . $name . '</a></h4>
-                                                             <p><span class="review_rating"></span></p>
-                                                             <h3><span>Just Room Price</span></h3>
-                                                             <a href=' . $url . ' class="custom-btn btn-5 mt-3">Choose
-                                                                 Package</a>
-                                                         </div></div>';
-                                                                             }
-
-
-                                                                         }
-                                                                     }
-                                                                 }
-
-
-                                                                 ?>
-                                                             </div>--}}
 
                                             </div>
                                         </div>
@@ -161,59 +155,51 @@
                                     </li>
 
                                 </ul>
-                                {{--    <div class="tab-content" id="myTabContent">
-                                        <div class="tab-pane fade show active" id="home" role="tabpanel"
-                                             aria-labelledby="home-tab">
-                                            <div class="room_booking_area">
-                                                <div class="room_book_item">
-                                                    <div class="hotel_detail_package_slider owl-theme owl-carousel dot_style">
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="home" role="tabpanel"
+                                         aria-labelledby="home-tab">
+                                        <div class="room_booking_area">
+                                            <div class="room_book_item">
+                                                <div
+                                                    class="hotel_detail_package_slider owl-theme owl-carousel dot_style">
 
-                                                        <?php
+                                                    @foreach($hotelPackage as $item)
 
+                                                        @if($item->package_type == 2)
+                                                            @php
+                                                                $file_path = getImage($otelPackageFile,$item->Id);
 
-                                                        foreach ($all_hotel_packages_ids as $package_id) {
+                                                                $package_name = viewLanguageSupport($item->packageTextContent);
 
-                                                            foreach ($packagesJson as $package) {
-                                                                if ($package_id == $package->id) {
-                                                                    if ($package->{'is-just-hotel'} == false) {
-                                                                        $img = $package->images[0]->path;
-                                                                        $name = $package->name;
-                                                                        $package_id = $package->id;
-                                                                        $days = $package->prices[0]->{"day-count"};
-                                                                        $price = $package->prices[0]->price;
-                                                                        $url = "process.php?package_id=" . $package_id . "&hotel_id=" . $hotel_id;
-
-                                                                        echo '
-                                                                    <div class="theme_common_box_two img_hover">
-                                                                    <div class="theme_two_box_img">
-                                                                        <a href="sport-therapy.php"><img src="' . $img . '"
-                                                                                alt="img"></a>
-                                                                        <p><i class="fas fa-map-marker-alt"></i>Package</p>
-                                                                    </div>
-                                                                    <div class="theme_two_box_content">
-                                                                        <h4><a href="sport-therapy.php">' . $name . '</a></h4>
-                                                                        <p><span class="review_rating">' . $days . ' Days+</span></p>
-                                                                        <h3>$' . $price . ' <span> Price starts from</span></h3>
-                                                                        <a href=' . $url . ' class="custom-btn btn-5 mt-3">Choose
-                                                                            Package</a>
-                                                                    </div>
-                                                                </div>';
-                                                                    }
-
-
-                                                                }
-                                                            }
-                                                        }
-
-                                                        ?>
-
-                                                    </div>
+                                                                if($file_path === null || $file_path === '')
+                                                                {
+                                                                    $file_path = 'img/no-image.png';
+                            }
+                                                            @endphp
+                                                            <div class="theme_common_box_two img_hover">
+                                                                <div class="theme_two_box_img">
+                                                                    <a href="package/{{$item->slug}}"><img src="/{{$file_path}}" alt="img"></a>
+                                                                    <p><i class="fas fa-map-marker-alt"></i>{{ __('Package') }}</p>
+                                                                </div>
+                                                                <div class="theme_two_box_content">
+                                                                    <h4><a href="package/{{$item->slug}}">{{$package_name}}</a></h4>
+                                                                    <p><span class="review_rating">{{$item->duration}} {{ __('Days') }}</span></p>
+                                                                    <h3>{{$item->price_currency_code."".$item->price}}<span class="price-starts">{{ __('Price starts from') }}</span></h3>
+                                                                    <a href='/process/{{$item->Id}}/{{$hotel->Id}}' class="custom-btn btn-5 mt-3">Choose
+                                                                        Package</a>
+                                                                </div>
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
 
                                                 </div>
+
                                             </div>
                                         </div>
+                                    </div>
 
-                                    </div>--}}
+                                </div>
+
                             </div>
                         </div>
                         <div class="tour_details_boxed">

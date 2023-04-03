@@ -31,6 +31,7 @@
             </div>
             <div class="row">
                 @foreach ($package as $item)
+                    @if($item->package_type == 2)
                     @php
                         $file_path = getImage($packageFile,$item->Id);
                         $package_name = viewLanguageSupport($item->packageTextContent);
@@ -53,6 +54,7 @@
                     </div>
                 </div>
             </div>
+                @endif
                 @endforeach
 
 

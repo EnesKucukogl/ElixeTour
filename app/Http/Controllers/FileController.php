@@ -42,8 +42,9 @@ class FileController extends Controller
 
             $file->move($location,$filename);
 
-            $data['tmp'] = $tmp;
-            $data['name'] = $filename;
+            //$data['tmp'] = $tmp;
+            //$data['name'] = $filename;
+            $data['url'] = 'http://127.0.0.1:8000/img/elixelogo.png';
 
         }else{
 
@@ -93,6 +94,18 @@ class FileController extends Controller
 
         return $deleteFile ? response()->json(['message' => 'Resim başarıyla silinmiştir.','type' => 'success']) : response()->json(['message' => 'Resim silinirken bir hata oluşmuştur.','type' => 'error']);
 
+
+    }
+
+    public function saveFile(Request $request)
+    {
+
+        $request = $request->json()->all();
+
+        $values = array('general_id' => $request['general_id'], 'file_type_id' => $request['file_type_id'], 'cover_image' => $request['cover_image'], 'file_path' => $this->file_path . "/" . $request['name'], 'tmp_name' => $request['tmp_name'], 'name' => $request['name'], 'created_user_id' => Auth::user()->Id);
+        $fileUpload = DB::table('elx_file')->insert($values);
+
+        return $fileUpload ? response()->json(['message' => 'Resim başarıyla eklenmiştir.', 'type' => 'success']) : response()->json(['message' => 'Resim eklenirken bir hata oluşmuştur.', 'type' => 'error']);
 
     }
 

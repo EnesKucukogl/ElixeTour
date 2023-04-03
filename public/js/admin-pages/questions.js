@@ -480,7 +480,7 @@ $(document).ready(function () {
                     validationRules: data.symbol == 'en' ? [
                         {
                             type: "required",
-                            message: "Lütfen İngilizce soru giriniz!"
+                            message: "Lütfen soru giriniz!"
                         },
                         {
                             type: "custom",
@@ -503,7 +503,7 @@ $(document).ready(function () {
                     validationRules: data.symbol == 'en' ? [
                         {
                             type: "required",
-                            message: "Lütfen İngilizce cevap giriniz!"
+                            message: "Lütfen cevap giriniz!"
                         },
                         {
                             type: "custom",

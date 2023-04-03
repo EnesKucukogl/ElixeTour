@@ -8,12 +8,19 @@ class Accomodation extends Model
 {
     use HasFactory;
 
-    const CREATED_AT = 'created_date';
-    const UPDATED_AT  = 'updated_date';
 
     protected $table = 'vew_accomodation';
 
-//    protected $fillable = ['id', 'room_type', 'hotel_id', 'active', 'created_user_id','updated_user_id'];
+    public function hotelAccomodation()
+    {
+        return $this->hasMany('App\Models\HotelAccomodation', 'accomodation_id', 'Id');
+    }
 
+    public static function hotelAccomodationList($hotel_Id)
+    {
+        return static::whereHas('hotelAccomodation', function ($query) use ($hotel_Id) {
+            $query->where('hotel_id', $hotel_Id);
+        })->where("active", "=", "1")->orderBy("Id", "desc")->get();
+    }
 
 }

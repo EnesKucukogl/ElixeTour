@@ -22,15 +22,71 @@
                 </div>
                 <div class="modal-body">
                     <div class="nav-align-top mb-4">
-
-                        <div id="frmEdit"></div>
-
-                        <div class="language row md-form "></div>
+                        <div class="nav-align-top mb-4">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <button
+                                        type="button"
+                                        class="nav-link active"
+                                        role="tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#navs-top-home"
+                                        aria-controls="navs-top-home"
+                                        aria-selected="true"
+                                    >
+                                        Konaklama Bilgileri
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button
+                                        type="button"
+                                        class="nav-link"
+                                        role="tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#navs-top-image"
+                                        aria-controls="navs-top-image"
+                                        aria-selected="true"
+                                    >
+                                        Resimler
+                                    </button>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
+                                    <div id="frmEdit"></div>
+                                    <button id="btnSave" type="button" class="btn btn-save btn-primary mt-3">Kaydet</button>
+                                </div>
+                                <div class="tab-pane fade show " id="navs-top-image" role="tabpanel">
+                                    <div id="frmResimMenu"></div>
+                                    <div id="gridResimContainer"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <button id="btnSaveMenu" type="button" class="btn btn-save btn-primary mt-3">Kaydet</button>
+
+
+
                 </div>
 
+            </div>
+        </div>
+    </div>
 
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Otel Seçim Ekranı</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- dxDataGrid bileşenini göstermek için <div> öğesi -->
+                    <div class="nav-align-top mb-4">
+                        <div id="frmEditHotel"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSaveHotel" type="button" class="btn btn-save btn-primary">Kaydet</button>
+                </div>
             </div>
         </div>
     </div>

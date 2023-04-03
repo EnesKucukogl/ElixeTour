@@ -15,6 +15,8 @@
 
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <script type="text/javascript" src="{{URL::asset('/admin-assets/js/dev-express/localization/dx.messages.tr.js')}}"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote.min.js"></script>
 <script type="text/javascript">
     DevExpress.localization.locale("tr");
 </script>
