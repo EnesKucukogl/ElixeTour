@@ -8,11 +8,28 @@ use Illuminate\Support\Facades\Auth;
 
 class FileController extends Controller
 {
+    public function uploadImage(Request $request){
+
+            $file = $request->file('File');
+
+
+            $destinationPath = $this->file_path;
+
+
+            $fileName = time() . '-' . $file->getClientOriginalName();
+
+
+            $file->move($destinationPath, $fileName);
+
+
+            return response()->json(['success' => true, 'message' => 'Dosya başarıyla yüklendi!', 'fileName'=>$fileName]);
+        }
+
     public function uploadFile(Request $request){
 
         $data = array();
-
         if($request->file('Dosya')) {
+
 
             $file = $request->file('Dosya');
 
@@ -30,7 +47,7 @@ class FileController extends Controller
 
         }else{
 
-            $data['message'] = 'Dosya yüklenememiştir';
+            $data['imageUrl'] = 'Dosya yüklenememiştir';
         }
 
 

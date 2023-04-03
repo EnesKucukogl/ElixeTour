@@ -18,7 +18,6 @@ $( document ).ready(function() {
         }
     });
 });
-
 const getUlke = async (ulkeId) => {
 
     if (!ulkeId) return null;
@@ -103,7 +102,8 @@ const getAccomodationListe = () => {
                         icon: "fa fa-edit",
                         onClick: function (e) {
                             getFormById(e.row.key.Id);
-                        }
+                        },
+                        cssClass: "my-edit-button"
                     },
                     {
                         hint: "Aktiflik",

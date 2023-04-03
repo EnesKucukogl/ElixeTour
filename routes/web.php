@@ -258,6 +258,7 @@ Route::post('/rudder/file-upload', [FileController::class, 'uploadFile'])->name(
 Route::post('/rudder/get-file-list', [FileController::class, 'getFileList']);
 Route::post('/rudder/check-cover-file', [FileController::class, 'coverFileCheck']);
 Route::post('/rudder/delete-file', [FileController::class, 'deleteFile'])->middleware('auth:webadmin');
+Route::post('/rudder/image-upload', [FileController::class, 'uploadImage'])->name('uploadImage')->middleware('auth:webadmin');
 
 // Blog
 Route::resource('rudder/blog', BlogController::class, [

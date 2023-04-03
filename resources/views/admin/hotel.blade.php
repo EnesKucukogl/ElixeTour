@@ -85,7 +85,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="btnSaveHotel" type="button" class="btn btn-save btn-primary">Kaydet</button>
+                    <button id="btnSaveFacility" type="button" class="btn btn-save btn-primary">Kaydet</button>
                 </div>
             </div>
         </div>

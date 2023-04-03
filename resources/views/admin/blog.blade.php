@@ -8,6 +8,8 @@
     <div id="gridContainer"></div>
 
 
+
+
     <div class="modal fade" id="updateBlog" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -58,9 +60,17 @@
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
 
-                                    <div id="frmEditBlog"></div>
+                                    <div id="popupContainer"></div>
 
-                                    <div class="language row md-form "></div>
+                                    <div id="frmEditBlog">
+
+
+
+                                    </div>
+
+                                    <div class="language row md-form ">
+
+                                    </div>
                                     <button id="btnSaveBlog" type="button" class="btn btn-save btn-primary mt-3">
                                         Kaydet
                                     </button>

@@ -14,7 +14,8 @@ $(document).ready(function () {
                         icon: "fa fa-edit",
                         onClick: function (e) {
                             getFormById(e.row.key.Id);
-                        }
+                        },
+                        cssClass: "my-edit-button"
                     },
                     {
                         name: "active",
@@ -461,6 +462,11 @@ $(document).ready(function () {
             labelLocation: 'top',
             formData: data,
             items: [
+                {
+                    itemType: "group",
+                    caption: "Genel",
+                    colSpan: 2,
+                },
                 {
                     dataField: "cost",
                     label: {
@@ -1010,6 +1016,11 @@ $(document).ready(function () {
             labelLocation: 'top',
             formData: data,
             items: [
+                {
+                    itemType: "group",
+                    caption: 'Çeviri (' + data.symbol.toUpperCase() + ')',
+                    colSpan: 2,
+                },
                 {
                     dataField: "translation_package",
                     label: {

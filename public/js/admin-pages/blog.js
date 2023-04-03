@@ -130,6 +130,7 @@ $(document).ready(function () {
         },
 
     });
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -240,6 +241,7 @@ $(document).ready(function () {
                         if (!frmData.text_content_id_title) {
                             frmData["text_content_id_title"] = json.title_content_id;
                         }
+                        console.log('frmData',frmData)
                         frmLang.push(frmData);
                     }
                 );
@@ -711,30 +713,50 @@ $(document).ready(function () {
                         text: 'Asıl Metin (' + data.symbol + ')'
                     },
                     editorType: "dxHtmlEditor",
+
                     editorOptions: {
+
                         height: 500,
                         toolbar: {
+
                             items: [
-                                'undo', 'redo', 'separator',
+
+                                'undo', 'redo',
                                 {
                                     name: 'size',
                                     acceptedValues: ['8pt', '10pt', '12pt', '14pt', '18pt', '24pt', '36pt'],
-                                },
+                                },'separator',
+                                {
+                                    widget: "dxButton",
+                                    options: {
+                                        icon: "image",
+                                        onClick: function() {
+                                            uploadPopup.show();
+                                        }
+                                    }
+                                },'separator',
                                 {
                                     name: 'font',
                                     acceptedValues: ['Arial', 'Courier New', 'Georgia', 'Impact', 'Lucida Console', 'Tahoma', 'Times New Roman', 'Verdana'],
                                 },
+
                                 'separator', 'bold', 'italic', 'strike', 'underline', 'separator',
                                 'alignLeft', 'alignCenter', 'alignRight', 'alignJustify', 'separator',
                                 'orderedList', 'bulletList', 'separator',
+
                                 {
                                     name: 'header',
                                     acceptedValues: [false, 1, 2, 3, 4, 5],
-                                }
+                                },
+
+
                             ],
                         },
                         mediaResizing: {
                             enabled: true,
+                        },
+                        onMediaUploaded: {
+
                         }
                     },
                     validationRules: [{
@@ -742,6 +764,7 @@ $(document).ready(function () {
                         message: "Asıl metin boş geçilemez !"
                     }]
                 },
+
             ]
         }
     };
@@ -767,4 +790,53 @@ $(document).ready(function () {
             }
         });
     }
+
+    var uploadPopup = $("#popupContainer")
+        .dxPopup({
+            width: '20%',
+            height: '30%',
+            contentTemplate: function(contentElement) {
+                console.log('content element',contentElement)
+                var languages;
+                $.ajax({
+                    type: "GET",
+                    url: 'get-language-detail',
+                    datatype: "json",
+                    async: false,
+                    success: function (data) {
+                        languages = data;
+                    }
+                });
+
+
+                $("<div>")
+                    .appendTo(contentElement)
+                    .dxFileUploader({
+                            uploadMode: "useButtons",
+                            uploadUrl: "/rudder/image-upload",
+                            name:"File",
+                            uploadHeaders: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            allowedFileExtensions: [".jpg", ".jpeg", ".gif", ".png"],
+                            onUploaded: function(e) {
+
+                $.each(languages, function (index, value) {
+                        let editor = $("#frmLanguageBlog"+value.symbol).dxForm("instance").getEditor("translation_description");
+
+                                var range = editor.getSelection();
+                                var index = range && range.index || 0;
+                                editor.insertEmbed(index, "extendedImage", {
+                                    src: ('/img/admin-file-upload/' + JSON.parse(e.request.response).fileName)
+                                });
+                                uploadPopup.hide();
+                                editor.focus();
+
+                        });
+                    }}
+                );
+            }
+        }).dxPopup("instance");
+
+
 });
