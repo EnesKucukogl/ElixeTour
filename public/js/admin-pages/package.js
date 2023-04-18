@@ -18,7 +18,8 @@ $(document).ready(function () {
                                 getFormById(e.row.key.Id);
                             }, 100);
 
-                        }
+                        },
+                        cssClass: "my-edit-button"
                     },
                     {
                         name: "active",

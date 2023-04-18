@@ -8,7 +8,6 @@
     </button>
     <div id="gridContainer"></div>
 
-
     <div class="modal fade" id="updateTreatment" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -53,15 +52,12 @@
                                     </button>
                                 </li>
 
-
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
-
+                                    <div id="popupContainer"></div>
                                     <div id="frmEditTreatment"></div>
-
                                     <div class="language row md-form "></div>
-
                                     <button id="btnSaveTreatment" type="button" class="btn btn-save btn-primary mt-3">
                                         Kaydet
                                     </button>
@@ -69,9 +65,7 @@
                                 <div class="tab-pane fade show " id="navs-top-image" role="tabpanel">
                                     <div id="frmResimMenu"></div>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 const statuses = [
-    {"Id": 0, "Name": "Hayır"},
-    {"Id": 1, "Name": "Evet"}];
+    {"Id": 0, "Name": "Pasif"},
+    {"Id": 1, "Name": "Aktif"}];
 
 $( document ).ready(function() {
     $('#gridContainer').dxDataGrid({
@@ -17,11 +17,12 @@ $( document ).ready(function() {
                         icon: "fa fa-edit",
                         onClick: function (e) {
                             getFormById(e.row.key.Id);
-                        }
+                        },
+                        cssClass: "my-edit-button"
                     },
                     {
                         hint: "Sil",
-                        icon: "fa fa-trash",
+                        icon: "fa fa-arrow-rotate-left",
                         onClick: function (e) {
                             var result = DevExpress.ui.dialog.confirm("<i>Kaydı silmek istediğinizden emin misiniz?</i>", "Kayıt silme işlemi");
                             result.done(function (dialogResult) {
@@ -63,8 +64,8 @@ $( document ).ready(function() {
                         store: {
                             type: "array",
                             data: [
-                                { id: 0, name: "Hayır" },
-                                { id: 1, name: "Evet" },
+                                { id: 0, name: "Pasif" },
+                                { id: 1, name: "Aktif" },
 
                             ],
                             key: 'Id'

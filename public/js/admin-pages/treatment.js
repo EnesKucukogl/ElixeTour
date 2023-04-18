@@ -16,7 +16,8 @@ $(document).ready(function () {
                         icon: "fa fa-edit",
                         onClick: function (e) {
                             getFormById(e.row.key.Id);
-                        }
+                        },
+                        cssClass: "my-edit-button"
                     },
                     {
                         name: "active",
@@ -271,6 +272,11 @@ $(document).ready(function () {
             labelLocation: 'top',
             formData: data,
             items: [
+                {
+                    itemType: "group",
+                    caption: "Genel",
+                    colSpan: 2,
+                },
                 {
                     dataField: "active",
                     label: {
@@ -663,6 +669,11 @@ $(document).ready(function () {
             formData: data,
             items: [
                 {
+                    itemType: "group",
+                    caption: 'Çeviri (' + data.symbol.toUpperCase() + ')',
+                    colSpan: 2,
+                },
+                {
                     dataField: "translation_treatment",
                     label: {
                         text: 'Tedavi Adı (' + data.symbol + ')'
@@ -670,27 +681,62 @@ $(document).ready(function () {
 
                 },
                 {
-                    dataField: 'translation_description',
-                    editorType: 'dxTextArea', // use a textarea as the base editor type
-                    editorOptions: {
-                        height: 150,
-                        onContentReady: function(e) {
-                            var formData = $('#frmLanguageMenuen').dxForm('instance').option('formData');
-                            var valueFromDatabase = formData.translation_description;
-                            $(e.element).summernote('code', valueFromDatabase);
-                        },
-                        onValueChanged: function(e) {
-                            var value = e.value;
-                            var formData = $('#frmLanguageMenuen').dxForm('instance').option('formData');
-                            formData = { ...formData, translation_description: value }; // Update the formData object with the changed value
-                            $('#frmLanguageMenuen').dxForm('instance').option('formData', formData);
-                        },
-                        toolbar: [
-                            // The Summernote toolbar options
-                        ]
-                    }
+                    dataField: "translation_description",
+                    label: {
+                        text: 'Asıl Metin (' + data.symbol + ')'
+                    },
+                    editorType: "dxHtmlEditor",
 
-                }
+                    editorOptions: {
+
+                        height: 500,
+                        toolbar: {
+
+                            items: [
+
+                                'undo', 'redo',
+                                {
+                                    name: 'size',
+                                    acceptedValues: ['8pt', '10pt', '12pt', '14pt', '18pt', '24pt', '36pt'],
+                                },'separator',
+                                {
+                                    widget: "dxButton",
+                                    options: {
+                                        icon: "image",
+                                        onClick: function() {
+                                            uploadPopup.show();
+                                        }
+                                    }
+                                },'separator',
+                                {
+                                    name: 'font',
+                                    acceptedValues: ['Arial', 'Courier New', 'Georgia', 'Impact', 'Lucida Console', 'Tahoma', 'Times New Roman', 'Verdana'],
+                                },
+
+                                'separator', 'bold', 'italic', 'strike', 'underline', 'separator',
+                                'alignLeft', 'alignCenter', 'alignRight', 'alignJustify', 'separator',
+                                'orderedList', 'bulletList', 'separator',
+
+                                {
+                                    name: 'header',
+                                    acceptedValues: [false, 1, 2, 3, 4, 5],
+                                },
+
+
+                            ],
+                        },
+                        mediaResizing: {
+                            enabled: true,
+                        },
+                        onMediaUploaded: {
+
+                        }
+                    },
+                    validationRules: [{
+                        type: "required",
+                        message: "Asıl metin boş geçilemez !"
+                    }]
+                },
                 /*  {
                       dataField: "translation_description",
                       editorType: "dxHtmlEditor",
@@ -768,6 +814,51 @@ $(document).ready(function () {
 
     }
 
+    var uploadPopup = $("#popupContainer")
+        .dxPopup({
+            width: '20%',
+            height: '30%',
+            contentTemplate: function(contentElement) {
+                console.log('content element',contentElement)
+                var languages;
+                $.ajax({
+                    type: "GET",
+                    url: 'get-language-detail',
+                    datatype: "json",
+                    async: false,
+                    success: function (data) {
+                        languages = data;
+                    }
+                });
 
+
+                $("<div>")
+                    .appendTo(contentElement)
+                    .dxFileUploader({
+                        uploadMode: "useButtons",
+                        uploadUrl: "/rudder/image-upload",
+                        name:"File",
+                        uploadHeaders: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        allowedFileExtensions: [".jpg", ".jpeg", ".gif", ".png"],
+                        onUploaded: function(e) {
+
+                            $.each(languages, function (index, value) {
+                                let editor = $("#frmLanguageMenu"+value.symbol).dxForm("instance").getEditor("translation_description");
+
+                                var range = editor.getSelection();
+                                var index = range && range.index || 0;
+                                editor.insertEmbed(index, "extendedImage", {
+                                    src: ('/img/admin-file-upload/' + JSON.parse(e.request.response).fileName)
+                                });
+                                uploadPopup.hide();
+                                editor.focus();
+
+                            });
+                        }}
+                    );
+            }
+        }).dxPopup("instance");
 });
 

@@ -257,7 +257,7 @@ Route::get('/rudder/questions-list', [QuestionsController::class, 'datagrid']);
 
 //file upload
 Route::post('/rudder/file-upload', [FileController::class, 'uploadFile'])->name('uploadFile');
-Route::get('/rudder/get-file-list', [FileController::class, 'getFileList']);
+Route::get('/rudder/get-file-list', [FileController::class, 'getFileList'])->middleware('auth:webadmin');
 Route::post('/rudder/check-cover-file', [FileController::class, 'coverFileCheck']);
 Route::post('/rudder/delete-file', [FileController::class, 'deleteFile'])->middleware('auth:webadmin');
 Route::post('/rudder/save-file', [FileController::class, 'saveFile'])->middleware('auth:webadmin');

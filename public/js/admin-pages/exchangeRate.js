@@ -47,7 +47,8 @@ const getExchangeRateListe = () => {
                         icon: "fa fa-edit",
                         onClick: function (e) {
                             getFormById(e.row.key.Id);
-                        }
+                        },
+                        cssClass: "my-edit-button"
                     },
                     {
                         hint: "Aktiflik",
@@ -96,8 +97,8 @@ const getExchangeRateListe = () => {
                         store: {
                             type: "array",
                             data: [
-                                { id: 0, name: "Hayır" },
-                                { id: 1, name: "Evet" },
+                                { id: 0, name: "Pasif" },
+                                { id: 1, name: "Aktif" },
                             ],
                             key: "id"
                         }

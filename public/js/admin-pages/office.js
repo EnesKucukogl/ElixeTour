@@ -103,7 +103,8 @@ const getHotelListe = () => {
                         icon: "fa fa-edit",
                         onClick: function (e) {
                             getFormById(e.row.key.Id);
-                        }
+                        },
+                        cssClass: "my-edit-button"
                     },
                     {
                         hint: "Aktiflik",

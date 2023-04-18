@@ -96,14 +96,15 @@
                     <h4 class="modal-title" id="myModalLabel">Tedavi Seçim Ekranı</h4>
                 </div>
                 <div class="modal-body">
-                    <!-- dxDataGrid bileşenini göstermek için <div> öğesi -->
                     <div class="nav-align-top mb-4">
+
                         <div id="frmEditTreatment"></div>
+
+                        <div class="language row md-form "></div>
                     </div>
+                    <button id="btnSaveMenu" type="button" class="btn btn-save btn-primary mt-3">Kaydet</button>
                 </div>
-                <div class="modal-footer">
-                    <button id="btnSaveTreatment" type="button" class="btn btn-save btn-primary">Kaydet</button>
-                </div>
+
             </div>
         </div>
     </div>

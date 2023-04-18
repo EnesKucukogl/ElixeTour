@@ -21,14 +21,12 @@
                 </div>
                 <div class="modal-body">
                     <div class="nav-align-top mb-4">
+
                         <div id="frmEditOffice"></div>
+
+                        <div class="language row md-form "></div>
                     </div>
-
-                </div>
-                <div class="modal-footer">
                     <button id="btnSave" type="button" class="btn btn-save btn-primary mt-3">Kaydet</button>
-
-
                 </div>
             </div>
         </div>

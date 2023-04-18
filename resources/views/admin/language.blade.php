@@ -20,10 +20,13 @@
                     ></button>
                 </div>
                 <div class="modal-body">
-                    <div id="frmEditLanguage"></div>
-                </div>
-                <div class="modal-footer">
-                    <button id="btnSaveLanguage" type="button" class="btn btn-save btn-primary">Kaydet</button>
+                    <div class="nav-align-top mb-4">
+
+                        <div id="frmEditLanguage"></div>
+
+                        <div class="language row md-form "></div>
+                    </div>
+                    <button id="btnSaveLanguage" type="button" class="btn btn-save btn-primary mt-3">Kaydet</button>
                 </div>
             </div>
         </div>

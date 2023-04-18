@@ -59,33 +59,20 @@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
-
                                     <div id="popupContainer"></div>
-
                                     <div id="frmEditBlog">
-
-
-
                                     </div>
-
                                     <div class="language row md-form ">
-
                                     </div>
                                     <button id="btnSaveBlog" type="button" class="btn btn-save btn-primary mt-3">
                                         Kaydet
                                     </button>
-
                                 </div>
-
                                 <div class="tab-pane fade show " id="navs-top-image" role="tabpanel">
                                     <div id="frmResimBlog"></div>
                                 </div>
-
-
                             </div>
                         </div>
-
-
                     </div>
 
                 </div>

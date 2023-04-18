@@ -19,10 +19,13 @@
                     ></button>
                 </div>
                 <div class="modal-body">
-                    <div id="frmEditCurrency"></div>
-                </div>
-                <div class="modal-footer">
-                    <button id="btnSaveCurrency" type="button" class="btn btn-save btn-primary">Kaydet</button>
+                    <div class="nav-align-top mb-4">
+
+                        <div id="frmEditCurrency"></div>
+
+                        <div class="language row md-form "></div>
+                    </div>
+                    <button id="btnSaveCurrency" type="button" class="btn btn-save btn-primary mt-3">Kaydet</button>
                 </div>
             </div>
         </div>

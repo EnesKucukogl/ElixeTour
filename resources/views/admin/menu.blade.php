@@ -24,14 +24,9 @@
 
                         <div id="frmEditMenu"></div>
 
-                        <div class="language row md-form mb-5"></div>
-
+                        <div class="language row md-form "></div>
                     </div>
-
-                </div>
-                <div class="modal-footer">
-
-                    <button id="btnSaveMenu" type="button" class="btn btn-save btn-primary">Kaydet</button>
+                    <button id="btnSaveMenu" type="button" class="btn btn-save btn-primary mt-3">Kaydet</button>
                 </div>
             </div>
         </div>

@@ -240,11 +240,13 @@ const HotelSelectForm = async (accomodationId) => {
 
 
 const getFormById = async (formId) => {
+    console.log("formIdddd",formId)
 
     if (formId == "-1") {
         $("#modalHeading").html("Konaklama Ekle");
         let formJson = await accomodationInsertUpdateForm();
         let formJsonResim = await resimInsertUpdateForm(null);
+        console.log("formJsonResim",formJsonResim)
         $("#frmEdit").dxForm(formJson);
         $("#frmResimMenu").dxForm(formJsonResim);
     }
@@ -283,7 +285,21 @@ const getFormById = async (formId) => {
     });
 }
 const resimInsertUpdateForm = async (data = {}) => {
+console.log('DATA',data)
+    if (data !== null) {
+        var file;
+        $.ajax({
+            type: "POST",
+            url: 'get-file-list',
+            data: {id: data.Id, file_type_id: 1},
+            datatype: "json",
+            async: false,
+            success: function (data) {
+                file = data;
 
+            }
+        });
+    }
     let cover_image = [ {Id: 1, status: "Evet"}];
 
     return {
@@ -403,7 +419,7 @@ const resimInsertUpdateForm = async (data = {}) => {
                 name: "documents",
                 colSpan: 2,
                 editorOptions: {
-                    dataSource: 'get-file-list?id='+data.Id+'&file_type_id=6',
+                    dataSource: file,
                     rowAlternationEnabled: true,
                     filterRow: {visible: true},
                     showBorders: true,
